@@ -1,5 +1,5 @@
 DELIMITER //
-DROP PROCEDURE sp_getPlayer;
+DROP PROCEDURE IF EXISTS sp_getPlayer;
 CREATE PROCEDURE sp_getPlayer(IN json_data JSON)
 BEGIN
     DECLARE input_user_id INT;
