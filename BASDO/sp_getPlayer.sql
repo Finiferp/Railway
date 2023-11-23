@@ -22,7 +22,6 @@ BEGIN
                 'userId', idPlayer_PK,
                 'username', username,
                 'worldId', idWorld_FK
-                -- Add more fields as needed
             )
             FROM Player
             WHERE idPlayer_PK = input_user_id

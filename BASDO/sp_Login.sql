@@ -5,6 +5,7 @@ BEGIN
     DECLARE input_username VARCHAR(80);
     DECLARE input_password VARCHAR(80);
     DECLARE stored_password VARCHAR(80);
+    DECLARE user_id INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
 
@@ -18,8 +19,8 @@ BEGIN
         SET response_code = 404;
         SET response_message = 'Username not found';
     ELSE
-        -- Retrieve the stored password for the given username
-        SET stored_password = (SELECT password FROM Player WHERE username = input_username);
+        -- Retrieve the stored password and user ID for the given username
+        SELECT password, idPlayer_PK INTO stored_password, user_id FROM Player WHERE username = input_username;
 
         -- Check if the provided password matches the stored password
         IF input_password = stored_password THEN
@@ -33,8 +34,20 @@ BEGIN
         END IF;
     END IF;
 
-    -- Returning the JSON response
-    SELECT JSON_OBJECT('status_code', response_code, 'message', response_message) AS 'result';
+    -- Returning the JSON response with user information if successful
+    IF response_code = 200 THEN
+        SELECT 
+            JSON_OBJECT(
+                'status_code', response_code, 
+                'message', response_message, 
+                'user', JSON_OBJECT(
+                    'id', user_id, 
+                    'username', input_username
+                )
+            ) AS 'result';
+    ELSE
+        SELECT JSON_OBJECT('status_code', response_code, 'message', response_message) AS 'result';
+    END IF;
 
 END //
 
