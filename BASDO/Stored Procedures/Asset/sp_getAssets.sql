@@ -20,7 +20,8 @@ BEGIN
                             'population', population,
                             'level', level,
                             'stockpile', stockpile,
-                            'worldId', idWorld_FK
+                            'worldId', idWorld_FK,
+                            'position', position
                         ) ORDER BY idAsset_PK
                     ), 
                     '[]'

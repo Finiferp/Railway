@@ -4,6 +4,8 @@ CREATE PROCEDURE sp_createAsset(IN json_data JSON)
 BEGIN
     DECLARE input_type VARCHAR(50);
     DECLARE input_name VARCHAR(450);
+    DECLARE input_position_x INT;
+    DECLARE input_position_y INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE new_asset_id INT;
@@ -11,6 +13,8 @@ BEGIN
     -- Extracting data from JSON input
     SET input_type = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.type'));
     SET input_name = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.name'));
+    SET input_position_x = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.position.x'));
+    SET input_position_y = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.position.y'));
 
     -- Check if the asset name is unique
     IF EXISTS (SELECT 1 FROM Asset WHERE name = input_name) THEN
@@ -25,8 +29,8 @@ BEGIN
             SET response_message = 'Invalid asset type';
         ELSE
             -- Insert the new asset into the Asset table
-            INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK)
-            VALUES (input_name, input_type, 0, 1, 0, 1); -- Assuming default values for population, level, and stockpile
+            INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
+            VALUES (input_name, input_type, 0, 1, 0, 1, POINT(input_position_x, input_position_y));
 
             -- Get the ID of the newly inserted asset
             SET new_asset_id = LAST_INSERT_ID();
@@ -45,7 +49,8 @@ BEGIN
             'asset', JSON_OBJECT(
                 'id', new_asset_id,
                 'name', input_name,
-                'type', input_type
+                'type', input_type,
+                'position', JSON_OBJECT('x', input_position_x, 'y', input_position_y)
             )
         ) AS 'result';
     ELSE

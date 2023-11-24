@@ -7,7 +7,7 @@ BEGIN
     DECLARE input_salt VARCHAR(450);
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
-
+	DECLARE new_world_created INT;
     -- Extracting data from JSON input
     SET input_username = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.username'));
     SET input_password = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.password'));
@@ -18,13 +18,17 @@ BEGIN
         -- Username already exists, set response code to 400 (Bad Request)
         SET response_code = 400;
         SET response_message = 'Username already exists';
+        SET new_world_created = 0;
     ELSE
         -- Checking the number of players in the World
         SET @player_count = (SELECT COUNT(*) FROM Player);
 
-        IF @player_count >= 20 THEN
+       IF @player_count >= 20 THEN
             -- Create a new World if the current World has 20 players
             INSERT INTO World () VALUES (); -- Omitting the creationDate column
+            SET new_world_created = 1;
+        ELSE
+            SET new_world_created = 0;
         END IF;
 
         -- Get the ID of the latest World (whether existing or newly created)
@@ -43,7 +47,8 @@ BEGIN
         SELECT 
             JSON_OBJECT(
                 'status_code', response_code, 
-                'message', response_message, 
+                'message', response_message,
+                'new_world_created', new_world_created,
                 'user', JSON_OBJECT(
                     'id', idPlayer_PK, 
                     'username', username, 

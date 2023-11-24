@@ -26,7 +26,8 @@ BEGIN
                 'population', population,
                 'level', level,
                 'stockpile', stockpile,
-                'worldId', idWorld_FK
+                'worldId', idWorld_FK,
+                'position', position
             )
             FROM Asset
             WHERE idAsset_PK = input_asset_id
