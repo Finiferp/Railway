@@ -5,6 +5,8 @@ BEGIN
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE players_data JSON;
+    
+    SET SESSION group_concat_max_len = 1000000;
 
     -- Retrieve all player data
     SET players_data = (

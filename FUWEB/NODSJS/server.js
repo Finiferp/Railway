@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/*
 // take care of "*.js"
 const routesPath = path.join(__dirname, "routes");
 const routeFiles = fs.readdirSync(routesPath);
@@ -15,8 +16,10 @@ const routeFiles = fs.readdirSync(routesPath);
 routeFiles.forEach((file) => {
     const routeFilePath = path.join(routesPath, file);
     require(routeFilePath)(app);
-});
+});*/
 
-routes(app);
+let playerRoutes = require('./routes/playerRoutes');
+
+playerRoutes(app);
 app.listen(port);
 console.log("Server started");

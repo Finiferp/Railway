@@ -5,36 +5,64 @@ const DBConnectOpts = {
     charset: 'utf8mb4',
     user: 'daniel',
     password: 'q1w2e3r4t5!',
-    database: 'RailwayImperium',
+    database: 'RailwayProject',
 };
 const pool = mysql.createPool(DBConnectOpts);
 
 
+// Function to execute a query with or without parameters
 const executeQuery = async (sql, values) => {
     const connection = await pool.getConnection();
     try {
-        const [rows] = await connection.execute(sql, values);
-        return rows;
+        const [results] = await connection.execute(sql, values);
+        return results;
     } finally {
         connection.release();
     }
 };
 
-// Example usage of the connection to fetch all players
-const getAllPlayers = async () => {
-    const sql = 'SELECT * FROM players';
-    return await executeQuery(sql);
-};
-
-// Example usage of the connection to insert a new player
-const insertPlayer = async (username, password, salt) => {
-    const sql = 'INSERT INTO players (username, password, salt) VALUES (?, ?, ?)';
-    const values = [username, password, salt];
+// Stored procedure for user login
+const spLogin = async (JSON) => {
+    const sql = 'CALL sp_Login(?)';
+    const values = [JSON];
     return await executeQuery(sql, values);
 };
 
+// Stored procedure for user registration
+const spRegister = async (JSON) => {
+    const sql = 'CALL sp_Register(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+// Stored procedure to get a single player
+const spGetPlayer = async (JSON) => {
+    const sql = 'CALL sp_getPlayer(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+// Stored procedure to get all players
+const spGetPlayers = async () => {
+    const sql = 'CALL sp_getPlayers()';
+    return await executeQuery(sql);
+};
+
+const spGetSalt = async (username) => {
+    const sql = 'CALL sp_getSalt(?)';
+    const values = [username];
+    return await executeQuery(sql,values);
+};
+
+
+
 module.exports = {
     executeQuery,
-    getAllPlayers,
-    insertPlayer,
+    spLogin,
+    spRegister,
+    spGetPlayer,
+    spGetPlayers,
+    spGetSalt,
+
+
 };

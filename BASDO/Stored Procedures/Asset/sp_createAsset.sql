@@ -6,6 +6,7 @@ BEGIN
     DECLARE input_name VARCHAR(450);
     DECLARE input_position_x INT;
     DECLARE input_position_y INT;
+    DECLARE input_world_id INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE new_asset_id INT;
@@ -15,7 +16,7 @@ BEGIN
     SET input_name = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.name'));
     SET input_position_x = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.position.x'));
     SET input_position_y = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.position.y'));
-
+	SET input_world_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.worldId'));
     -- Check if the asset name is unique
     IF EXISTS (SELECT 1 FROM Asset WHERE name = input_name) THEN
         -- Asset name already exists, set response code to 409 (Conflict)
@@ -23,17 +24,23 @@ BEGIN
         SET response_message = 'Asset name already exists';
     ELSE
         -- Validate input type
-        IF NOT (input_type IN ('Town', 'RuralBusiness')) THEN
+        IF NOT (input_type IN ('TOWN', 'RURALBUSINESS')) THEN
             -- Invalid input type, set response code to 400 (Bad Request)
             SET response_code = 400;
             SET response_message = 'Invalid asset type';
         ELSE
-            -- Insert the new asset into the Asset table
-            INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
-            VALUES (input_name, input_type, 0, 1, 0, 1, POINT(input_position_x, input_position_y));
+			IF input_type = 'TOWN' THEN
+				INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
+				VALUES ("mysql du bastard", input_type, 500, 1, 10, input_world_id, POINT(input_position_x, input_position_y));
+                           
+				SET new_asset_id = LAST_INSERT_ID();
+				CALL sp_changeNeeds(new_asset_id,1);
+				
+			ELSE
+				INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
+				VALUES (input_name, input_type, 0, 0, 0, input_world_id, POINT(input_position_x, input_position_y));
+			END IF;
 
-            -- Get the ID of the newly inserted asset
-            SET new_asset_id = LAST_INSERT_ID();
 
             -- Set response code to 200 (OK) and return the created asset
             SET response_code = 200;

@@ -3,7 +3,7 @@ DROP PROCEDURE IF EXISTS sp_Register;
 CREATE PROCEDURE sp_Register(IN json_data JSON)
 BEGIN
     DECLARE input_username VARCHAR(80);
-    DECLARE input_password VARCHAR(80);
+    DECLARE input_password VARCHAR(10000);
     DECLARE input_salt VARCHAR(450);
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
