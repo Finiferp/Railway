@@ -31,7 +31,7 @@ BEGIN
         ELSE
 			IF input_type = 'TOWN' THEN
 				INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
-				VALUES ("mysql du bastard", input_type, 500, 1, 10, input_world_id, POINT(input_position_x, input_position_y));
+				VALUES (name, input_type, 500, 1, 10, input_world_id, POINT(input_position_x, input_position_y));
                            
 				SET new_asset_id = LAST_INSERT_ID();
 				CALL sp_changeNeeds(new_asset_id,1);

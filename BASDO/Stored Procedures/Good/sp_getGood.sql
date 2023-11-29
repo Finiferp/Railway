@@ -21,8 +21,7 @@ BEGIN
         SET good_data = (
             SELECT JSON_OBJECT(
                 'id', idGood_PK,
-                'name', name,
-                'industryId', idIndustry_FK
+                'name', name
             )
             FROM Good
             WHERE idGood_PK = input_good_id

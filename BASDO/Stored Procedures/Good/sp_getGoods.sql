@@ -12,8 +12,7 @@ BEGIN
             GROUP_CONCAT(
                 JSON_OBJECT(
                     'id', idGood_PK,
-                    'name', name,
-                    'industryId', idIndustry_FK
+                    'name', name
                 ) ORDER BY idGood_PK
             ), '[]'
         ), ']') AS goods

@@ -43,7 +43,6 @@ const register = async (req, res) => {
             return res.status(400).json({ error: "invalid input, object invalid" });
         }
         let salt = crypto.randomBytes(32).toString("hex");
-        console.log(salt);
         let password = crypto.pbkdf2Sync(input_password, salt, 10000, 512, "sha512").toString("hex");
         const inputData = { username, password, salt };
         const dbOutput = await db.spRegister(inputData);
