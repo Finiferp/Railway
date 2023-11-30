@@ -2,9 +2,9 @@
 
 const db = require("../DB");
 
-const getAllIndustries = async (req, res) => {
+const getAllRailways = async (req, res) => {
     try {
-        const dbOutput = await db.spGetIndustries();
+        const dbOutput = await db.spGetRailways();
         const { status_code, message, data } = dbOutput[0][0].result;
 
         res.status(status_code).json({
@@ -17,11 +17,11 @@ const getAllIndustries = async (req, res) => {
     }
 };
 
-const getIndustryById = async (req, res) => {
+const getRailwayById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };
     try {
-        const dbOutput = await db.spGetIndustry(JSON.stringify(inputData));
+        const dbOutput = await db.spGetRailway(JSON.stringify(inputData));
         const { status_code, message, data } = dbOutput[0][0].result;
 
         res.status(status_code).json({
@@ -34,16 +34,16 @@ const getIndustryById = async (req, res) => {
     }
 };
 
-const createIndustry = async (req, res) => {
+const createRailway = async (req, res) => {
     try {
-        const {name, idAsset, type} = req.body;
-        const inputData = { name, idAsset, type};
-        const dbOutput = await db.spCreateIndustry(inputData);
-        const {status_code, message, industry} = dbOutput[0][0].result;
+        const {station1Id, station2Id} = req.body;
+        const inputData = { station1Id, station2Id};
+        const dbOutput = await db.spCreateRailway(inputData);
+        const {status_code, message, railway} = dbOutput[0][0].result;
       
         res.status(status_code).json({
             message,
-            Industry: industry
+            railway: railway
         });
     } catch (error) {
         console.error(error);
@@ -52,7 +52,7 @@ const createIndustry = async (req, res) => {
 };
 
 module.exports = {
-    getAllIndustries,
-    getIndustryById,
-    createIndustry
+    getAllRailways,
+    getRailwayById,
+    createRailway
 };

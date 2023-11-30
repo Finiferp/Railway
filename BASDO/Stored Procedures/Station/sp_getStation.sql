@@ -24,7 +24,6 @@ BEGIN
                 'name', name,
                 'cost', cost,
                 'operationCost', operationCost,
-                'position', ST_AsText(position),
                 'assetId', idAsset_FK
             )
             FROM Station

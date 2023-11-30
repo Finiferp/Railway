@@ -2,8 +2,9 @@
 
 module.exports = function (app) {
   const station = require("../controllers/stationController.js");
+  const authenticateToken = require('../middleware/authenticateToken')
 
-  app.route("/station/create").post(station.createStation);
-  app.route("/station/:id").get(station.getStationById);
-  app.route("/stations").get(station.getAllStations);
+  app.route("/station/create").post(authenticateToken,station.createStation);
+  app.route("/station/:id").get(authenticateToken,station.getStationById);
+  app.route("/stations").get(authenticateToken,station.getAllStations);
 };

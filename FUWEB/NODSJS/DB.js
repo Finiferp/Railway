@@ -105,7 +105,68 @@ const spCreateIndustry = async (JSON) => {
     return await executeQuery(sql, values);
 };
 
+const spGetRailways = async () => {
+    const sql = 'CALL sp_getRailways()';
+    return await executeQuery(sql);
+}
 
+const spGetRailway = async (JSON) => {
+    const sql = 'CALL sp_getRailway(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spCreateRailway = async (JSON) => {
+    const sql = 'CALL sp_createRailway(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spGetStations = async () => {
+    const sql = 'CALL sp_getStations()';
+    return await executeQuery(sql);
+}
+
+const spGetStation = async (JSON) => {
+    const sql = 'CALL sp_getStation(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spCreateStation = async (JSON) => {
+    const sql = 'CALL sp_createStation(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spGetTrains = async () => {
+    const sql = 'CALL sp_getTrains()';
+    return await executeQuery(sql);
+}
+
+const spGetTrain = async (JSON) => {
+    const sql = 'CALL sp_getTrain(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spCreateTrain = async (JSON) => {
+    const sql = 'CALL sp_createTrain(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+};
+
+const spCheckTokenExists = async (token) =>{
+    const sql = 'CALL sp_checkTokenExists(?)';
+    const values = [token];
+    return await executeQuery(sql, values);
+}
+
+const spDeleteToken = async (token) => {
+    const sql = 'CALL sp_DeleteToken(?)';
+    const values = [token];
+    return await executeQuery(sql, values);
+}
 
 module.exports = {
     executeQuery,
@@ -123,5 +184,16 @@ module.exports = {
     spGetGoods,
     spGetIndustries,
     spGetIndustry,
-    spCreateIndustry
+    spCreateIndustry,
+    spCreateRailway,
+    spGetRailway,
+    spGetRailways,
+    spCreateStation,
+    spGetStation,
+    spGetStations,
+    spCreateTrain,
+    spGetTrain,
+    spGetTrains,
+    spCheckTokenExists,
+    spDeleteToken
 };

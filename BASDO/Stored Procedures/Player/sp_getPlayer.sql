@@ -21,7 +21,8 @@ BEGIN
             SELECT JSON_OBJECT(
                 'userId', idPlayer_PK,
                 'username', username,
-                'worldId', idWorld_FK
+                'worldId', idWorld_FK,
+                'funds', funds
             )
             FROM Player
             WHERE idPlayer_PK = input_user_id

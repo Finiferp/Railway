@@ -2,9 +2,9 @@
 
 const db = require("../DB");
 
-const getAllIndustries = async (req, res) => {
+const getAllTrains = async (req, res) => {
     try {
-        const dbOutput = await db.spGetIndustries();
+        const dbOutput = await db.spGetTrains();
         const { status_code, message, data } = dbOutput[0][0].result;
 
         res.status(status_code).json({
@@ -17,11 +17,11 @@ const getAllIndustries = async (req, res) => {
     }
 };
 
-const getIndustryById = async (req, res) => {
+const getTrainById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };
     try {
-        const dbOutput = await db.spGetIndustry(JSON.stringify(inputData));
+        const dbOutput = await db.spGetTrain(JSON.stringify(inputData));
         const { status_code, message, data } = dbOutput[0][0].result;
 
         res.status(status_code).json({
@@ -34,25 +34,26 @@ const getIndustryById = async (req, res) => {
     }
 };
 
-const createIndustry = async (req, res) => {
-    try {
-        const {name, idAsset, type} = req.body;
-        const inputData = { name, idAsset, type};
-        const dbOutput = await db.spCreateIndustry(inputData);
-        const {status_code, message, industry} = dbOutput[0][0].result;
+// no implemented yet
+const createTrain = async (req, res) => {
+    /*try {
+        const {railway, assetId} = req.body;
+        const inputData = { railway, assetId};
+        const dbOutput = await db.spCreateTrain(inputData);
+        const {status_code, message, train} = dbOutput[0][0].result;
       
         res.status(status_code).json({
             message,
-            Industry: industry
+            train: train
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
-    }
+    }*/
 };
 
 module.exports = {
-    getAllIndustries,
-    getIndustryById,
-    createIndustry
+    getAllTrains,
+    getTrainById,
+    createTrain
 };

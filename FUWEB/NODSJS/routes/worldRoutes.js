@@ -2,7 +2,8 @@
 
 module.exports = function (app) {
   const world = require("../controllers/worldController.js");
-  
-  app.route("/world/:id").get(world.getWorldById);
-  app.route("/worlds").get(world.getAllWorlds);
+  const authenticateToken = require('../middleware/authenticateToken')
+
+  app.route("/world/:id").get(authenticateToken,world.getWorldById);
+  app.route("/worlds").get(authenticateToken,world.getAllWorlds);
 };
