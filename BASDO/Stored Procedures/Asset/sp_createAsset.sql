@@ -30,14 +30,14 @@ BEGIN
             SET response_message = 'Invalid asset type';
         ELSE
 			IF input_type = 'TOWN' THEN
-				INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
+				INSERT INTO Asset (name, type, population, level, stockpileMax, idWorld_FK, position)
 				VALUES (input_name, input_type, 500, 1, 10, input_world_id, POINT(input_position_x, input_position_y));
                            
 				SET new_asset_id = LAST_INSERT_ID();
-				CALL sp_changeNeeds(new_asset_id,1);
+				CALL sp_changeNeeds(new_asset_id,1,1);
 				
 			ELSE
-				INSERT INTO Asset (name, type, population, level, stockpile, idWorld_FK, position)
+				INSERT INTO Asset (name, type, population, level, stockpileMax, idWorld_FK, position)
 				VALUES (input_name, input_type, 0, 0, 0, input_world_id, POINT(input_position_x, input_position_y));
 			END IF;
 

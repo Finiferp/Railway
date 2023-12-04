@@ -34,22 +34,22 @@ const getTrainById = async (req, res) => {
     }
 };
 
-// no implemented yet
+
 const createTrain = async (req, res) => {
-    /*try {
-        const {railway, assetId} = req.body;
-        const inputData = { railway, assetId};
+    try {
+        const {name, idRailway, idAsset_Starts, idAsset_Destines} = req.body;
+        const inputData = { name, idRailway, idAsset_Starts, idAsset_Destines};
         const dbOutput = await db.spCreateTrain(inputData);
         const {status_code, message, train} = dbOutput[0][0].result;
       
         res.status(status_code).json({
-            message,
+            message: message,
             train: train
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
-    }*/
+    }
 };
 
 module.exports = {

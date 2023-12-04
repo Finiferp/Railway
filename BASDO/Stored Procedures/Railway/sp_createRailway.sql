@@ -22,20 +22,33 @@ BEGIN
         SET response_code = 404;
         SET response_message = 'Station 2 not found';
     ELSE
-        -- Insert the new railway into the Railway table
-        INSERT INTO Railway (cost)
-        VALUES (0); -- Assuming default value for cost
+        SELECT COUNT(*) INTO @railwayCountStation1 FROM Connects WHERE idStation_Connects_FK = input_station1_id;
+		SELECT COUNT(*) INTO @railwayCountStation2 FROM Connects WHERE idStation_Connects_FK = input_station2_id;
 
-        -- Get the ID of the newly inserted railway
-        SET new_railway_id = LAST_INSERT_ID();
+		IF @railwayCountStation1 >= 10 OR @railwayCountStation2 >= 10 THEN
+            -- Maximum limit reached, set response code to 400 (Bad Request)
+            SET response_code = 400;
+            SET response_message = 'Maximum limit of railways per station reached for one or both stations';
+        ELSE
+			SELECT 
+			ROUND(
+				SQRT(
+					POW(ST_X(position) - ST_X((SELECT position FROM Asset WHERE idAsset_PK = input_station2_id)), 2) +
+					POW(ST_Y(position) - ST_Y((SELECT position FROM Asset WHERE idAsset_PK = input_station2_id)), 2)
+				)
+			) INTO @distance
+			FROM Asset
+			WHERE idAsset_PK = input_station1_id;
+			INSERT INTO Railway (distance) VALUES (@distance);
+            
+			SET new_railway_id = LAST_INSERT_ID();
 
-        -- Insert the connections into the Connects table
-        INSERT INTO Connects (idStation_Connects_FK, idRailway_Connects_FK)
-        VALUES (input_station1_id, new_railway_id), (input_station2_id, new_railway_id);
+			INSERT INTO Connects (idStation_Connects_FK, idRailway_Connects_FK)
+			VALUES (input_station1_id, new_railway_id), (input_station2_id, new_railway_id);
 
-        -- Set response code to 200 (OK) and return the created railway
-        SET response_code = 200;
-        SET response_message = 'Railway created successfully';
+			SET response_code = 200;
+			SET response_message = 'Railway created successfully';
+			END IF;
     END IF;
 
     -- Returning the JSON response

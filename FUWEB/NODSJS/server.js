@@ -31,6 +31,6 @@ require('./routes/goodRoutes')(app);
 require('./routes/industryRoutes')(app);
 require('./routes/railwayRoutes')(app);
 require('./routes/stationRoutes')(app);
-
+require('./routes/trainRoutes')(app);
 app.listen(port);
 console.log("Server started");
