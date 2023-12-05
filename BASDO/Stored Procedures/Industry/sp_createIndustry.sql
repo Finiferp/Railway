@@ -6,6 +6,7 @@ BEGIN
     DECLARE input_id_asset INT;
     DECLARE input_type ENUM('BREWERY','BUTCHER','BAKERY','SAWMILL','CHEESEMAKER','CARPENTER','TAILOR','SMELTER','SMITHY','JEWELER');
     DECLARE new_industry_id INT;
+    DECLARE industry_price INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
 
@@ -57,7 +58,7 @@ BEGIN
                 INSERT INTO Industry (name, idAsset_FK, type, idGood_Produce_FK) VALUES (input_name, input_id_asset, input_type, 15);
                 SET new_industry_id = LAST_INSERT_ID();
                 INSERT INTO Consumes (idIndustry_Consumes_PKFK, idGood_Consumes_PKFK) VALUES (new_industry_id, 5);
-        WHEN 'CARPENTER' THEN
+            WHEN 'CARPENTER' THEN
                 INSERT INTO Industry (name, idAsset_FK, type, idGood_Produce_FK) VALUES (input_name, input_id_asset, input_type, 16);
                 SET new_industry_id = LAST_INSERT_ID();
                 INSERT INTO Consumes (idIndustry_Consumes_PKFK, idGood_Consumes_PKFK) VALUES (new_industry_id, 6);
@@ -80,9 +81,11 @@ BEGIN
                 SET new_industry_id = LAST_INSERT_ID();
                 INSERT INTO Consumes (idIndustry_Consumes_PKFK, idGood_Consumes_PKFK) VALUES (new_industry_id, 19);
                 INSERT INTO Consumes (idIndustry_Consumes_PKFK, idGood_Consumes_PKFK) VALUES (new_industry_id, 11);
-        END CASE;
-          SET response_code = 201;
-        SET response_message = 'Industry created successfully';
+            END CASE;
+            SET response_code = 201;
+            SET response_message = 'Industry created successfully';
+            SELECT cost INTO industry_price FROM Industry WHERE idIndustry_PK = new_industry_id;
+            CALL sp_removeFunds(industry_price, user_id);
         END IF;
     ELSE
         SET response_code = 400;

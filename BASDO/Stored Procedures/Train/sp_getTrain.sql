@@ -22,9 +22,11 @@ BEGIN
             SELECT JSON_OBJECT(
                 'id', idTrain_PK,
                 'name', name,
-                'cost', cost,
+                'traveledDistance', traveledDistance,
                 'operationalCost', operationalCost,
-                'railwayId', idRailway_FK
+                'railwayId', idRailway_FK,
+                'idAsset_Starts_FK', idAsset_Starts_FK,
+                'idAsset_Destines_FK', idAsset_Destines_FK
             )
             FROM Train
             WHERE idTrain_PK = input_train_id

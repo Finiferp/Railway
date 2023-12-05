@@ -1,32 +1,11 @@
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS sp_createTrain;
+DROP PROCEDURE IF EXISTS sp_fillTrain;
 
-CREATE PROCEDURE sp_createTrain(IN json_data JSON)
+CREATE PROCEDURE sp_fillTrain(IN input_idAsset_Starts INT,input_idAsset_Destines INT, input_train_id INT)
 BEGIN
-    DECLARE input_name VARCHAR(450);
-    DECLARE input_idRailway INT;
-    DECLARE input_idAsset_Starts INT;
-    DECLARE input_idAsset_Destines INT;
-    DECLARE input_willReturnWithGoods TINYINT;
-    DECLARE new_train_id INT;
-    DECLARE response_code INT;
-    DECLARE response_message VARCHAR(255);
 
-    -- Extracting data from JSON input
-    SET input_name = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.name'));
-    SET input_idRailway = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.idRailway'));
-    SET input_idAsset_Starts = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.idAsset_Starts'));
-    SET input_idAsset_Destines = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.idAsset_Destines'));
-    SET input_willReturnWithGoods = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.willReturnWithGoods'));
-    -- Create a new train
-    INSERT INTO `Train` (`name`, `idRailway_FK`, `idAsset_Starts_FK`, `idAsset_Destines_FK`)
-    VALUES (input_name, input_idRailway, input_idAsset_Starts, input_idAsset_Destines);
-
-    SET new_train_id = LAST_INSERT_ID();
-
-    -- Randomly assign loads to wagons
-    SET @wagon_count = 10; -- Maximum number of wagons
+    SET @wagon_count = 10; 
     SET @i = 1;
 
     WHILE @i <= @wagon_count DO
@@ -53,7 +32,7 @@ BEGIN
             -- Subtract the need from the warehouse if enough quantity is available
             IF @warehouse_quantity IS NOT NULL AND @warehouse_quantity > 0 THEN
                 INSERT INTO `Wagon` (`idTrain_FK`, `idGood_Transport_FK`)
-                VALUES (new_train_id, @random_need);
+                VALUES (input_train_id, @random_need);
 
                 -- Update the warehouse quantity
                 UPDATE `Stockpiles`
@@ -71,34 +50,20 @@ BEGIN
             -- If the town makes the needed good, satisfy the need from its production
             IF @town_makes_good IS NOT NULL THEN
                 INSERT INTO `Wagon` (`idTrain_FK`, `load`)
-                VALUES (new_train_id, @random_need);
+                VALUES (input_train_id, @random_need);
             END IF;
         END IF;
 
         -- If the wagon is still empty, randomly decide to load mail or passengers
-        IF (SELECT COUNT(*) FROM `Wagon` WHERE `idTrain_FK` = new_train_id) < 10 THEN
+        IF (SELECT COUNT(*) FROM `Wagon` WHERE `idTrain_FK` = input_train_id) < 10 THEN
             SET @random_load = FLOOR(1 + RAND() * 2); -- 1: mail, 2: passengers
 
             INSERT INTO `Wagon` (`idTrain_FK`, `idGood_Transport_FK`)
-            VALUES (new_train_id, CASE WHEN @random_load = 1 THEN 24 ELSE 25 END);
+            VALUES (input_train_id, CASE WHEN @random_load = 1 THEN 24 ELSE 25 END);
         END IF;
 
         SET @i = @i + 1;
     END WHILE;
-
-    -- Set response code and message
-    SET response_code = 201;
-    SET response_message = 'Train created successfully';
-
-    -- Return the JSON response
-    SELECT JSON_OBJECT('status_code', response_code,
-                       'message', response_message,
-                       'train', JSON_OBJECT('id', new_train_id,
-                                            'name', input_name,
-                                            'idRailway', input_idRailway,
-                                            'idAsset_Starts', input_idAsset_Starts,
-                                            'idAsset_Destines', input_idAsset_Destines,
-                                            'willReturnWithGoods', input_willReturnWithGoods)) AS 'result';
 END;
 
 DELIMITER ;

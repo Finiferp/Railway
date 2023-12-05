@@ -15,7 +15,7 @@ BEGIN
                     'name', name,
                     'cost', cost,
                     'operationalCost', operationalCost,
-                    'railwayId', idRailway_FK
+                    'railwayId', idRailway_FK,
                 ) ORDER BY idTrain_PK
             ), '[]'
         ), ']') AS trains

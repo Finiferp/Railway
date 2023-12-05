@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="iOuRqfUdjlF2QSnf6yrc">
-        <mxGraphModel dx="1214" dy="1879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1213" dy="1775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -13,7 +13,7 @@
                 <mxCell id="L3EQUS6Kodnhl2BeCCfc-13" value="Railway" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="590" y="-135" width="140" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="L3EQUS6Kodnhl2BeCCfc-14" value="idRailway_PK&lt;br&gt;cost" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="L3EQUS6Kodnhl2BeCCfc-13" vertex="1">
+                <mxCell id="L3EQUS6Kodnhl2BeCCfc-14" value="idRailway_PK&lt;br&gt;distance" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="L3EQUS6Kodnhl2BeCCfc-13" vertex="1">
                     <mxGeometry y="26" width="140" height="44" as="geometry"/>
                 </mxCell>
                 <mxCell id="L3EQUS6Kodnhl2BeCCfc-15" value="Station" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -41,14 +41,14 @@
                     <mxGeometry y="26" width="140" height="54" as="geometry"/>
                 </mxCell>
                 <mxCell id="L3EQUS6Kodnhl2BeCCfc-33" value="Train" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="860" y="30" width="140" height="136" as="geometry"/>
+                    <mxGeometry x="860" y="-10" width="140" height="188" as="geometry"/>
                 </mxCell>
-                <mxCell id="L3EQUS6Kodnhl2BeCCfc-34" value="idTrain_PK&lt;br&gt;name&lt;br&gt;operationalCost&lt;br&gt;cost&lt;br&gt;idRailway_FK&lt;br&gt;idStarts_FK&lt;br&gt;idDestines_FK" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="L3EQUS6Kodnhl2BeCCfc-33" vertex="1">
-                    <mxGeometry y="26" width="140" height="110" as="geometry"/>
+                <mxCell id="L3EQUS6Kodnhl2BeCCfc-34" value="idTrain_PK&lt;br&gt;name&lt;br&gt;operationalCost&lt;br&gt;cost&lt;br&gt;willReturn&lt;br&gt;isReturning&lt;br&gt;traveledDistance&lt;br&gt;idRailway_FK&lt;br&gt;idStarts_FK&lt;br&gt;idDestines_FK" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="L3EQUS6Kodnhl2BeCCfc-33" vertex="1">
+                    <mxGeometry y="26" width="140" height="162" as="geometry"/>
                 </mxCell>
                 <mxCell id="25" value="" style="endArrow=none;html=1;rounded=0;endFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="L3EQUS6Kodnhl2BeCCfc-33" target="23" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="70" y="140" as="sourcePoint"/>
+                        <mxPoint x="70" y="190" as="sourcePoint"/>
                         <mxPoint x="69.71000000000004" y="180" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
