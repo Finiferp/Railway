@@ -14,11 +14,10 @@ use App\Http\Controllers\playerController;
 |
 */
 
-Route::middleware('api')->group(function () {
-    Route::get('/players/{id}', [playerController::class, 'getPlayerById']);
-Route::get('/players', [playerController::class, 'getAllPlayers']);
-Route::post('/register', [playerController::class, 'register']);
-Route::post('/login', [playerController::class, 'login']);
-});
+
+    Route::get('/player/{id}', [playerController::class, 'getPlayerById']);
+    Route::get('/players', [playerController::class, 'getAllPlayers']);
+    Route::post('/register', [playerController::class, 'register']);
+    Route::post('/login', [playerController::class, 'login']);
 
 

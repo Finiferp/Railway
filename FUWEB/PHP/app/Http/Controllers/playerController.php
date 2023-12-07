@@ -9,45 +9,48 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class playerController extends Controller
 {
-    public function getPlayerById(Request $request, $id){
-        $userId = (int) $id;
+    public function getPlayerById(Request $request)
+    {
+        $userId = $request->route('id');
+
         $inputData = ['userId' => $userId];
 
         try {
-            $dbOutput = DB::select('CALL spGetPlayer(?)', [json_encode($inputData)]);
-            $result = $dbOutput[0][0]->result;
-            $statusCode = $result->status_code;
-            $message = $result->message;
-            $data = $result->data;
+            $dbOutput = DB::select('CALL sp_getPlayer(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+            $data = $result['data'];
 
             return response()->json([
                 'message' => $message,
                 'data' => $data,
             ], $statusCode);
         } catch (\Exception $error) {
-           // \Log::error($error);
+            \Log::error($error);
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
-    public function getAllPlayers(Request $request){
+    public function getAllPlayers(Request $request)
+    {
         try {
             $dbOutput = DB::select('CALL sp_getPlayers()');
-            $result = json_decode($dbOutput[0]->result,true);
-            $statusCode = json_decode($result->status_code,true);
-            Log::info($statusCode);
-            $message = json_decode($result->message,true);
-            $data =json_decode( $result->data,true);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+            $data = $result['data'];
 
             return response()->json([
                 'message' => $message,
                 'data' => $data,
             ], $statusCode);
         } catch (\Exception $error) {
-           // \Log::error($error);
+            \Log::error($error);
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
@@ -63,27 +66,35 @@ class playerController extends Controller
             }
 
             $salt = bin2hex(random_bytes(32));
-            $password = hash_pbkdf2("sha512", $inputPassword, $salt, 10000, 512);
+
+            $passwordBin = hash_pbkdf2("sha512", $inputPassword, $salt, 10000, 512, true);
+            $password = bin2hex($passwordBin);
             $inputData = ['username' => $username, 'password' => $password, 'salt' => $salt];
+            $dbOutput = DB::select('CALL sp_register(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
 
-            $dbOutput = DB::select('CALL spRegister(?)', [json_encode($inputData)]);
-            $result = $dbOutput[0][0]->result;
-            $statusCode = $result->status_code;
-            $message = $result->message;
-            $user = $result->user;
-            $newWorldCreated = $result->new_world_created;
-            $newWorldId = $result->new_world_id;
+            if (isset($result['user'], $result['new_world_created'], $result['new_world_id'])) {
 
-            if ($newWorldCreated === 1) {
-                $this->generateWorld($newWorldId);
+                $user = $result['user'];
+                $newWorldCreated = $result['new_world_created'];
+                $newWorldId = $result['new_world_id'];
+                if ($newWorldCreated === 1) {
+                    $this->generateWorld($newWorldId);
+                }
+
+                return response()->json([
+                    'message' => $message,
+                    'user' => $user,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
             }
-
-            return response()->json([
-                'message' => $message,
-                'user' => $user,
-            ], $statusCode);
         } catch (\Exception $error) {
-        //    \Log::error($error);
+            \Log::error($error);
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
@@ -94,8 +105,8 @@ class playerController extends Controller
             $username = $request->input('username');
             $inputPassword = $request->input('input_password');
 
-            $saltOutput = DB::select('CALL spGetSalt(?)', [$username]);
-            $salt = $saltOutput[0][0]->salt;
+            $saltOutput = DB::select('CALL sp_getSalt(?)', [$username]);
+            $salt = $saltOutput[0]->salt;
 
             if (empty($username) || empty($inputPassword) || $salt === null) {
                 return response()->json(['error' => 'Invalid input, object invalid'], 400);
@@ -104,27 +115,33 @@ class playerController extends Controller
             $password = $this->validatePassword($inputPassword, $salt);
             $token = $this->generateAuthToken($username);
             $inputData = ['username' => $username, 'password' => $password, 'token' => $token];
+            $dbOutput = DB::select('CALL sp_login(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
 
-            $dbOutput = DB::select('CALL spLogin(?)', [json_encode($inputData)]);
-            $result = $dbOutput[0][0]->result;
-            $statusCode = $result->status_code;
-            $message = $result->message;
-            $user = $result->user;
-
-            return response()->json([
-                'message' => $message,
-                'user' => $user,
-                'token' => $token,
-            ], $statusCode);
+            if (isset($result['user']) && $result['user'] !== null) {
+                $user = $result['user'];
+                return response()->json([
+                    'message' => $message,
+                    'user' => $user,
+                    'token' => $token,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
         } catch (\Exception $error) {
-        //    \Log::error($error);
+            \Log::error($error);
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
     private function validatePassword($password, $salt)
     {
-        return hash_pbkdf2("sha512", $password, $salt, 10000, 512);
+        $key = hash_pbkdf2("sha512", $password, $salt, 10000, 512, true);
+        return $hexString = bin2hex($key);
     }
 
     private function generateAuthToken($username)
@@ -133,10 +150,9 @@ class playerController extends Controller
             'username' => $username,
             'exp' => time() + 12 * 3600,
         ];
-        $jwtKey = config('app.jwt_key') ?? 'RailwayImperiumSecret';
-        //$token = JWT::encode($payload, $jwtKey);
-       // \Log::info(JWT::decode($token, $jwtKey, ['HS256']));
-       // return $token;
+        $jwtKey = 'RailwayImperiumSecret';
+        $token = JWT::encode($payload, $jwtKey, 'HS256');
+        return $token;
     }
 
     private function generateWorld($worldId)
@@ -169,7 +185,7 @@ class playerController extends Controller
                     'position' => $town,
                     'worldId' => $worldId,
                 ]);
-                $res = DB::select('CALL spCreateAsset(?)', [$jsonData]);
+                $res = DB::select('CALL sp_createAsset(?)', [$jsonData]);
             }
 
             foreach ($ruralBusinesses as $i => $ruralBusiness) {
@@ -179,10 +195,10 @@ class playerController extends Controller
                     'position' => $ruralBusiness,
                     'worldId' => $worldId,
                 ]);
-                $res = DB::select('CALL spCreateAsset(?)', [$jsonData]);
+                $res = DB::select('CALL sp_createAsset(?)', [$jsonData]);
             }
         } catch (\Exception $error) {
-        //    \Log::error($error);
+            \Log::error($error);
         }
     }
 
