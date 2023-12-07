@@ -4,6 +4,7 @@ CREATE PROCEDURE sp_createRailway(IN json_data JSON)
 BEGIN
     DECLARE input_station1_id INT;
     DECLARE input_station2_id INT;
+    DECLARE userId INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE new_railway_id INT;
@@ -11,6 +12,7 @@ BEGIN
     -- Extracting data from JSON input
     SET input_station1_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.station1Id'));
     SET input_station2_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.station2Id'));
+    SET userId = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.userId'));
 
     -- Check if both stations exist
     IF NOT EXISTS (SELECT 1 FROM Station WHERE idStation_PK = input_station1_id) THEN
@@ -48,6 +50,8 @@ BEGIN
 
 			SET response_code = 200;
 			SET response_message = 'Railway created successfully';
+
+            CALL sp_removeFunds(@distance*100, userId);
 			END IF;
     END IF;
 

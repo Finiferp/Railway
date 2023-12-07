@@ -9,6 +9,7 @@ BEGIN
     -- CALL sp_updateIndustryDaily();
     -- CALL sp_generateGoods();
     -- CALL sp_moveTrain();
+    -- CALL sp_updateStockpile();
 END;
 
 

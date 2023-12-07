@@ -5,6 +5,8 @@ BEGIN
     DECLARE input_name VARCHAR(450);
     DECLARE input_asset_id INT;
     DECLARE response_code INT;
+    DECLARE userId INT;
+    DECLARE cost INT;
     DECLARE response_message VARCHAR(255);
     DECLARE new_station_id INT;
 
@@ -31,8 +33,8 @@ BEGIN
                 SET response_message = 'Station name already exists';
             ELSE
                 -- Insert the new station into the Station table
-                INSERT INTO Station (name, cost, operationCost, idAsset_FK)
-                VALUES (input_name, 0, 0, input_asset_id); -- Assuming default values for cost and operationCost
+                INSERT INTO Station (name, idAsset_FK)
+                VALUES (input_name, input_asset_id); -- Assuming default values for cost and operationCost
 
                 -- Get the ID of the newly inserted station
                 SET new_station_id = LAST_INSERT_ID();
@@ -40,6 +42,12 @@ BEGIN
                 -- Set response code to 200 (OK) and return the created station
                 SET response_code = 200;
                 SET response_message = 'Station created successfully';
+
+                
+                SELECT s.cost, a.idOwner_FK INTO cost, userId
+                FROM Asset a JOIN Station s
+                WHERE idAsset_PK = idAsset_FK AND idStation_PK =  new_station_id;
+                CALL sp_removeFunds(cost, userId);
             END IF;
         END IF;
     END IF;

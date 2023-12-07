@@ -24,9 +24,7 @@ BEGIN
         WHERE a.idOwner_FK = playerId;
 
         IF fundsToDecrease > 0 THEN
-            UPDATE Player
-            SET funds = funds - (1000 * fundsToDecrease)
-            WHERE idPlayer_PK = playerId;
+            CALL sp_removeFunds(1000*fundsToDecrease, playerId);
         END IF;
     END LOOP;
 

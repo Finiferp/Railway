@@ -57,8 +57,7 @@ BEGIN
 
            CALL sp_addFunds(capacity_change_amount * 15000, owner_id);
         END IF;
-
-        -- CALL sp_removeFunds(new_industry_id, userID)
+        
     END LOOP;
     
     CLOSE industry_cursor;
