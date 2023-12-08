@@ -16,7 +16,7 @@ BEGIN
         IF done THEN
             LEAVE read_loop;
         END IF;
-        CALL sp_updateAssetNeeds(assetId)
+        CALL sp_updateAssetNeeds(assetId);
     END LOOP;
     CLOSE cur;
 END //

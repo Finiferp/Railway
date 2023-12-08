@@ -33,7 +33,7 @@ const getAssetById = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-
+/*
 const createAsset = async (req, res) => {
     try {
         const { type, name, position , worldId} = req.body;
@@ -49,10 +49,10 @@ const createAsset = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-};
+};*/
 
 module.exports = {
     getAllAssets,
     getAssetById,
-    createAsset
+    //createAsset
 };

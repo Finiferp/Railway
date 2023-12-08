@@ -12,7 +12,7 @@ BEGIN
             GROUP_CONCAT(
                 JSON_OBJECT(
                     'id', idRailway_PK,
-                    'cost', cost
+                    'distance', distance
                 ) ORDER BY idRailway_PK
             ), '[]'
         ), ']') AS railways

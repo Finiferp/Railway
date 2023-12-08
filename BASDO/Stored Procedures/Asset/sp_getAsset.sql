@@ -25,7 +25,7 @@ BEGIN
                 'type', type,
                 'population', population,
                 'level', level,
-                'stockpile', stockpile,
+                'stockpileMax', stockpileMax,
                 'worldId', idWorld_FK,
                 'position', position,
                 'idOwner_FK', idOwner_FK

@@ -21,7 +21,7 @@ BEGIN
         SET railway_data = (
             SELECT JSON_OBJECT(
                 'id', idRailway_PK,
-                'cost', cost
+                'distance', distance
             )
             FROM Railway
             WHERE idRailway_PK = input_railway_id

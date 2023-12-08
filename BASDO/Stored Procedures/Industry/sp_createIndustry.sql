@@ -23,6 +23,9 @@ BEGIN
             -- Level 1 asset can't have any industry
             SET response_code = 400;
             SET response_message = 'Level 1 asset cannot have any industry';
+        ELSEIF @asset_level = 2 AND @num_existing_industries >= 1 THEN
+             SET response_code = 400;
+            SET response_message = 'Level 2 asset can have at most 1 industry';
         ELSEIF @asset_level = 3 AND @num_existing_industries >= 1 THEN
             -- Level 3 asset can have a maximum of 1 industry
             SET response_code = 400;
@@ -85,7 +88,8 @@ BEGIN
             SET response_code = 201;
             SET response_message = 'Industry created successfully';
             SELECT cost INTO industry_price FROM Industry WHERE idIndustry_PK = new_industry_id;
-            CALL sp_removeFunds(industry_price, user_id);
+            SELECT idOwner_FK into @user_id FROM Industry JOIN Asset WHERE idAsset_FK = idAsset_PK AND idIndustry_PK = new_industry_id;
+            CALL sp_deleteFunds(industry_price, @user_id);
         END IF;
     ELSE
         SET response_code = 400;

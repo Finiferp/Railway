@@ -24,12 +24,19 @@ class playerController extends Controller
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
             $message = $result['message'];
-            $data = $result['data'];
 
-            return response()->json([
-                'message' => $message,
-                'data' => $data,
-            ], $statusCode);
+            if(isset($result['data'])){
+             $data = $result['data'];
+
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
         } catch (\Exception $error) {
             \Log::error($error);
             return response()->json(['error' => 'Internal Server Error'], 500);

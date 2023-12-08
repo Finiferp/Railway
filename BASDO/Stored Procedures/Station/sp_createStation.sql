@@ -47,7 +47,7 @@ BEGIN
                 SELECT s.cost, a.idOwner_FK INTO cost, userId
                 FROM Asset a JOIN Station s
                 WHERE idAsset_PK = idAsset_FK AND idStation_PK =  new_station_id;
-                CALL sp_removeFunds(cost, userId);
+                CALL sp_deleteFunds(cost, userId);
             END IF;
         END IF;
     END IF;

@@ -92,8 +92,9 @@ BEGIN
 
     SELECT t.cost, a.idOwner_FK INTO @cost, @userId
     FROM Train t JOIN Asset a
-    WHERE idAsset_PK = input_idAsset_Starts;
-    CALL sp_removeFunds(@cost, @userId);
+    WHERE idAsset_PK = input_idAsset_Starts
+    LIMIT 1;
+    CALL sp_deleteFunds(@cost, @userId);
     -- Return the JSON response
     SELECT JSON_OBJECT('status_code', response_code,
                        'message', response_message,
