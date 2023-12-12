@@ -21,34 +21,37 @@ use App\Http\Controllers\stationController;
 |
 */
 
-
-    Route::get('/player/{id}', [playerController::class, 'getPlayerById']);
-    Route::get('/players', [playerController::class, 'getAllPlayers']);
     Route::post('/register', [playerController::class, 'register']);
     Route::post('/login', [playerController::class, 'login']);
 
-    Route::get('/good/{id}', [goodController::class,'getGoodById']);
-    Route::get('/goods',[goodController::class,'getAllGoods']);
+    Route::middleware('auth.token')->group(function () {
+        Route::get('/player/{id}', [playerController::class, 'getPlayerById']);
+        Route::get('/players', [playerController::class, 'getAllPlayers']);
+    
 
-    //Route::post('/asset/create',[assetController::class, 'createAsset']);
-    Route::get('/asset/{id}', [assetController::class,'getAssetById']);
-    Route::get('/assets',[assetController::class,'getAllAssets']);
+        Route::get('/good/{id}', [goodController::class,'getGoodById']);
+        Route::get('/goods',[goodController::class,'getAllGoods']);
 
-    Route::get('/world/{id}', [worldController::class,'getWorldById']);
-    Route::get('/worlds',[worldController::class,'getAllWorlds']);
+        //Route::post('/asset/create',[assetController::class, 'createAsset']);
+        Route::get('/asset/{id}', [assetController::class,'getAssetById']);
+        Route::get('/assets',[assetController::class,'getAllAssets']);
 
-    Route::post('/train/create',[trainController::class, 'createTrain']);
-    Route::get('/train/{id}', [trainController::class,'getTrainById']);
-    Route::get('/trains',[trainController::class,'getAllTrains']);
+        Route::get('/world/{id}', [worldController::class,'getWorldById']);
+        Route::get('/worlds',[worldController::class,'getAllWorlds']);
 
-    Route::post('/station/create',[stationController::class, 'createStation']);
-    Route::get('/station/{id}', [stationController::class,'getStationById']);
-    Route::get('/stations',[stationController::class,'getAllStations']);
+        Route::post('/train/create',[trainController::class, 'createTrain']);
+        Route::get('/train/{id}', [trainController::class,'getTrainById']);
+        Route::get('/trains',[trainController::class,'getAllTrains']);
 
-    Route::post('/railway/create',[railwayController::class, 'createRailway']);
-    Route::get('/railway/{id}', [railwayController::class,'getRailwayById']);
-    Route::get('/railways',[railwayController::class,'getAllRailways']);
+        Route::post('/station/create',[stationController::class, 'createStation']);
+        Route::get('/station/{id}', [stationController::class,'getStationById']);
+        Route::get('/stations',[stationController::class,'getAllStations']);
 
-    Route::post('/industry/create',[industryController::class, 'createIndustry']);
-    Route::get('/industry/{id}', [industryController::class,'getIndustryById']);
-    Route::get('/industries',[industryController::class,'getAllIndustries']);
+        Route::post('/railway/create',[railwayController::class, 'createRailway']);
+        Route::get('/railway/{id}', [railwayController::class,'getRailwayById']);
+        Route::get('/railways',[railwayController::class,'getAllRailways']);
+
+        Route::post('/industry/create',[industryController::class, 'createIndustry']);
+        Route::get('/industry/{id}', [industryController::class,'getIndustryById']);
+        Route::get('/industries',[industryController::class,'getAllIndustries']);
+    });

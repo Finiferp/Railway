@@ -43,7 +43,7 @@ const createIndustry = async (req, res) => {
       
         res.status(status_code).json({
             message,
-            Industry: industry
+            industry: industry
         });
     } catch (error) {
         console.error(error);

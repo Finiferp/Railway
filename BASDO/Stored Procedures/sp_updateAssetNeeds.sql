@@ -42,7 +42,7 @@ BEGIN
         WHERE idAsset_PK = assetId;
     ELSEIF @percentage <= 50 THEN
         UPDATE Asset
-        SET population = population * (1 - 0.1)
+        SET population = GREATEST(population * (1 - 0.1), 500)
         WHERE idAsset_PK = assetId;
     END IF;
 END //

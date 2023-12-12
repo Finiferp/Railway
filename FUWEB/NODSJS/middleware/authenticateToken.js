@@ -15,7 +15,7 @@ async function authenticateToken(req, res, next) {
             return res.status(401).json({ error: 'Unauthorized: Invalid token' });
         }
 
-        jwt.verify(token, process.env.JWT_KEY || 'RailwayImperiumSecret', (err, decoded) => {
+        jwt.verify(token,'RailwayImperiumSecret', (err, decoded) => {
             if (err) {
                 if (err.name === 'TokenExpiredError') {
                     db.spDeleteToken(token);

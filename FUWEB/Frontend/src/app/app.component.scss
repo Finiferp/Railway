@@ -1,0 +1,23 @@
+$accent-color: #ddd0c8;
+$text-color: #9ddafd;
+h1 {
+  color: $text-color;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+a {
+  display: block;
+  margin-top: 10px;
+  color: #3498db; 
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

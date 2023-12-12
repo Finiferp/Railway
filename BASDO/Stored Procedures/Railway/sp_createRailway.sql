@@ -50,7 +50,7 @@ BEGIN
 
 			SET response_code = 200;
 			SET response_message = 'Railway created successfully';
-
+            
             CALL sp_deleteFunds(@distance*100, userId);
 			END IF;
     END IF;

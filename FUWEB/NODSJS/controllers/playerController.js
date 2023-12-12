@@ -96,8 +96,8 @@ function generateAuthToken(username) {
         username: username,
         exp: Math.floor(Date.now() / 1000) + 12 * 3600,
     };
-    const token = jwt.sign(payload, process.env.JWT_KEY || 'RailwayImperiumSecret');
-    console.log(jwt.verify(token, process.env.JWT_KEY || 'RailwayImperiumSecret'));
+    const token = jwt.sign(payload, 'RailwayImperiumSecret');
+    console.log(jwt.verify(token, 'RailwayImperiumSecret'));
     return token;
 };
 
@@ -154,11 +154,11 @@ async function generateWorld(worldId) {
                 'position': town,
                 'worldId': worldId
             });
-            const res= await db.spCreateAsset(JSONR);
-           
+            const res = await db.spCreateAsset(JSONR);
+
         }
 
-        for (let i=0;i<ruralBusinesses.length;i++){
+        for (let i = 0; i < ruralBusinesses.length; i++) {
             const ruralBusiness = ruralBusinesses[i];
             const JSONR = JSON.stringify({
                 'type': 'RURALBUSINESS',
@@ -166,8 +166,8 @@ async function generateWorld(worldId) {
                 'position': ruralBusiness,
                 'worldId': worldId
             });
-            const res= await db.spCreateAsset(JSONR);
-           
+            const res = await db.spCreateAsset(JSONR);
+
         }
     } catch (error) {
         console.error(error);
