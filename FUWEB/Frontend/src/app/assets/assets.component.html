@@ -1,0 +1,20 @@
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="assetsData && assetsData.length">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Population</th>
+      <th>Level</th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of assetsData">
+      <td>{{ item.name }}</td>
+      <td>{{ item.type }}</td>
+      <td>{{ item.population }}</td>
+      <td>{{ item.level }}</td>
+      <td> {{ item.idOwner_FK ? playerNames.get(item.idOwner_FK) : 'Buy' }}</td>
+    </tr>
+  </tbody>
+</table>

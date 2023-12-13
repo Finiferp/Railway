@@ -1,0 +1,17 @@
+.navbar {
+    background-color: blue;
+    overflow: hidden;
+  
+    a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+  
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }

@@ -39,6 +39,7 @@ const getAllPlayers = async (req, res) => {
 const register = async (req, res) => {
     try {
         const { username, input_password } = req.body;
+        console.log(req.body);
         if (!username || !input_password) {
             return res.status(400).json({ error: "invalid input, object invalid" });
         }
@@ -50,6 +51,7 @@ const register = async (req, res) => {
         if (new_world_created === 1) {
             generateWorld(new_world_id);
         }
+        console.log(message);
         res.status(status_code).json({
             message,
             user: user,
@@ -65,7 +67,7 @@ const login = async (req, res) => {
         const { username, input_password } = req.body;
         const salt = await db.spGetSalt(username);
         if (!username || !input_password || salt[0][0].salt === null) {
-            return res.status(400).json({ error: "invalid input, object invalid" });
+            return res.status(400).json({ message: "invalid input, object invalid" });
         }
 
         const password = validatePassword(input_password, salt[0][0].salt);

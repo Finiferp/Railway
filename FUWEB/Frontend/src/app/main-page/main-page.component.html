@@ -1,0 +1,6 @@
+<nav class="navbar">
+    <a (click)="showProfile = true; showAppAssets=false" >Your Profile</a>
+    <a (click)="showAppAssets = true; showProfile=false">Towns and Rural businesses</a>
+</nav>
+<app-assets *ngIf="showAppAssets"></app-assets>
+<app-profile *ngIf="showProfile"></app-profile>
