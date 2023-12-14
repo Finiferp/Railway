@@ -1,1 +1,19 @@
-<p>profile works!</p>
+<aside class="profile">
+      <h2>Your Details</h2>
+      <p><strong>Username:</strong> {{ username }}</p>
+      <p><strong>Funds:</strong> ${{ funds }}</p>
+</aside>
+
+<nav class="navbar">
+      <ul>
+            <li (click) = "showAssets()">My Assets</li>
+            <li (click) = "showStock()">My Stock</li>
+            <li (click) = "showNeeds()">My Needs</li>
+            <li>My Trains</li>
+      </ul>
+</nav>
+<section>
+      <app-my-assets *ngIf="showAssetsFlag"></app-my-assets>
+      <app-my-stock *ngIf="showStockFlag"></app-my-stock>
+      <app-my-needs *ngIf="showNeedsFlag"></app-my-needs>
+</section> 

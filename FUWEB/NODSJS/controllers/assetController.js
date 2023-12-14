@@ -33,26 +33,64 @@ const getAssetById = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-/*
-const createAsset = async (req, res) => {
+const getPlayerAssets = async (req, res) => {
+    const id = parseInt(req.params.id);
+    const inputData = { id };
     try {
-        const { type, name, position , worldId} = req.body;
-        const inputData = { type, name, position, worldId};
-        const dbOutput = await db.spCreateAsset(inputData);
-        const {status_code, message, asset} = dbOutput[0][0].result;
-      
+        const dbOutput = await db.spGetUserAssets(JSON.stringify(inputData));
+        const { status_code, message, data } = dbOutput[0][0].result;
+
         res.status(status_code).json({
             message,
-            asset: asset
+            data: data,
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-};*/
+};
+const buyAsset = async (req, res) => {
+    const {userId, assetId} = req.body;
+    const inputData = { userId, assetId };
+    console.log(inputData);
+    try {
+        const dbOutput = await db.spBuyAssets(JSON.stringify(inputData));
+        console.log(dbOutput);
+        const { status_code, message, asset } = dbOutput[0][0].result;
+       
+        res.status(status_code).json({
+            message,
+            data: asset,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const getAssetsStation = async (req, res) => {
+    const {assetId} = req.body;
+    const inputData = {assetId };
+  
+    try {
+        const dbOutput = await db.spGetAssetsStation(JSON.stringify(inputData));
+        console.log(dbOutput);
+        const { status_code, message, data } = dbOutput[0][0].result;
+       
+        res.status(status_code).json({
+            message,
+            data: data,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 module.exports = {
     getAllAssets,
     getAssetById,
-    //createAsset
+    getPlayerAssets,
+    buyAsset,
+    getAssetsStation
 };

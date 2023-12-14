@@ -8,7 +8,9 @@ BEGIN
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE new_railway_id INT;
-
+    DECLARE railwayCountStation1 INT;
+    DECLARE railwayCountStation2 INT;
+    DECLARE distance INT;
     -- Extracting data from JSON input
     SET input_station1_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.station1Id'));
     SET input_station2_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.station2Id'));
@@ -24,10 +26,10 @@ BEGIN
         SET response_code = 404;
         SET response_message = 'Station 2 not found';
     ELSE
-        SELECT COUNT(*) INTO @railwayCountStation1 FROM Connects WHERE idStation_Connects_FK = input_station1_id;
-		SELECT COUNT(*) INTO @railwayCountStation2 FROM Connects WHERE idStation_Connects_FK = input_station2_id;
+        SELECT COUNT(*) INTO railwayCountStation1 FROM Connects WHERE idStation_Connects_FK = input_station1_id;
+		SELECT COUNT(*) INTO railwayCountStation2 FROM Connects WHERE idStation_Connects_FK = input_station2_id;
 
-		IF @railwayCountStation1 >= 10 OR @railwayCountStation2 >= 10 THEN
+		IF railwayCountStation1 >= 10 OR railwayCountStation2 >= 10 THEN
             -- Maximum limit reached, set response code to 400 (Bad Request)
             SET response_code = 400;
             SET response_message = 'Maximum limit of railways per station reached for one or both stations';
@@ -38,10 +40,10 @@ BEGIN
 					POW(ST_X(position) - ST_X((SELECT position FROM Asset WHERE idAsset_PK = input_station2_id)), 2) +
 					POW(ST_Y(position) - ST_Y((SELECT position FROM Asset WHERE idAsset_PK = input_station2_id)), 2)
 				)
-			) INTO @distance
+			) INTO distance
 			FROM Asset
 			WHERE idAsset_PK = input_station1_id;
-			INSERT INTO Railway (distance) VALUES (@distance);
+			INSERT INTO Railway (distance) VALUES (distance);
             
 			SET new_railway_id = LAST_INSERT_ID();
 
@@ -51,7 +53,7 @@ BEGIN
 			SET response_code = 200;
 			SET response_message = 'Railway created successfully';
             
-            CALL sp_deleteFunds(@distance*100, userId);
+            CALL sp_deleteFunds(distance*100, userId);
 			END IF;
     END IF;
 

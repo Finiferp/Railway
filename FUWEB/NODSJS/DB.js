@@ -168,6 +168,37 @@ const spDeleteToken = async (token) => {
     return await executeQuery(sql, values);
 }
 
+const spGetUserAssets = async (JSON) => {
+    const sql = 'CALL sp_getUserAssets(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spBuyAssets = async (JSON) => {
+    const sql = 'CALL sp_buyAsset(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spGetAssetsStation = async (JSON) => {
+    const sql = 'CALL sp_getAssetsStation(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spGetPlayerStockpiles = async (JSON) => {
+    const sql = 'CALL sp_getPlayerStockpiles(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spGetPlayerNeeds = async (JSON) => {
+    const sql = 'CALL sp_getPlayerNeeds(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+
 module.exports = {
     executeQuery,
     spLogin,
@@ -195,5 +226,10 @@ module.exports = {
     spGetTrain,
     spGetTrains,
     spCheckTokenExists,
-    spDeleteToken
+    spDeleteToken,
+    spGetUserAssets,
+    spBuyAssets,
+    spGetAssetsStation,
+    spGetPlayerStockpiles,
+    spGetPlayerNeeds
 };

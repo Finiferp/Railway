@@ -11,6 +11,7 @@ import { log } from 'console';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  public sessionStorage = sessionStorage;
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
@@ -22,7 +23,7 @@ export class LoginComponent {
     let username = this.loginForm.value.username;
     let input_password = this.loginForm.value.password;
     let inputData = { username, input_password };
-  
+
     try {
       const response = await fetch('http://127.0.0.1:3000/login', {
         method: "POST",
@@ -31,22 +32,24 @@ export class LoginComponent {
         },
         body: JSON.stringify(inputData)
       });
-    
-      
+
+
       const data = await response.json();
-      const {message, token}=data;
-      if(!response.ok){ 
+      const { message, token, user } = data;
+      if (!response.ok) {
         window.alert(message);
-      }else{
-        sessionStorage.setItem('token',token);
+      } else {
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('username', user.username);
+        sessionStorage.setItem('id', user.id);
         this.router.navigate(['/main']);
-      } 
-     
+      }
+
       console.log(message);
-      
+
     } catch (error) {
       console.error('Fetch error:', error);
     }
   }
-  
+
 }

@@ -9,6 +9,8 @@ BEGIN
     DECLARE response_message VARCHAR(255);
     DECLARE max_world_id INT;
 	DECLARE new_world_created INT;
+    DECLARE player_count INT;
+    DECLARE new_world_id INT;
     -- Extracting data from JSON input
     SET input_username = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.username'));
     SET input_password = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.password'));
@@ -23,9 +25,9 @@ BEGIN
     ELSE
 		SET max_world_id = (SELECT MAX(idWorld_PK) FROM World);
         
-        SET @player_count = (SELECT COUNT(*) FROM Player WHERE idWorld_FK = max_world_id);
+        SET player_count = (SELECT COUNT(*) FROM Player WHERE idWorld_FK = max_world_id);
 
-       IF @player_count >= 20 THEN
+       IF player_count >= 20 THEN
             -- Create a new World if the current World has 20 players
             INSERT INTO World () VALUES (); -- Omitting the creationDate column
             SET new_world_created = 1;
@@ -34,10 +36,10 @@ BEGIN
         END IF;
 
         -- Get the ID of the latest World (whether existing or newly created)
-        SET @new_world_id = (SELECT MAX(idWorld_PK) FROM World);
+        SET new_world_id = (SELECT MAX(idWorld_PK) FROM World);
 
         -- Insert the new user into the Player table with the new World ID
-        INSERT INTO Player (username, password, salt, idWorld_FK) VALUES (input_username, input_password, input_salt, @new_world_id);
+        INSERT INTO Player (username, password, salt, idWorld_FK) VALUES (input_username, input_password, input_salt, new_world_id);
 
         -- Set response code to 201 (Created)
         SET response_code = 201;
@@ -51,7 +53,7 @@ BEGIN
                 'status_code', response_code, 
                 'message', response_message,
                 'new_world_created', new_world_created,
-                'new_world_id', @new_world_id,
+                'new_world_id', new_world_id,
                 'user', JSON_OBJECT(
                     'id', idPlayer_PK, 
                     'username', username, 

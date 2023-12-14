@@ -44,7 +44,7 @@ const register = async (req, res) => {
             return res.status(400).json({ error: "invalid input, object invalid" });
         }
         let salt = crypto.randomBytes(32).toString("hex");
-        let password = crypto.pbkdf2Sync(input_password, salt, 10000, 512, "sha512").toString("hex");
+        let password = crypto.pbkdf2Sync(input_password, salt, 10000, 128, "sha512").toString("hex");
         const inputData = { username, password, salt };
         const dbOutput = await db.spRegister(inputData);
         const { status_code, message, user, new_world_created, new_world_id } = dbOutput[0][0].result;
@@ -80,6 +80,44 @@ const login = async (req, res) => {
             message,
             user: user,
             token: token
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const getPlayerStockpiles = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { userId } = req.body;
+        const inputData = { userId };
+        console.log(inputData);
+        const dbOutput = await db.spGetPlayerStockpiles(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+        console.log(dbOutput[0][0].result);
+        res.status(status_code).json({
+            message,
+            data: data,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const getPlayerNeeds = async (req, res) => {
+    try {
+        console.log(req.body);
+        const { userId } = req.body;
+        const inputData = { userId };
+        console.log(inputData);
+        const dbOutput = await db.spGetPlayerNeeds(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+        console.log(dbOutput[0][0].result);
+        res.status(status_code).json({
+            message,
+            data: data,
         });
     } catch (error) {
         console.error(error);
@@ -160,13 +198,28 @@ async function generateWorld(worldId) {
 
         }
 
-        for (let i = 0; i < ruralBusinesses.length; i++) {
+        for (let i = 1; i < ruralBusinesses.length+1; i++) {
             const ruralBusiness = ruralBusinesses[i];
+            let business;
+            if (i < 5) {
+                business = 'RANCH';
+            } else if (i < 10) {
+                business = 'FIELD';
+            } else if (i < 15) {
+                business = 'FARM';
+            } else if (i < 20) {
+                business = 'LUMBERYARD';
+            } else if (i < 25) {
+                business = 'PLANTATION';
+            } else {
+                business = 'MINE';
+            }
             const JSONR = JSON.stringify({
                 'type': 'RURALBUSINESS',
                 'name': 'Rural Business' + i,
                 'position': ruralBusiness,
-                'worldId': worldId
+                'worldId': worldId,
+                'business': business
             });
             const res = await db.spCreateAsset(JSONR);
 
@@ -181,5 +234,7 @@ module.exports = {
     getPlayerById,
     getAllPlayers,
     register,
-    login
+    login,
+    getPlayerStockpiles,
+    getPlayerNeeds
 };

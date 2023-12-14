@@ -9,6 +9,9 @@ BEGIN
     DECLARE industry_price INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
+    DECLARE num_existing_industries INT;
+    DECLARE asset_level INT;
+    DECLARE user_id INT;
 
     -- Extracting data from JSON input
     SET input_name = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.name'));
@@ -16,25 +19,25 @@ BEGIN
     SET input_type = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.type'));
 
     IF (SELECT type FROM Asset WHERE idAsset_PK = input_id_asset) = 'TOWN' THEN
-        SET @num_existing_industries = (SELECT COUNT(*) FROM Industry WHERE idAsset_FK = input_id_asset);
-        SET @asset_level = (SELECT level FROM Asset WHERE idAsset_PK = input_id_asset);
+        SET num_existing_industries = (SELECT COUNT(*) FROM Industry WHERE idAsset_FK = input_id_asset);
+        SET asset_level = (SELECT level FROM Asset WHERE idAsset_PK = input_id_asset);
         -- Check the conditions for creating a new industry
-        IF @asset_level = 1 AND @num_existing_industries = 0 THEN
+        IF asset_level = 1 AND num_existing_industries = 0 THEN
             -- Level 1 asset can't have any industry
             SET response_code = 400;
             SET response_message = 'Level 1 asset cannot have any industry';
-        ELSEIF @asset_level = 2 AND @num_existing_industries >= 1 THEN
+        ELSEIF asset_level = 2 AND num_existing_industries >= 1 THEN
              SET response_code = 400;
             SET response_message = 'Level 2 asset can have at most 1 industry';
-        ELSEIF @asset_level = 3 AND @num_existing_industries >= 1 THEN
+        ELSEIF asset_level = 3 AND num_existing_industries >= 1 THEN
             -- Level 3 asset can have a maximum of 1 industry
             SET response_code = 400;
             SET response_message = 'Level 3 asset can have at most 1 industry';
-        ELSEIF @asset_level = 4 AND @num_existing_industries >= 2 THEN
+        ELSEIF asset_level = 4 AND num_existing_industries >= 2 THEN
             -- Level 4 asset can have a maximum of 2 industries
             SET response_code = 400;
             SET response_message = 'Level 4 asset can have at most 2 industries';
-        ELSEIF @asset_level = 5 AND @num_existing_industries >= 3 THEN
+        ELSEIF asset_level = 5 AND num_existing_industries >= 3 THEN
             -- Level 5 asset can have a maximum of 3 industries
             SET response_code = 400;
             SET response_message = 'Level 5 asset can have at most 3 industries';
@@ -88,8 +91,8 @@ BEGIN
             SET response_code = 201;
             SET response_message = 'Industry created successfully';
             SELECT cost INTO industry_price FROM Industry WHERE idIndustry_PK = new_industry_id;
-            SELECT idOwner_FK into @user_id FROM Industry JOIN Asset WHERE idAsset_FK = idAsset_PK AND idIndustry_PK = new_industry_id;
-            CALL sp_deleteFunds(industry_price, @user_id);
+            SELECT idOwner_FK into user_id FROM Industry JOIN Asset WHERE idAsset_FK = idAsset_PK AND idIndustry_PK = new_industry_id;
+            CALL sp_deleteFunds(industry_price, user_id);
         END IF;
     ELSE
         SET response_code = 400;

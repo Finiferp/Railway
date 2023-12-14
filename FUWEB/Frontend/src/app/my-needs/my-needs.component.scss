@@ -1,0 +1,31 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #343a40;
+    color: #fff;
+  
+    thead {
+      background-color: #212529;
+  
+      th {
+        text-align: center;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #454d55;
+      }
+    }
+  
+    tbody {
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #454d55;
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+      }
+    }
+  
+  }
+}

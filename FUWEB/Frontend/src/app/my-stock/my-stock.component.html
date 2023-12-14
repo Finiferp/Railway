@@ -1,0 +1,27 @@
+<table>
+    <thead>
+      <tr>
+        <th>Asset Name</th>
+        <th>Asset ID</th>
+        <th>Goods</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of data">
+        <td>{{ asset.asset_name }}</td>
+        <td>{{ asset.asset_id }}</td>
+        <td>
+          <table>
+            <tr>
+              <th>Good Name</th>
+              <th>Quantity</th>
+            </tr>
+            <tr *ngFor="let good of asset.goods">
+              <td>{{ good.good_name }}</td>
+              <td>{{ good.quantity }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>

@@ -14,7 +14,14 @@
       <td>{{ item.type }}</td>
       <td>{{ item.population }}</td>
       <td>{{ item.level }}</td>
-      <td> {{ item.idOwner_FK ? playerNames.get(item.idOwner_FK) : 'Buy' }}</td>
+      <td>
+        <ng-container *ngIf="item.idOwner_FK; else buyButton">
+          {{ playerNames.get(item.idOwner_FK) }}
+        </ng-container>
+        <ng-template #buyButton>
+          <button (click) = 'buy(item.id)'>Buy</button> 
+        </ng-template>
+      </td>
     </tr>
   </tbody>
 </table>

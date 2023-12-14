@@ -1,0 +1,27 @@
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="myAssests && myAssests.length">
+      <thead>
+            <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Population</th>
+                  <th>Level</th>
+                  <th>Station</th>
+            </tr>
+      </thead>
+      <tbody>
+            <tr *ngFor="let item of myAssests">
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.type }}</td>
+                  <td>{{ item.population }}</td>
+                  <td>{{ item.level }}</td>
+                  <td>
+                        <ng-container *ngIf="stations.get(item.assetId); else buyButton">
+                              Station Present
+                        </ng-container>
+                        <ng-template #buyButton>
+                              <button (click)='buy(item.assetId)'>Buy</button>
+                        </ng-template>
+                  </td>
+            </tr>
+      </tbody>
+</table>

@@ -8,6 +8,7 @@ BEGIN
     DECLARE availableStockpile INT;
     DECLARE needs_count INT DEFAULT 0; 
     DECLARE needs_satisfied INT DEFAULT 0;
+    DECLARE percentage DOUBLE;
     DECLARE cur CURSOR FOR 
         SELECT idGood_Needs_PKFK, consumption FROM Needs WHERE idAsset_Needs_PKFK = assetId;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
@@ -34,13 +35,13 @@ BEGIN
     END LOOP;
     CLOSE cur;
     
-    SET @percentage = (needs_satisfied / needs_count) * 100;
+    SET percentage = (needs_satisfied / needs_count) * 100;
     
-    IF @percentage >= 75 THEN
+    IF percentage >= 75 THEN
         UPDATE Asset
         SET population = population * (1 + 0.1)
         WHERE idAsset_PK = assetId;
-    ELSEIF @percentage <= 50 THEN
+    ELSEIF percentage <= 50 THEN
         UPDATE Asset
         SET population = GREATEST(population * (1 - 0.1), 500)
         WHERE idAsset_PK = assetId;

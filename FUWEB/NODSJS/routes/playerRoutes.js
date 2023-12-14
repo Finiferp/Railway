@@ -8,4 +8,6 @@ module.exports = function (app) {
     app.route("/login").post(player.login);
     app.route("/player/:id").get(authenticateToken,player.getPlayerById);
     app.route("/players").get(authenticateToken,player.getAllPlayers);
+    app.route("/player/stockpile").post(authenticateToken,player.getPlayerStockpiles);
+    app.route("/player/needs").post(authenticateToken,player.getPlayerNeeds);
 }

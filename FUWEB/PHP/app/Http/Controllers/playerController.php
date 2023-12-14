@@ -196,11 +196,28 @@ class playerController extends Controller
             }
 
             foreach ($ruralBusinesses as $i => $ruralBusiness) {
+                $business = '';
+        
+                if ($i < 4) {
+                    $business = 'RANCH';
+                } elseif ($i < 9) {
+                    $business = 'FIELD';
+                } elseif ($i < 14) {
+                    $business = 'FARM';
+                } elseif ($i < 19) {
+                    $business = 'LUMBERYARD';
+                } elseif ($i < 24) {
+                    $business = 'PLANTATION';
+                } else {
+                    $business = 'MINE';
+                }
+        
                 $jsonData = json_encode([
                     'type' => 'RURALBUSINESS',
                     'name' => 'Rural Business' . $i,
                     'position' => $ruralBusiness,
                     'worldId' => $worldId,
+                    'business' => $business,
                 ]);
                 $res = DB::select('CALL sp_createAsset(?)', [$jsonData]);
             }

@@ -12,6 +12,7 @@ BEGIN
     DECLARE stockpile_quantity INT;
     DECLARE owner_id INT;
     DECLARE capacity_change_amount INT;
+    DECLARE old_capacity INT;
 
     DECLARE industry_cursor CURSOR FOR SELECT idIndustry_PK, type, idGood_Produce_FK, idAsset_FK FROM Industry;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
@@ -44,7 +45,7 @@ BEGIN
 
 
         IF stockpile_quantity >= consume_quantity THEN
-              SELECT warehouseCapacity INTO @old_capacity FROM Industry WHERE idIndustry_PK = industry_id;
+              SELECT warehouseCapacity INTO old_capacity FROM Industry WHERE idIndustry_PK = industry_id;
 
             UPDATE Stockpiles SET quantity = stockpile_quantity - consume_quantity 
             WHERE idAsset_Stockpiles_PKFK = industry_id AND idGoodt_Stockpiles_PKFK = good_id;
@@ -53,7 +54,7 @@ BEGIN
             SET warehouseCapacity = GREATEST(0, LEAST(warehouseCapacity + produce_quantity, 20))
             WHERE idIndustry_PK = industry_id;
 
-           SELECT (warehouseCapacity - @old_capacity) INTO capacity_change_amount;
+           SELECT (warehouseCapacity - old_capacity) INTO capacity_change_amount;
 
            CALL sp_addFunds(capacity_change_amount * 15000, owner_id);
         END IF;

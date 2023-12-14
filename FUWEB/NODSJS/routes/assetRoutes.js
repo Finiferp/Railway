@@ -7,4 +7,7 @@ module.exports = function (app) {
   //app.route("/asset/create").post(authenticateToken,asset.createAsset);
   app.route("/asset/:id").get(authenticateToken,asset.getAssetById);
   app.route("/assets").get(authenticateToken,asset.getAllAssets);
+  app.route("/asset/player/:id").get(authenticateToken,asset.getPlayerAssets);
+  app.route("/asset/buy").post(authenticateToken,asset.buyAsset);
+  app.route("/asset/station").post(authenticateToken,asset.getAssetsStation);
 };
