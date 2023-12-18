@@ -27,7 +27,10 @@ use App\Http\Controllers\stationController;
     Route::middleware('auth.token')->group(function () {
         Route::get('/player/{id}', [playerController::class, 'getPlayerById']);
         Route::get('/players', [playerController::class, 'getAllPlayers']);
-    
+        Route::post('/player/stockpile',[playerController::class,'getPlayerStockpile']);
+        Route::post('/player/needs',[playerController::class,'getPlayerNeeds']);
+        Route::post('/player/railways',[playerController::class,'getPlayerRailways']);
+        Route::post('/player/trains',[playerController::class,'getPlayerTrains']);
 
         Route::get('/good/{id}', [goodController::class,'getGoodById']);
         Route::get('/goods',[goodController::class,'getAllGoods']);

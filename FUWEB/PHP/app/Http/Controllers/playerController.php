@@ -144,6 +144,119 @@ class playerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+    public function getPlayerStockpile(Request $request)
+    {
+        try {
+            $userId = $request->input('userId');
+
+            $inputData = ['userId' => $userId];
+            $dbOutput = DB::select('CALL sp_getPlayerRailways(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+
+            if (isset($result['user']) && $result['user'] !== null) {
+                $data = $result['data'];
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+        } catch (\Exception $error) {
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function getPlayerNeeds(Request $request)
+    {
+        try {
+            $userId = $request->input('userId');
+
+            $inputData = ['userId' => $userId];
+            $dbOutput = DB::select('CALL sp_getPlayerNeeds(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+
+            if (isset($result['user']) && $result['user'] !== null) {
+                $data = $result['data'];
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+        } catch (\Exception $error) {
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function getPlayerRailways(Request $request)
+    {
+        try {
+            $userId = $request->input('userId');
+
+            $inputData = ['userId' => $userId];
+            $dbOutput = DB::select('CALL sp_getPlayerRailways(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+
+            if (isset($result['user']) && $result['user'] !== null) {
+                $data = $result['data'];
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+        } catch (\Exception $error) {
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function getPlayerTrains(Request $request)
+    {
+        try {
+            $userId = $request->input('userId');
+
+            $inputData = ['userId' => $userId];
+            $dbOutput = DB::select('CALL sp_getPlayersTrains(?)', [json_encode($inputData)]);
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+
+            if (isset($result['user']) && $result['user'] !== null) {
+                $data = $result['data'];
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+        } catch (\Exception $error) {
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+    
+
 
     private function validatePassword($password, $salt)
     {
