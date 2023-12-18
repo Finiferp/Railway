@@ -232,6 +232,11 @@ const spDemandTrain = async (JSON) => {
     const values = [JSON];
     return await executeQuery(sql, values);
 }
+const spGetPlayerIndustries = async (JSON) => {
+    const sql = 'CALL sp_getPlayerIndustries(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
 
 
 module.exports = {
@@ -272,5 +277,6 @@ module.exports = {
     spGetStationByName,
     spGetPlayersTrains,
     spDeleteTrain,
-    spDemandTrain
+    spDemandTrain,
+    spGetPlayerIndustries
 };

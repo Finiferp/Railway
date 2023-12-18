@@ -161,6 +161,24 @@ const getPlayersTrains = async (req, res) => {
     }
 };
 
+const getPlayerIndustries = async (req, res) => {
+    try {
+       
+        const { userId } = req.body;
+        const inputData = { userId };
+       
+        const dbOutput = await db.spGetPlayerIndustries(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+        
+        res.status(status_code).json({
+            message,
+            data: data,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 function validatePassword(password, salt) {
     let hashedPassword = crypto.pbkdf2Sync(password, salt, 10000, 512, "sha512").toString("hex");
     return hashedPassword;
@@ -272,5 +290,6 @@ module.exports = {
     getPlayerStockpiles,
     getPlayerNeeds,
     getPlayerRailways,
-    getPlayersTrains
+    getPlayersTrains,
+    getPlayerIndustries
 };

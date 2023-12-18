@@ -56,16 +56,17 @@ class trainController extends Controller
         }
     }
 
-    public function createtrain(Request $request){
-        try{
+    public function createtrain(Request $request)
+    {
+        try {
             $name = $request->input('name');
             $idRailway = $request->input('idRailway');
             $idAsset_Starts = $request->input('idAsset_Starts');
             $idAsset_Destines = $request->input('idAsset_Destines');
             $willReturnWithGoods = $request->input('willReturnWithGoods');
-            $inputData = ['name'=>$name,'idRailway'=>$idRailway,'idAsset_Starts'=>$idAsset_Starts,'idAsset_Destines'=>$idAsset_Destines,'willReturnWithGoods'=>$willReturnWithGoods];
+            $inputData = ['name' => $name, 'idRailway' => $idRailway, 'idAsset_Starts' => $idAsset_Starts, 'idAsset_Destines' => $idAsset_Destines, 'willReturnWithGoods' => $willReturnWithGoods];
             $dbOutput = DB::select('CALL sp_createTrain(?)', [json_encode($inputData)]);
-           
+
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
             $message = $result['message'];
@@ -75,14 +76,55 @@ class trainController extends Controller
                     'message' => $message,
                     'train' => $train,
                 ], $statusCode);
-            }else {
+            } else {
                 return response()->json([
                     'message' => $message,
                 ], $statusCode);
             }
+        } catch (\Exception $error) {
+            \Log::error($error);
+        }
+    }
 
-        }catch (\Exception $error) {
-           \Log::error($error);
+
+    public function deleteTrain(Request $request)
+    {
+        try {
+            $trainId = $request->input('trainId');
+            $userId = $request->input('userId');
+            $inputData = ['trainId' => $trainId, 'userId' => $userId];
+            $dbOutput = DB::select('CALL sp_deleteTrain(?)', [json_encode($inputData)]);
+
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+            return response()->json([
+                'message' => $message,
+            ], $statusCode);
+        } catch (\Exception $error) {
+            \Log::error($error);
+        }
+    }
+
+    public function demandTrain(Request $request)
+    {
+        try {
+            $railwayId = $request->input('railwayId');
+            $assetFromId = $request->input('assetFromId');
+            $assetToId = $request->input('assetToId');
+            $goodId = $request->input('goodId');
+            $amount = $request->input('amount');
+            $inputData = ['railwayId' => $railwayId, 'assetFromId' => $assetFromId, 'assetToId' => $assetToId, 'goodId' => $goodId, 'amount' => $amount];
+            $dbOutput = DB::select('CALL sp_demandTrain(?)', [json_encode($inputData)]);
+
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+            return response()->json([
+                'message' => $message,
+            ], $statusCode);
+        } catch (\Exception $error) {
+            \Log::error($error);
         }
     }
 }

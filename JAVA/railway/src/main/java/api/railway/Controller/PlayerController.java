@@ -1,5 +1,6 @@
 package api.railway.Controller;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -15,6 +16,7 @@ import org.apache.commons.codec.binary.Hex;
 import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+import api.railway.JwtTokenUtil;
 import api.railway.Database.AssetDAO;
 import api.railway.Database.PlayerDAO;
 
@@ -31,7 +34,8 @@ import api.railway.Database.PlayerDAO;
 public class PlayerController {
 
     private PlayerDAO playerDAO = new PlayerDAO();
-
+    
+    
     @GetMapping("/players")
     public ResponseEntity<Object> getPlayers() {
         JSONObject result = playerDAO.getPlayers();
@@ -96,7 +100,9 @@ public class PlayerController {
         String username = (String) requestBody.get("username");
         String input_password = (String) requestBody.get("input_password");
         String salt = playerDAO.getSalt(username);
-        String token = generateAuthToken(username);
+        // String token = generateAuthToken(username);
+        System.out.println(generateAuthToken(username));
+        String token = "rse";
         String password = hashPassword(input_password, salt);
         System.out.println(password);
         JSONObject inputJSON = new JSONObject();
@@ -115,14 +121,14 @@ public class PlayerController {
         return ResponseEntity.status(status_code).body(responseJson.toMap());
     }
 
-    private static String generateRandomSalt() {
+    private String generateRandomSalt() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] saltBytes = new byte[32];
         secureRandom.nextBytes(saltBytes);
         return bytesToHex(saltBytes);
     }
 
-    private static String hashPassword(String inputPassword, String salt) {
+    private String hashPassword(String inputPassword, String salt) {
         String result = "";
         KeySpec spec = new PBEKeySpec(inputPassword.toCharArray(), hexToBytes(salt), 10000, 512);
         try {
@@ -135,7 +141,7 @@ public class PlayerController {
         return result;
     }
 
-    public static String bytesToHex(byte[] bytes) {
+    public String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
             sb.append(String.format("%02x", b));
@@ -143,34 +149,36 @@ public class PlayerController {
         return sb.toString();
     }
 
-    public static byte[] hexToBytes(String hexString) {
+    public byte[] hexToBytes(String hexString) {
         if (hexString == null || hexString.length() == 0) {
             return null;
         }
-    
+
         byte[] bytes = new byte[hexString.length() / 2];
         for (int i = 0; i < hexString.length(); i += 2) {
             bytes[i / 2] = (byte) Integer.parseInt(hexString.substring(i, i + 2), 16);
         }
-    
+
         return bytes;
     }
 
-    public static String generateAuthToken(String username) {
-        String SECRET_KEY = "RailwayImperiumSecret";
+    public String generateAuthToken(String username) {
         long EXPIRATION_TIME = 12 * 3600 * 1000;
         Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
-
-        String token = Jwts.builder()
-                .setSubject(username)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .compact();
-
-        return token;
+        JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+        String token = jwtTokenUtil.generateToken(username);
+        System.out.println(token);
+        return "s";
+        
     }
 
-    private static JSONObject generateRandomPosition(JSONArray existingPositions, int gridSize, int minDistance) {
+    private Key getSigningKey() {
+        String SECRET_KEY = "RailwayImperiumSecret";
+        byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private JSONObject generateRandomPosition(JSONArray existingPositions, int gridSize, int minDistance) {
         int x, y;
         do {
             x = (int) (Math.random() * gridSize);
@@ -180,7 +188,7 @@ public class PlayerController {
         return new JSONObject().put("x", x).put("y", y);
     }
 
-    private static boolean hasMinDistance(JSONArray existingPositions, int newX, int newY, int minDistance) {
+    private boolean hasMinDistance(JSONArray existingPositions, int newX, int newY, int minDistance) {
         for (Object positionObj : existingPositions) {
             JSONObject position = (JSONObject) positionObj;
             double distance = Math.hypot(newX - position.getInt("x"), newY - position.getInt("y"));
@@ -191,7 +199,7 @@ public class PlayerController {
         return false; // Minimum distance satisfied
     }
 
-    private static void generateWorld(int worldId) {
+    private void generateWorld(int worldId) {
         AssetDAO assetDAO = new AssetDAO();
         int gridSize = 1000;
         int minDistance = 50;
@@ -223,21 +231,21 @@ public class PlayerController {
             assetDAO.createAsset(jsonTown);
         }
 
-        for (int i = 1; i < ruralBusinesses.length()+1; i++) {
+        for (int i = 1; i < ruralBusinesses.length() + 1; i++) {
             JSONObject ruralBusiness = ruralBusinesses.getJSONObject(i);
-            String business="";
+            String business = "";
             if (i < 5) {
-                business= "RANCH";
+                business = "RANCH";
             } else if (i < 10) {
-                business= "FIELD";
+                business = "FIELD";
             } else if (i < 15) {
-                business= "FARM";
+                business = "FARM";
             } else if (i < 20) {
-                business= "LUMBERYARD";
+                business = "LUMBERYARD";
             } else if (i < 25) {
-                business= "PLANTATION";
+                business = "PLANTATION";
             } else {
-                business= "MINE";
+                business = "MINE";
             }
             JSONObject jsonRuralBusiness = new JSONObject()
                     .put("type", "RURALBUSINESS")

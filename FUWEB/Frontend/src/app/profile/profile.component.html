@@ -6,9 +6,10 @@
 
 <nav class="navbar">
       <ul>
-            <li (click) = "showAssets()">My Assets</li>
-            <li (click) = "showStock()">My Stock</li>
-            <li (click) = "showNeeds()">My Needs</li>
+            <li (click)="showAssets()">My Assets</li>
+            <li (click)="showIndustries()">My Industries</li>
+            <li (click)="showStock()">My Stock</li>
+            <li (click)="showNeeds()">My Needs</li>
             <li (click)="showRailways()">My Railways</li>
             <li (click)="showTrains()">My Trains</li>
       </ul>
@@ -19,4 +20,5 @@
       <app-my-needs *ngIf="showNeedsFlag"></app-my-needs>
       <app-my-railways *ngIf="showRailwayFlag"></app-my-railways>
       <app-my-trains *ngIf="showTrainsFlag"></app-my-trains>
-</section> 
+      <app-my-industries *ngIf="showIndustriesFlag"></app-my-industries>
+</section>

@@ -5,10 +5,11 @@ import { MyStockComponent } from '../my-stock/my-stock.component';
 import { MyNeedsComponent } from '../my-needs/my-needs.component';
 import { MyRailwaysComponent } from '../my-railways/my-railways.component';
 import { MyTrainsComponent } from '../my-trains/my-trains.component';
+import { MyIndustriesComponent } from '../my-industries/my-industries.component';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MyAssetsComponent, MyStockComponent, MyNeedsComponent, MyRailwaysComponent, MyTrainsComponent],
+  imports: [CommonModule, MyAssetsComponent, MyStockComponent, MyNeedsComponent, MyRailwaysComponent, MyTrainsComponent, MyIndustriesComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -18,6 +19,7 @@ export class ProfileComponent {
   showNeedsFlag: boolean = false;
   showRailwayFlag: boolean = false;
   showTrainsFlag: boolean = false;
+  showIndustriesFlag: boolean = false;
   public username: any;
   public funds: any;
   private token: any;
@@ -45,6 +47,7 @@ export class ProfileComponent {
     this.showNeedsFlag = false;
     this.showRailwayFlag = false;
     this.showTrainsFlag = false;
+    this.showIndustriesFlag = false;
   }
 
   showStock() {
@@ -52,6 +55,7 @@ export class ProfileComponent {
     this.showStockFlag = true;
     this.showNeedsFlag = false;
     this.showTrainsFlag = false;
+    this.showIndustriesFlag = false;
   }
 
   showNeeds() {
@@ -60,6 +64,7 @@ export class ProfileComponent {
     this.showNeedsFlag = true;
     this.showRailwayFlag = false;
     this.showTrainsFlag = false;
+    this.showIndustriesFlag = false;
   }
 
   showRailways() {
@@ -68,6 +73,7 @@ export class ProfileComponent {
     this.showNeedsFlag = false;
     this.showRailwayFlag = true;
     this.showTrainsFlag = false;
+    this.showIndustriesFlag = false;
   }
 
   showTrains() {
@@ -76,5 +82,15 @@ export class ProfileComponent {
     this.showNeedsFlag = false;
     this.showRailwayFlag = false;
     this.showTrainsFlag = true;
+    this.showIndustriesFlag = false;
+  }
+
+  showIndustries() {
+    this.showAssetsFlag = false;
+    this.showStockFlag = false;
+    this.showNeedsFlag = false;
+    this.showRailwayFlag = false;
+    this.showTrainsFlag = false;
+    this.showIndustriesFlag = true;
   }
 }

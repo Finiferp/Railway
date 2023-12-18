@@ -56,13 +56,14 @@ class stationController extends Controller
         }
     }
 
-    public function createStation(Request $request){
-        try{
+    public function createStation(Request $request)
+    {
+        try {
             $name = $request->input('name');
             $assetId = $request->input('assetId');
-            $inputData = ['name'=>$name,'assetId'=>$assetId];
+            $inputData = ['name' => $name, 'assetId' => $assetId];
             $dbOutput = DB::select('CALL sp_createStation(?)', [json_encode($inputData)]);
-           
+
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
             $message = $result['message'];
@@ -72,14 +73,39 @@ class stationController extends Controller
                     'message' => $message,
                     'station' => $station,
                 ], $statusCode);
-            }else {
+            } else {
                 return response()->json([
                     'message' => $message,
                 ], $statusCode);
             }
+        } catch (\Exception $error) {
+            \Log::error($error);
+        }
+    }
 
-        }catch (\Exception $error) {
-           \Log::error($error);
+    public function getStationByName(Request $request)
+    {
+        try {
+            $station_name = $request->input('station_name');
+            $inputData = ['station_name' => $station_name];
+            $dbOutput = DB::select('CALL sp_getStationByName(?)', [json_encode($inputData)]);
+
+            $result = json_decode($dbOutput[0]->result, true);
+            $statusCode = $result['status_code'];
+            $message = $result['message'];
+            if (isset($result['data'])) {
+                $data = $result['data'];
+                return response()->json([
+                    'message' => $message,
+                    'data' => $data,
+                ], $statusCode);
+            } else {
+                return response()->json([
+                    'message' => $message,
+                ], $statusCode);
+            }
+        } catch (\Exception $error) {
+            \Log::error($error);
         }
     }
 }

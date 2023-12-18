@@ -31,13 +31,19 @@ use App\Http\Controllers\stationController;
         Route::post('/player/needs',[playerController::class,'getPlayerNeeds']);
         Route::post('/player/railways',[playerController::class,'getPlayerRailways']);
         Route::post('/player/trains',[playerController::class,'getPlayerTrains']);
-
+        Route::post('/player/industries',[playerController::class,'getPlayerIndustries']);
+        
         Route::get('/good/{id}', [goodController::class,'getGoodById']);
         Route::get('/goods',[goodController::class,'getAllGoods']);
 
         //Route::post('/asset/create',[assetController::class, 'createAsset']);
         Route::get('/asset/{id}', [assetController::class,'getAssetById']);
         Route::get('/assets',[assetController::class,'getAllAssets']);
+        Route::get('/asset/player/{id}',[assetController::class,'getPlayerAssets']);
+        Route::get('/asset/world/{id}',[assetController::class,'getWorldAssets']);
+        Route::post('/asset/buy',[assetController::class,'buyAsset']);
+        Route::post('/asset/station',[assetController::class,'getAssetsStation']);
+
 
         Route::get('/world/{id}', [worldController::class,'getWorldById']);
         Route::get('/worlds',[worldController::class,'getAllWorlds']);
@@ -45,10 +51,14 @@ use App\Http\Controllers\stationController;
         Route::post('/train/create',[trainController::class, 'createTrain']);
         Route::get('/train/{id}', [trainController::class,'getTrainById']);
         Route::get('/trains',[trainController::class,'getAllTrains']);
+        Route::post('/train/deman',[trainController::class,'demandTrain']);
+        Route::delete('/train/delete',[trainController::class,'deleteTrain']);
+
 
         Route::post('/station/create',[stationController::class, 'createStation']);
         Route::get('/station/{id}', [stationController::class,'getStationById']);
         Route::get('/stations',[stationController::class,'getAllStations']);
+        Route::post('/station/name',[stationController::class,'getStationByName']);
 
         Route::post('/railway/create',[railwayController::class, 'createRailway']);
         Route::get('/railway/{id}', [railwayController::class,'getRailwayById']);

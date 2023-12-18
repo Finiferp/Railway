@@ -12,4 +12,5 @@ module.exports = function (app) {
     app.route("/player/needs").post(authenticateToken,player.getPlayerNeeds);
     app.route("/player/railways").post(authenticateToken,player.getPlayerRailways);
     app.route("/player/trains").post(authenticateToken,player.getPlayersTrains);
+    app.route("/player/industries").post(authenticateToken,player.getPlayerIndustries);
 }

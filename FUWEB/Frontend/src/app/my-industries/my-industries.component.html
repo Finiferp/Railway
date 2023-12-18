@@ -1,0 +1,40 @@
+<div>
+    <h1>Industries List</h1>
+    <ul>
+        <li *ngFor="let industry of industries">
+            <p>Asset Name: {{ industry.asset_name }}</p>
+            <p>Industries:</p>
+            <ul>
+                <li *ngFor="let subIndustry of industry.industries">
+                    <div>
+                        <ul>
+                            <li>
+                                <p>Industry Name: {{ subIndustry.industry_name }}</p>
+                                <p>Industry Type: {{ subIndustry.industry_type }}</p>
+                                <p>Produced Good Name: {{ subIndustry.produced_good_name }}</p>
+                                <p>Warehouse Capacity: {{ subIndustry.warehouse_capacity }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <button (click) = "buy( industry.asset_id )" type="button" class="buy-button">Buy</button>
+                <input [formControl]="nameControl" type="text" placeholder="Enter Name" />
+                <select [formControl]="typeControl">
+                    <option value="">Select Type</option>
+                    <option value="BREWERY">Brewery</option>
+                    <option value="BUTCHER">Butcher</option>
+                    <option value="BAKERY">Bakery</option>
+                    <option value="SAWMILL">Sawmill</option>
+                    <option value="CHEESEMAKER">Cheesemaker</option>
+                    <option value="CARPENTER">Carpenter</option>
+                    <option value="TAILOR">Tailor</option>
+                    <option value="SMELTER">Smelter</option>
+                    <option value="SMITHY">Smithy</option>
+                    <option value="JEWELER">Jeweler</option>
+                </select>
+            </div>
+        </li>
+    </ul>
+</div>
