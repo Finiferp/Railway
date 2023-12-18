@@ -1,0 +1,68 @@
+// Define colors
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$hover-color: #ff000088;
+$line-color: #ff0000;
+
+// Define font sizes
+$font-size-small: 14px;
+$font-size-medium: 16px;
+$font-size-large: 18px;
+
+// Define table styles
+table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+
+      th,
+      td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid $secondary-color;
+      }
+
+      th {
+            background-color: $dark-color;
+            color: $light-color;
+      }
+
+      tr:nth-child(even) {
+            background-color: $light-color;
+      }
+
+      tbody {
+            tr {
+                  &:hover {
+                        background-color: $hover-color;
+                  }
+            }
+
+            tr:hover {
+                  text-decoration: line-through;
+            }
+      }
+
+      // Add your table styles here
+}
+
+// Define button styles
+button {
+      padding: 10px 20px;
+      font-size: $font-size-medium;
+      background-color: $primary-color;
+      color: $light-color;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+            background-color: $dark-color;
+      }
+
+      &:focus {
+            outline: none;
+      }
+}

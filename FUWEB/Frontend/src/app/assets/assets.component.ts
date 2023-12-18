@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-assets',
@@ -14,10 +15,13 @@ export class AssetsComponent implements OnInit {
   public playerNames: Map<number, string> = new Map();
   private token: any;
   private id: any;
+  private worldId:any;
   async ngOnInit() {
     this.id = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
-    const response = await fetch('http://127.0.0.1:3000/assets', {
+    this.worldId = sessionStorage.getItem("idWorld");
+    
+    const response = await fetch(`http://127.0.0.1:3000/asset/world/${this.worldId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +30,6 @@ export class AssetsComponent implements OnInit {
     });
     const data = await response.json();
     this.assetsData = data.data;
-
     const playerIds = this.assetsData.map(item => item.idOwner_FK);
     for (let i = 0; i < playerIds.length; i++) {
       if (playerIds[i] !== null) {
@@ -61,4 +64,7 @@ export class AssetsComponent implements OnInit {
       body: JSON.stringify(inputData)
     });
   }
+
+
+
 }

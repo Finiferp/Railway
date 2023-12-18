@@ -1,0 +1,38 @@
+<table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Cost</th>
+          <th>Is Returning</th>
+          <th>Operational Cost</th>
+          <th>Traveled Distance</th>
+          <th>Starting Asset</th>
+          <th>Destination Asset</th>
+          <th>Will Return With Goods</th>
+          <th>Goods</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of trains" (click)="delete(item.id)">
+          <td>{{ item.name }}</td>
+          <td>{{ item.cost }}</td>
+          <td>{{ item.isReturning === 1 ? 'Yes' : 'No' }}</td>
+          <td>{{ item.operationalCost }}</td>
+          <td>{{ item.traveledDistance }}</td>
+          <td>{{ item.idAsset_Starts_FK }}</td>
+          <td>{{ item.idAsset_Destines_FK }}</td>
+          <td>{{ item.willReturnWithGoods === 1 ? 'Yes' : 'No' }}</td>
+          <td>
+            <div *ngFor="let good of item.goodsTransported">
+              <p>{{ good.idname }}: {{ good.amount }}</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <button (click)="create()">Create</button>
+    <button (click)="demand()">Demand</button>
+
+    <app-create-trains *ngIf="showCreateFlag"></app-create-trains>
+    <app-demand-trains *ngIf="showDemandFlag"></app-demand-trains>

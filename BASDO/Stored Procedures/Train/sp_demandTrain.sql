@@ -1,6 +1,6 @@
 DELIMITER //
-DROP PROCEDURE IF EXISTS sp_demandGoods;
-CREATE PROCEDURE sp_demandGoods(IN input_json JSON)
+DROP PROCEDURE IF EXISTS sp_demandTrain;
+CREATE PROCEDURE sp_demandTrain(IN input_json JSON)
 BEGIN
     DECLARE asset_from_id INT;
     DECLARE asset_to_id INT;
@@ -8,37 +8,32 @@ BEGIN
     DECLARE good_id INT;
     DECLARE amount_to_transport INT;
     DECLARE response_code INT;
-    DECLARE response_message INT;
+    DECLARE response_message VARCHAR(450);
     DECLARE stockpile_quantity INT;
     DECLARE stockpile_max INT;
     DECLARE wagons_needed INT;
     DECLARE last_train_id INT;
     DECLARE i INT;
 
-    SET asset_from_id = JSON_UNQUOTE(JSON_EXTRACT(json_input, '$.assetFromId'));
-    SET asset_to_id = JSON_UNQUOTE(JSON_EXTRACT(json_input, '$.assetToId'));
-    SET railway_id = JSON_UNQUOTE(JSON_EXTRACT(json_input, '$.railwayId'));
-    SET good_id = JSON_UNQUOTE(JSON_EXTRACT(json_input, '$.goodId'));
-    SET amount_to_transport = JSON_UNQUOTE(JSON_EXTRACT(json_input, '$.amount'));
-
-     IF (SELECT type FROM Asset WHERE idAsset_PK = asset_to_id) = 'RURALBUSINESS' THEN
-        SELECT SUM(quantity) AS total_quantity, stockpileMax INTO stockpile_quantity, stockpile_max
-        FROM Stockpiles
+    SET asset_from_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetFromId'));
+    SET asset_to_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetToId'));
+    SET railway_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.railwayId'));
+    SET good_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.goodId'));
+    SET amount_to_transport = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.amount'));
+     IF (SELECT type FROM Asset WHERE idAsset_PK = asset_to_id) = 'TOWN' THEN
+        SELECT SUM(quantity), stockpileMax INTO stockpile_quantity, stockpile_max
+        FROM Stockpiles JOIN Asset a ON idAsset_Stockpiles_PKFK = idAsset_PK
         WHERE idAsset_Stockpiles_PKFK = asset_to_id
         GROUP BY idAsset_Stockpiles_PKFK;
 
         IF stockpile_quantity + amount_to_transport <= stockpile_max THEN
-            -- Calculate the number of wagons needed (up to 10 max)
             SET wagons_needed = LEAST(CEIL(amount_to_transport / stockpile_max), 10);
 
-            -- Create the train
             INSERT INTO Train (name, idRailway_FK, idAsset_Starts_FK, idAsset_Destines_FK)
             VALUES ('New Train', railway_id, asset_from_id, asset_to_id);
 
-            -- Get the ID of the last inserted train
             SET last_train_id = LAST_INSERT_ID();
 
-            -- Create wagons for the train
             WHILE i < wagons_needed DO
                 INSERT INTO Wagon (idTrain_FK, idGood_Transport_FK)
                 VALUES (last_train_id, good_id); 

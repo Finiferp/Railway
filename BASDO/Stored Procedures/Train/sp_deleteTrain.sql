@@ -26,7 +26,7 @@ BEGIN
         SET response_message = 'Internal Server Error';
     ELSE
         COMMIT;
-        CALL sp_addFunds(50000, userId);
+        CALL sp_addFunds(50000, user_id);
         SET response_code = 200;
         SET response_message = 'Train and wagons deleted successfully';
     END IF;

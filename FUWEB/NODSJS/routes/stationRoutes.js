@@ -7,4 +7,5 @@ module.exports = function (app) {
   app.route("/station/create").post(authenticateToken,station.createStation);
   app.route("/station/:id").get(authenticateToken,station.getStationById);
   app.route("/stations").get(authenticateToken,station.getAllStations);
+  app.route("/station/name").post(authenticateToken,station.getStationByName);
 };

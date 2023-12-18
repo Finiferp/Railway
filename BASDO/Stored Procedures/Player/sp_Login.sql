@@ -7,6 +7,7 @@ BEGIN
 	DECLARE input_token VARCHAR(450);
     DECLARE stored_password VARCHAR(10000);
     DECLARE user_id INT;
+    DECLARE idWorld INT;
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
 
@@ -24,7 +25,7 @@ BEGIN
         SET response_message = 'Username not found';
     ELSE
         -- Retrieve the stored password and user ID for the given username
-        SELECT password, idPlayer_PK INTO stored_password, user_id FROM Player WHERE username = input_username;
+        SELECT password, idPlayer_PK, idWorld_FK INTO stored_password, user_id, idWorld FROM Player WHERE username = input_username;
 
         -- Check if the provided password matches the stored password
         IF input_password = stored_password THEN
@@ -48,7 +49,8 @@ BEGIN
                 'message', response_message, 
                 'user', JSON_OBJECT(
                     'id', user_id, 
-                    'username', input_username
+                    'username', input_username,
+                    'idWorld', idWorld
                 ),
                 'token', input_token
             ) AS 'result';

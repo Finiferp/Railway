@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label for="businesses">Select a Station:</label>
+      <select formControlName="businesses" id="businesses">
+        <option *ngFor="let business of businesses" [value]="business.idAsset_PK">
+          {{ business.name }}
+        </option>
+      </select>
+    
+      <label for="towns">Select a Railway Destination:</label>
+      <select formControlName="towns" id="towns">
+        <option *ngFor="let town of towns" [value]="town.assetId">
+          {{ town.name }}
+        </option>
+      </select>
+
+      <label for="goods">Select a Good to demand:</label>
+      <select formControlName="goods" id="goods">
+        <option *ngFor="let good of goods" [value]="good.id">
+          {{ good.name }}
+        </option>
+      </select>
+
+      <label for="amount">Select Amount (1-10):</label>
+      <input type="number" formControlName="amount" id="amount" min="1" max="10" />
+   
+          
+      <button type="submit" [disabled]="form.invalid">Done</button>
+    </form>
+ 

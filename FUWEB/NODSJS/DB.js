@@ -198,6 +198,41 @@ const spGetPlayerNeeds = async (JSON) => {
     return await executeQuery(sql, values);
 }
 
+const spWorldsAssets = async (JSON) => {
+    const sql = 'CALL sp_getWorldAssets(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+const spPlayerRailways = async (JSON) => {
+    const sql = 'CALL sp_getPlayerRailways(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+const spGetStationByName = async (JSON) => {
+    const sql = 'CALL sp_getStationByName(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+
+const spGetPlayersTrains = async (JSON) => {
+    const sql = 'CALL sp_getPlayersTrains(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spDeleteTrain = async (JSON) => {
+    const sql = 'CALL sp_deleteTrain(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
+const spDemandTrain = async (JSON) => {
+    const sql = 'CALL sp_demandTrain(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
 
 module.exports = {
     executeQuery,
@@ -231,5 +266,11 @@ module.exports = {
     spBuyAssets,
     spGetAssetsStation,
     spGetPlayerStockpiles,
-    spGetPlayerNeeds
+    spGetPlayerNeeds,
+    spWorldsAssets,
+    spPlayerRailways,
+    spGetStationByName,
+    spGetPlayersTrains,
+    spDeleteTrain,
+    spDemandTrain
 };

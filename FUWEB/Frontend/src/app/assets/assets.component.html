@@ -1,27 +1,36 @@
 <table class="table table-striped" aria-labelledby="tableLabel" *ngIf="assetsData && assetsData.length">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Population</th>
-      <th>Level</th>
-      <th>Owner</th>
+      <th class="table-header">Name</th>
+      <th class="table-header">Type</th>
+      <th class="table-header">position</th>
+      <th class="table-header" >Population</th>
+      <th class="table-header" >Level</th>
+      <th class="table-header">Goods</th>
+      <th class="table-header">Owner</th>
+    
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of assetsData">
       <td>{{ item.name }}</td>
       <td>{{ item.type }}</td>
-      <td>{{ item.population }}</td>
-      <td>{{ item.level }}</td>
+      <td> X:{{ item.position.x }}; Y: {{ item.position.y }}</td> 
+      <td >{{ item.population }}</td>
+      <td >{{ item.level }}</td>
+      <td >
+        <ul>
+          <li *ngFor="let good of item.goods">{{ good.name }}</li>
+        </ul>
+      </td>
       <td>
         <ng-container *ngIf="item.idOwner_FK; else buyButton">
           {{ playerNames.get(item.idOwner_FK) }}
         </ng-container>
         <ng-template #buyButton>
-          <button (click) = 'buy(item.id)'>Buy</button> 
+          <button (click)='buy(item.idAsset_PK)'>Buy</button>
         </ng-template>
       </td>
     </tr>
   </tbody>
-</table>
+</table> 

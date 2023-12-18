@@ -42,6 +42,7 @@ export class LoginComponent {
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('username', user.username);
         sessionStorage.setItem('id', user.id);
+        sessionStorage.setItem('idWorld', user.idWorld);
         this.router.navigate(['/main']);
       }
 

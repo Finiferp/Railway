@@ -10,4 +10,6 @@ module.exports = function (app) {
     app.route("/players").get(authenticateToken,player.getAllPlayers);
     app.route("/player/stockpile").post(authenticateToken,player.getPlayerStockpiles);
     app.route("/player/needs").post(authenticateToken,player.getPlayerNeeds);
+    app.route("/player/railways").post(authenticateToken,player.getPlayerRailways);
+    app.route("/player/trains").post(authenticateToken,player.getPlayersTrains);
 }

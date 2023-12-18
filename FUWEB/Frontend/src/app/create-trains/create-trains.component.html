@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label for="station">Select a Station:</label>
+      <select formControlName="station" id="station">
+        <option *ngFor="let station of railways" [value]="station.station_id">
+          {{ station.station_name }}
+        </option>
+      </select>
+    
+      <label for="railway">Select a Station as Destination:</label>
+      <select formControlName="railway" id="railway">
+        <option *ngFor="let connectedStationName of connectedStationNames" [value]="connectedStationName">
+          {{ connectedStationName }}
+        </option>
+      </select>
+      <label for="returnWithItem">Return with item?</label>
+      <input type="checkbox" formControlName="returnWithItem" id="returnWithItem">
+          
+      <button type="submit" [disabled]="form.invalid">Done</button>
+    </form>
+    

@@ -39,7 +39,6 @@ const getAllPlayers = async (req, res) => {
 const register = async (req, res) => {
     try {
         const { username, input_password } = req.body;
-        console.log(req.body);
         if (!username || !input_password) {
             return res.status(400).json({ error: "invalid input, object invalid" });
         }
@@ -51,7 +50,6 @@ const register = async (req, res) => {
         if (new_world_created === 1) {
             generateWorld(new_world_id);
         }
-        console.log(message);
         res.status(status_code).json({
             message,
             user: user,
@@ -79,7 +77,7 @@ const login = async (req, res) => {
         res.status(status_code).json({
             message,
             user: user,
-            token: token
+            token: token,
         });
     } catch (error) {
         console.error(error);
@@ -89,13 +87,13 @@ const login = async (req, res) => {
 
 const getPlayerStockpiles = async (req, res) => {
     try {
-        console.log(req.body);
+       
         const { userId } = req.body;
         const inputData = { userId };
-        console.log(inputData);
+       
         const dbOutput = await db.spGetPlayerStockpiles(inputData);
         const { status_code, message, data } = dbOutput[0][0].result;
-        console.log(dbOutput[0][0].result);
+      
         res.status(status_code).json({
             message,
             data: data,
@@ -108,13 +106,51 @@ const getPlayerStockpiles = async (req, res) => {
 
 const getPlayerNeeds = async (req, res) => {
     try {
-        console.log(req.body);
+       
         const { userId } = req.body;
         const inputData = { userId };
-        console.log(inputData);
+      
         const dbOutput = await db.spGetPlayerNeeds(inputData);
         const { status_code, message, data } = dbOutput[0][0].result;
-        console.log(dbOutput[0][0].result);
+       
+        res.status(status_code).json({
+            message,
+            data: data,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const getPlayerRailways = async (req, res) => {
+    try {
+       
+        const { userId } = req.body;
+        const inputData = { userId };
+       
+        const dbOutput = await db.spPlayerRailways(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+       
+        res.status(status_code).json({
+            message,
+            data: data,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const getPlayersTrains = async (req, res) => {
+    try {
+       
+        const { userId } = req.body;
+        const inputData = { userId };
+       
+        const dbOutput = await db.spGetPlayersTrains(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+        
         res.status(status_code).json({
             message,
             data: data,
@@ -137,11 +173,11 @@ function generateAuthToken(username) {
         exp: Math.floor(Date.now() / 1000) + 12 * 3600,
     };
     const token = jwt.sign(payload, 'RailwayImperiumSecret');
-    console.log(jwt.verify(token, 'RailwayImperiumSecret'));
+ 
     return token;
 };
 
-// Function to generate random positions with a minimum distance
+
 function generateRandomPosition(existingPositions, gridSize, minDistance) {
     let x, y;
     do {
@@ -152,7 +188,6 @@ function generateRandomPosition(existingPositions, gridSize, minDistance) {
     return { x, y };
 }
 
-// Function to check if a position has a minimum distance from existing positions
 function hasMinDistance(existingPositions, newX, newY, minDistance) {
     for (const { x, y } of existingPositions) {
         const distance = Math.hypot(newX - x, newY - y);
@@ -163,7 +198,6 @@ function hasMinDistance(existingPositions, newX, newY, minDistance) {
     return false; // Minimum distance satisfied
 }
 
-// Function to generate a world with towns and rural businesses
 async function generateWorld(worldId) {
     const gridSize = 1000;
     const minDistance = 50;
@@ -236,5 +270,7 @@ module.exports = {
     register,
     login,
     getPlayerStockpiles,
-    getPlayerNeeds
+    getPlayerNeeds,
+    getPlayerRailways,
+    getPlayersTrains
 };

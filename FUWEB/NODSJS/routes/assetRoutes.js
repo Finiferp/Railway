@@ -10,4 +10,5 @@ module.exports = function (app) {
   app.route("/asset/player/:id").get(authenticateToken,asset.getPlayerAssets);
   app.route("/asset/buy").post(authenticateToken,asset.buyAsset);
   app.route("/asset/station").post(authenticateToken,asset.getAssetsStation);
+  app.route("/asset/world/:id").get(authenticateToken,asset.getWorldAssets);
 };

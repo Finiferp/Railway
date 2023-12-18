@@ -9,11 +9,14 @@
             <li (click) = "showAssets()">My Assets</li>
             <li (click) = "showStock()">My Stock</li>
             <li (click) = "showNeeds()">My Needs</li>
-            <li>My Trains</li>
+            <li (click)="showRailways()">My Railways</li>
+            <li (click)="showTrains()">My Trains</li>
       </ul>
 </nav>
 <section>
       <app-my-assets *ngIf="showAssetsFlag"></app-my-assets>
       <app-my-stock *ngIf="showStockFlag"></app-my-stock>
       <app-my-needs *ngIf="showNeedsFlag"></app-my-needs>
+      <app-my-railways *ngIf="showRailwayFlag"></app-my-railways>
+      <app-my-trains *ngIf="showTrainsFlag"></app-my-trains>
 </section> 

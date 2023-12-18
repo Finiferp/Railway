@@ -36,14 +36,30 @@ const getStationById = async (req, res) => {
 
 const createStation = async (req, res) => {
     try {
-        const {name, assetId} = req.body;
-        const inputData = { name, assetId};
+        const { name, assetId } = req.body;
+        const inputData = { name, assetId };
         const dbOutput = await db.spCreateStation(inputData);
-        const {status_code, message, station} = dbOutput[0][0].result;
-      
+        const { status_code, message, station } = dbOutput[0][0].result;
+
         res.status(status_code).json({
             message,
             station: station
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+const getStationByName = async (req, res) => {
+    try {
+        const { station_name } = req.body;
+        const inputData = { station_name };
+        const dbOutput = await db.spGetStationByName(inputData);
+        const { status_code, message, data } = dbOutput[0][0].result;
+
+        res.status(status_code).json({
+            message,
+            data: data
         });
     } catch (error) {
         console.error(error);
@@ -54,5 +70,6 @@ const createStation = async (req, res) => {
 module.exports = {
     getAllStations,
     getStationById,
-    createStation
+    createStation,
+    getStationByName
 };

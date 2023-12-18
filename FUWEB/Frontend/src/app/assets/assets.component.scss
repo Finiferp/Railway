@@ -1,37 +1,43 @@
 table {
-  border-collapse: collapse;
   width: 100%;
-  margin-bottom: 20px;
-  background-color: #343a40;
-  color: #fff;
-
-  thead {
-    background-color: #212529;
-
-    th {
-      text-align: center;
-      padding: 10px;
-      text-align: left;
-      border-bottom: 2px solid #454d55;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #212529;
+  th, td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  th {
+    text-align: left;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    &.table-header {
+      font-size: 1.1rem;
+      color: #007bff;
+      border-top: none;
     }
   }
-
-  tbody {
-    td {
-      padding: 10px;
-      border-bottom: 1px solid #454d55;
+  td {
+    &.table-data {
+      font-size: 1.1rem;
+      color: #6c757d;
+    }
+    &.table-data-alt {
+      font-size: 1.1rem;
+      color: #28a745;
+    }
+    &.table-data-none { 
+      font-size: 1.1rem;
+      color: #dc3545;
     }
   }
-
-  button.buy-button {
-    padding: 5px 10px;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-    border-radius: 3px;
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-    cursor: pointer;
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }

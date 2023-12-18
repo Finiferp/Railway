@@ -1,0 +1,18 @@
+<div *ngFor="let station of railways">
+  <h1>Station: {{ station.station_name }}</h1>
+  <div *ngIf="station.railways">
+    <ul>
+      <li *ngFor="let railway of station.railways">
+        <p>Length of the Railway: {{ railway.distance }}</p>
+        <ul>
+          <li *ngFor="let connectedStation of railway.connected_stations">
+            <p>Connects Station: {{ connectedStation.connected_station_name }}</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <button *ngIf="station.railways.length < 9"  (click) = "buy(station.station_id)">Add Railway</button>
+  </div>
+  <button *ngIf="!station.railways"  (click) = "buy(station.station_id)">Add Railway</button> 
+</div>
+<p>Keep in mind maximum 20 Railways per station</p> 

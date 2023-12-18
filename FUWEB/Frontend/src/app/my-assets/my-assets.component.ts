@@ -28,19 +28,6 @@ export class MyAssetsComponent {
     const data = await response.json();
     this.myAssests = data.data;
 
-   /* for (let i = 0; i < this.myAssests.length; i++) {
-      let assetId = this.myAssests[i].assetId;
-      let station = await this.getStations(assetId);
-      console.log(await station);
-      
-      if (station === null) {
-        this.stations.set(assetId, false); 
-      } else{
-        this.stations.set(assetId, true); 
-      }
-
-    }    
-  }*/
   for (const asset of this.myAssests) {
     const assetId = asset.assetId;
     const station = await this.getStations(assetId);

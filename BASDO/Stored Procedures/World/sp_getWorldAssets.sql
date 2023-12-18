@@ -24,7 +24,10 @@ BEGIN
                 'population', A.population,
                 'level', A.level,
                 'stockpileMax', A.stockpileMax,
-                'position', ST_AsText(A.position),
+                'position', JSON_OBJECT(
+                    'x', ST_X(A.position),
+                    'y', ST_Y(A.position)
+                ),
                 'idOwner_FK', A.idOwner_FK,
                 'cost', A.cost,
                 'goods', CASE

@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MyAssetsComponent } from '../my-assets/my-assets.component';
 import { MyStockComponent } from '../my-stock/my-stock.component';
 import { MyNeedsComponent } from '../my-needs/my-needs.component';
+import { MyRailwaysComponent } from '../my-railways/my-railways.component';
+import { MyTrainsComponent } from '../my-trains/my-trains.component';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, MyAssetsComponent, MyStockComponent, MyNeedsComponent],
+  imports: [CommonModule, MyAssetsComponent, MyStockComponent, MyNeedsComponent, MyRailwaysComponent, MyTrainsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -14,6 +16,8 @@ export class ProfileComponent {
   showAssetsFlag: boolean = true;
   showStockFlag: boolean = false;
   showNeedsFlag: boolean = false;
+  showRailwayFlag: boolean = false;
+  showTrainsFlag: boolean = false;
   public username: any;
   public funds: any;
   private token: any;
@@ -39,18 +43,38 @@ export class ProfileComponent {
     this.showAssetsFlag = true;
     this.showStockFlag = false;
     this.showNeedsFlag = false;
+    this.showRailwayFlag = false;
+    this.showTrainsFlag = false;
   }
 
   showStock() {
     this.showAssetsFlag = false;
     this.showStockFlag = true;
     this.showNeedsFlag = false;
-
+    this.showTrainsFlag = false;
   }
 
   showNeeds() {
     this.showAssetsFlag = false;
     this.showStockFlag = false;
     this.showNeedsFlag = true;
+    this.showRailwayFlag = false;
+    this.showTrainsFlag = false;
+  }
+
+  showRailways() {
+    this.showAssetsFlag = false;
+    this.showStockFlag = false;
+    this.showNeedsFlag = false;
+    this.showRailwayFlag = true;
+    this.showTrainsFlag = false;
+  }
+
+  showTrains() {
+    this.showAssetsFlag = false;
+    this.showStockFlag = false;
+    this.showNeedsFlag = false;
+    this.showRailwayFlag = false;
+    this.showTrainsFlag = true;
   }
 }
