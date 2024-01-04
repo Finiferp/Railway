@@ -46,7 +46,7 @@ public class StationController {
             return ResponseEntity.status(status_code).body(responseJson.toMap());
       }
 
-      @PostMapping("station/create")
+      @PostMapping("/station/create")
       public ResponseEntity<Object> createStation(@RequestBody Map<String, Object> requestBody) {
             String name = (String) requestBody.get("name");
             int assetId = (int) requestBody.get("assetId");
@@ -58,7 +58,26 @@ public class StationController {
             String message = result.getString("message");
             JSONObject station = result.optJSONObject("station");
             JSONObject responseJson = new JSONObject();
-            if (station != null) responseJson.put("station", station);
+            if (station != null)
+                  responseJson.put("station", station);
+            responseJson.put("message", message);
+            return ResponseEntity.status(status_code).body(responseJson.toMap());
+      }
+
+      @PostMapping("/station/name")
+      public ResponseEntity<Object> spGetStationByName(@RequestBody Map<String, Object> requestBody) {
+            String station_name = (String) requestBody.get("station_name");
+            JSONObject inputJSON = new JSONObject();
+            inputJSON.put("station_name", station_name);
+            JSONObject result = stationDAO.getStationByName(inputJSON);
+            int status_code = result.getInt("status_code");
+            String message = result.getString("message");
+            JSONObject data = result.optJSONObject("data");
+
+            JSONObject responseJson = new JSONObject();
+            if (data != null) {
+                  responseJson.put("data", data);
+            }
             responseJson.put("message", message);
             return ResponseEntity.status(status_code).body(responseJson.toMap());
       }

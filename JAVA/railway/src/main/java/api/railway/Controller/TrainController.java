@@ -4,6 +4,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +66,43 @@ public class TrainController {
             JSONObject train = result.optJSONObject("train");
             JSONObject responseJson = new JSONObject();
             if (train != null) responseJson.put("train", train);
+            responseJson.put("message", message);
+            return ResponseEntity.status(status_code).body(responseJson.toMap());
+      }
+
+      @DeleteMapping("/train/delete")
+      public ResponseEntity<Object> deleteTrain(@RequestBody Map<String, Object> requestBody) {
+            int trainId = (int) requestBody.get("trainId");
+            int userId = (int) requestBody.get("userId");
+            JSONObject inputJSON = new JSONObject();
+            inputJSON.put("trainId", trainId);
+            inputJSON.put("userId",userId);
+            JSONObject result = trainDAO.deleteTrain(inputJSON);
+            int status_code = result.getInt("status_code");
+            String message = result.getString("message");
+        
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", message);
+            return ResponseEntity.status(status_code).body(responseJson.toMap());
+      }
+
+      @PostMapping("train/demand")
+      public ResponseEntity<Object> demandTrain(@RequestBody Map<String, Object> requestBody) {
+            int railwayId = (int) requestBody.get("railwayId");
+            int assetFromId = (int) requestBody.get("assetFromId");
+            int assetToId = (int) requestBody.get("assetToId");
+            int goodId = (int) requestBody.get("goodId");
+            int amount = (int) requestBody.get("amount");
+            JSONObject inputJSON = new JSONObject();
+            inputJSON.put("railwayId", railwayId);
+            inputJSON.put("assetFromId", assetFromId);
+            inputJSON.put("assetToId", assetToId);
+            inputJSON.put("goodId", goodId);
+            inputJSON.put("amount", amount);
+            JSONObject result = trainDAO.demandTrain(inputJSON);
+            int status_code = result.getInt("status_code");
+            String message = result.getString("message");
+            JSONObject responseJson = new JSONObject();
             responseJson.put("message", message);
             return ResponseEntity.status(status_code).body(responseJson.toMap());
       }

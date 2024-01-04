@@ -54,11 +54,12 @@ const getStationByName = async (req, res) => {
     try {
         const { station_name } = req.body;
         const inputData = { station_name };
+        console.log(inputData);
         const dbOutput = await db.spGetStationByName(inputData);
         const { status_code, message, data } = dbOutput[0][0].result;
-
+        console.log(message);
         res.status(status_code).json({
-            message,
+            message: message,
             data: data
         });
     } catch (error) {

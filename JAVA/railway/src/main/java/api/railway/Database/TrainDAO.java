@@ -59,26 +59,65 @@ public class TrainDAO {
             e.printStackTrace();
             return new JSONObject();
         }
-    }     
+    }
 
     public JSONObject createTrain(JSONObject json) {
-      String sql = "CALL sp_createTrain(?)";
-      try (Connection connect = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database
-              + "?user=" + DBusername + "&password=" + DBpassword);
-              CallableStatement callableStatement = connect.prepareCall(sql)) {
-          callableStatement.setString(1, json.toString());
-          ResultSet resultSet = callableStatement.executeQuery();
+        String sql = "CALL sp_createTrain(?)";
+        try (Connection connect = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database
+                + "?user=" + DBusername + "&password=" + DBpassword);
+                CallableStatement callableStatement = connect.prepareCall(sql)) {
+            callableStatement.setString(1, json.toString());
+            ResultSet resultSet = callableStatement.executeQuery();
 
-          if (resultSet.next()) {
-              String jsonData = resultSet.getString("result");
-              return new JSONObject(jsonData);
-          } else {
-              return new JSONObject();
-          }
-      } catch (SQLException e) {
-          e.printStackTrace();
-          return new JSONObject();
-      }
-  }
+            if (resultSet.next()) {
+                String jsonData = resultSet.getString("result");
+                return new JSONObject(jsonData);
+            } else {
+                return new JSONObject();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    public JSONObject deleteTrain(JSONObject json) {
+        String sql = "CALL sp_deleteTrain(?)";
+        try (Connection connect = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database
+                + "?user=" + DBusername + "&password=" + DBpassword);
+                CallableStatement callableStatement = connect.prepareCall(sql)) {
+            callableStatement.setString(1, json.toString());
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String jsonData = resultSet.getString("result");
+                return new JSONObject(jsonData);
+            } else {
+                return new JSONObject();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
+    public JSONObject demandTrain(JSONObject json) {
+        String sql = "CALL sp_demandTrain(?)";
+        try (Connection connect = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database
+                + "?user=" + DBusername + "&password=" + DBpassword);
+                CallableStatement callableStatement = connect.prepareCall(sql)) {
+            callableStatement.setString(1, json.toString());
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String jsonData = resultSet.getString("result");
+                return new JSONObject(jsonData);
+            } else {
+                return new JSONObject();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
 }
-

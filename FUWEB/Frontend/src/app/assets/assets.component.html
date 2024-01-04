@@ -3,9 +3,9 @@
     <tr>
       <th class="table-header">Name</th>
       <th class="table-header">Type</th>
-      <th class="table-header">position</th>
-      <th class="table-header" >Population</th>
-      <th class="table-header" >Level</th>
+      <th class="table-header">Position</th>
+      <th class="table-header">Population</th>
+      <th class="table-header">Level</th>
       <th class="table-header">Goods</th>
       <th class="table-header">Owner</th>
     
@@ -15,7 +15,7 @@
     <tr *ngFor="let item of assetsData">
       <td>{{ item.name }}</td>
       <td>{{ item.type }}</td>
-      <td> X:{{ item.position.x }}; Y: {{ item.position.y }}</td> 
+      <td> X:{{ item.position.x }}; Y:{{ item.position.y }}</td> 
       <td >{{ item.population }}</td>
       <td >{{ item.level }}</td>
       <td >

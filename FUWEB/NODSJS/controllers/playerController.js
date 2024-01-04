@@ -10,7 +10,6 @@ const getPlayerById = async (req, res) => {
     try {
         const dbOutput = await db.spGetPlayer(JSON.stringify(inputData));
         const { status_code, message, data } = dbOutput[0][0].result;
-
         res.status(status_code).json({
             message,
             data: data,
@@ -51,7 +50,7 @@ const register = async (req, res) => {
             generateWorld(new_world_id);
         }
         res.status(status_code).json({
-            message,
+            message: message,
             user: user,
         });
     } catch (error) {

@@ -22,7 +22,7 @@ BEGIN
         END IF;
 
         SELECT t.traveledDistance, t.isReturning, r.distance
-        INTO trainDistance, railwayDistance
+        INTO trainDistance,isReturning, railwayDistance
         FROM Train t
         JOIN Railway r ON t.idRailway_FK = r.idRailway_PK
         WHERE t.idTrain_PK = trainID;

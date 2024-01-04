@@ -34,8 +34,7 @@ import api.railway.Database.PlayerDAO;
 public class PlayerController {
 
     private PlayerDAO playerDAO = new PlayerDAO();
-    
-    
+
     @GetMapping("/players")
     public ResponseEntity<Object> getPlayers() {
         JSONObject result = playerDAO.getPlayers();
@@ -56,6 +55,106 @@ public class PlayerController {
         JSONObject inputJSON = new JSONObject();
         inputJSON.put("userId", id);
         JSONObject result = playerDAO.getPlayerById(inputJSON);
+        int status_code = result.getInt("status_code");
+        String message = result.getString("message");
+        JSONObject data = result.optJSONObject("data");
+
+        JSONObject responseJson = new JSONObject();
+        if (data != null) {
+            responseJson.put("data", data);
+        }
+        responseJson.put("message", message);
+        return ResponseEntity.status(status_code).body(responseJson.toMap());
+    }
+
+    @PostMapping("/player/stockpile")
+    public ResponseEntity<Object> getPlayerStockpiles(@RequestBody Map<String, Object> requestBody) {
+        String userId = (String) requestBody.get("userId");
+
+        JSONObject inputJSON = new JSONObject();
+        inputJSON.put("userId", userId);
+
+        JSONObject result = playerDAO.getPlayerStockpiles(inputJSON);
+        int status_code = result.getInt("status_code");
+        String message = result.getString("message");
+        JSONObject data = result.optJSONObject("data");
+
+        JSONObject responseJson = new JSONObject();
+        if (data != null) {
+            responseJson.put("data", data);
+        }
+        responseJson.put("message", message);
+        return ResponseEntity.status(status_code).body(responseJson.toMap());
+    }
+
+    @PostMapping("/player/needs")
+    public ResponseEntity<Object> getPlayerNeeds(@RequestBody Map<String, Object> requestBody) {
+        String userId = (String) requestBody.get("userId");
+
+        JSONObject inputJSON = new JSONObject();
+        inputJSON.put("userId", userId);
+
+        JSONObject result = playerDAO.getPlayerNeeds(inputJSON);
+        int status_code = result.getInt("status_code");
+        String message = result.getString("message");
+        JSONObject data = result.optJSONObject("data");
+
+        JSONObject responseJson = new JSONObject();
+        if (data != null) {
+            responseJson.put("data", data);
+        }
+        responseJson.put("message", message);
+        return ResponseEntity.status(status_code).body(responseJson.toMap());
+    }
+
+    
+    @PostMapping("/player/railways")
+    public ResponseEntity<Object> getPlayerRailways(@RequestBody Map<String, Object> requestBody) {
+        String userId = (String) requestBody.get("userId");
+
+        JSONObject inputJSON = new JSONObject();
+        inputJSON.put("userId", userId);
+
+        JSONObject result = playerDAO.getPlayerRailways(inputJSON);
+        int status_code = result.getInt("status_code");
+        String message = result.getString("message");
+        JSONObject data = result.optJSONObject("data");
+
+        JSONObject responseJson = new JSONObject();
+        if (data != null) {
+            responseJson.put("data", data);
+        }
+        responseJson.put("message", message);
+        return ResponseEntity.status(status_code).body(responseJson.toMap());
+    }
+
+    @PostMapping("/player/trains")
+    public ResponseEntity<Object> getPlayersTrains(@RequestBody Map<String, Object> requestBody) {
+        String userId = (String) requestBody.get("userId");
+
+        JSONObject inputJSON = new JSONObject();
+        inputJSON.put("userId", userId);
+
+        JSONObject result = playerDAO.getPlayersTrains(inputJSON);
+        int status_code = result.getInt("status_code");
+        String message = result.getString("message");
+        JSONObject data = result.optJSONObject("data");
+
+        JSONObject responseJson = new JSONObject();
+        if (data != null) {
+            responseJson.put("data", data);
+        }
+        responseJson.put("message", message);
+        return ResponseEntity.status(status_code).body(responseJson.toMap());
+    }
+    @PostMapping("/player/industries")
+    public ResponseEntity<Object> getPlayerIndustries(@RequestBody Map<String, Object> requestBody) {
+        String userId = (String) requestBody.get("userId");
+
+        JSONObject inputJSON = new JSONObject();
+        inputJSON.put("userId", userId);
+
+        JSONObject result = playerDAO.getPlayerIndustries(inputJSON);
         int status_code = result.getInt("status_code");
         String message = result.getString("message");
         JSONObject data = result.optJSONObject("data");
@@ -169,7 +268,7 @@ public class PlayerController {
         String token = jwtTokenUtil.generateToken(username);
         System.out.println(token);
         return "s";
-        
+
     }
 
     private Key getSigningKey() {

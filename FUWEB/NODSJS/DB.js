@@ -156,7 +156,7 @@ const spCreateTrain = async (JSON) => {
     return await executeQuery(sql, values);
 };
 
-const spCheckTokenExists = async (token) =>{
+const spCheckTokenExists = async (token) => {
     const sql = 'CALL sp_checkTokenExists(?)';
     const values = [token];
     return await executeQuery(sql, values);
@@ -197,17 +197,17 @@ const spGetPlayerNeeds = async (JSON) => {
     const values = [JSON];
     return await executeQuery(sql, values);
 }
-
-const spWorldsAssets = async (JSON) => {
-    const sql = 'CALL sp_getWorldAssets(?)';
-    const values = [JSON];
-    return await executeQuery(sql, values);
-}
 const spPlayerRailways = async (JSON) => {
     const sql = 'CALL sp_getPlayerRailways(?)';
     const values = [JSON];
     return await executeQuery(sql, values);
 }
+const spWorldsAssets = async (JSON) => {
+    const sql = 'CALL sp_getWorldAssets(?)';
+    const values = [JSON];
+    return await executeQuery(sql, values);
+}
+
 const spGetStationByName = async (JSON) => {
     const sql = 'CALL sp_getStationByName(?)';
     const values = [JSON];

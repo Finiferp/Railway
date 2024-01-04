@@ -25,7 +25,7 @@ const getIndustryById = async (req, res) => {
         const { status_code, message, data } = dbOutput[0][0].result;
 
         res.status(status_code).json({
-            message,
+            message: message,
             data: data,
         });
     } catch (error) {
@@ -40,9 +40,8 @@ const createIndustry = async (req, res) => {
         const inputData = { name, idAsset, type};
         const dbOutput = await db.spCreateIndustry(inputData);
         const {status_code, message, industry} = dbOutput[0][0].result;
-      
         res.status(status_code).json({
-            message,
+            message: message,
             industry: industry
         });
     } catch (error) {

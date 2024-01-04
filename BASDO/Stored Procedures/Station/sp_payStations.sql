@@ -24,7 +24,7 @@ BEGIN
         WHERE a.idOwner_FK = playerId;
 
         IF fundsToDecrease > 0 THEN
-            CALL sp_removeFunds(1000*fundsToDecrease, playerId);
+            CALL sp_deleteFunds(1000*fundsToDecrease, playerId);
         END IF;
     END LOOP;
 

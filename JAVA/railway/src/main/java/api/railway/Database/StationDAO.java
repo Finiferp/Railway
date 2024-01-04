@@ -80,5 +80,24 @@ public class StationDAO {
           return new JSONObject();
       }
   }
+     public JSONObject getStationByName(JSONObject json) {
+      String sql = "CALL sp_getStationByName(?)";
+      try (Connection connect = DriverManager.getConnection("jdbc:mysql://" + server + ":" + port + "/" + database
+              + "?user=" + DBusername + "&password=" + DBpassword);
+              CallableStatement callableStatement = connect.prepareCall(sql)) {
+          callableStatement.setString(1, json.toString());
+          ResultSet resultSet = callableStatement.executeQuery();
+
+          if (resultSet.next()) {
+              String jsonData = resultSet.getString("result");
+              return new JSONObject(jsonData);
+          } else {
+              return new JSONObject();
+          }
+      } catch (SQLException e) {
+          e.printStackTrace();
+          return new JSONObject();
+      }
+  }
 }
 
