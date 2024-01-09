@@ -1,0 +1,78 @@
+-- Active: 1701078754693@@192.168.131.123@3306@RailwayProject
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS sp_LoginCopy;
+CREATE PROCEDURE sp_LoginCopy(IN json_data JSON, OUT out_response JSON)
+BEGIN
+    DECLARE input_username VARCHAR(80);
+    DECLARE input_password VARCHAR(10000);
+    DECLARE input_token VARCHAR(450);
+    DECLARE stored_password VARCHAR(10000);
+    DECLARE user_id INT;
+    DECLARE idWorld INT;
+    DECLARE response_code INT;
+    DECLARE response_message VARCHAR(255);
+    DECLARE v_JSONSchema JSON;
+    SET v_JSONSchema = '{
+        "type": "object",
+        "properties": {
+            "username": {"type": "string"},
+            "password": {"type": "string"},
+            "token": {"type": "string"}
+        },
+        "required": ["username", "password", "token"]
+    }';
+
+    IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
+        SET response_code = 400;
+        SET response_message = 'Invalid JSON format or structure for asset_id';
+        SET out_response = JSON_OBJECT(
+            'status_code', response_code,
+            'message', response_message
+        );
+    ELSE    
+        SET input_username = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.username'));
+        SET input_password = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.password'));
+        SET input_token = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.token'));
+
+        -- Checking if the username exists
+        IF NOT EXISTS (SELECT 1 FROM Player WHERE username = input_username) THEN
+            -- Username does not exist, set response code to 404 (Not Found)
+            SET response_code = 404;
+            SET response_message = 'Username not found';
+        ELSE
+            -- Retrieve the stored password and user ID for the given username
+            SELECT password, idPlayer_PK, idWorld_FK INTO stored_password, user_id, idWorld FROM Player WHERE username = input_username;
+
+            -- Check if the provided password matches the stored password
+            IF input_password = stored_password THEN
+                INSERT INTO Token (type,idPlayer_Identifies_FK) VALUES (input_token, user_id);
+                -- Passwords match, set response code to 200 (OK)
+                SET response_code = 200;
+                SET response_message = 'Login successful';
+            ELSE
+                -- Passwords do not match, set response code to 401 (Unauthorized)
+                SET response_code = 401;
+                SET response_message = 'Incorrect password';
+            END IF;
+        END IF;
+
+        -- Returning the JSON response with user information if successful
+        IF response_code = 200 THEN
+            SET out_response = JSON_OBJECT(
+                'status_code', response_code, 
+                'message', response_message, 
+                'user', JSON_OBJECT(
+                    'id', user_id, 
+                    'username', input_username,
+                    'idWorld', idWorld
+                ),
+                'token', input_token
+            );
+        ELSE
+            SET out_response = JSON_OBJECT('status_code', response_code, 'message', response_message);
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
