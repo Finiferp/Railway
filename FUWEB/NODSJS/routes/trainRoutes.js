@@ -7,7 +7,6 @@ module.exports = function (app) {
   app.route("/train/create").post(authenticateToken,train.createTrain);
   app.route("/train/:id").get(authenticateToken,train.getTrainById);
   app.route("/trains").get(authenticateToken,train.getAllTrains);
-  app.route("/train/create").post(authenticateToken,train.createTrain);
   app.route("/train/delete").delete(authenticateToken,train.deleteTrain);
   app.route("/train/demand").post(authenticateToken,train.demandTrain);
   

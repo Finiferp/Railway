@@ -6,37 +6,54 @@ BEGIN
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE railway_data JSON;
+    DECLARE v_JSONSchema JSON;
+    SET v_JSONSchema = '{
+        "type": "object",
+        "properties": {
+            "id": {"type": "number"}
+        },
+        "required": ["id"]
+    }';
 
-    -- Extracting data from JSON input
-    SET input_railway_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.id'));
+    IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
+        SET response_code = 400;
+        SET response_message = 'Invalid JSON format or structure for asset_id';
+        SELECT JSON_OBJECT(
+            'status_code', response_code,
+            'message', response_message
+        ) AS 'result';
+    ELSE    
+        -- Extracting data from JSON input
+        SET input_railway_id = JSON_UNQUOTE(JSON_EXTRACT(json_data, '$.id'));
 
-    -- Checking if the railway ID exists
-    IF NOT EXISTS (SELECT 1 FROM Railway WHERE idRailway_PK = input_railway_id) THEN
-        -- Railway ID does not exist, set response code to 404 (Not Found)
-        SET response_code = 404;
-        SET response_message = 'Railway not found';
-        SET railway_data = NULL; -- Set railway_data to NULL when railway is not found
-    ELSE
-        -- Retrieve railway data for the given railway ID
-        SET railway_data = (
-            SELECT JSON_OBJECT(
-                'id', idRailway_PK,
-                'distance', distance
-            )
-            FROM Railway
-            WHERE idRailway_PK = input_railway_id
-        );
+        -- Checking if the railway ID exists
+        IF NOT EXISTS (SELECT 1 FROM Railway WHERE idRailway_PK = input_railway_id) THEN
+            -- Railway ID does not exist, set response code to 404 (Not Found)
+            SET response_code = 404;
+            SET response_message = 'Railway not found';
+            SET railway_data = NULL; -- Set railway_data to NULL when railway is not found
+        ELSE
+            -- Retrieve railway data for the given railway ID
+            SET railway_data = (
+                SELECT JSON_OBJECT(
+                    'id', idRailway_PK,
+                    'distance', distance
+                )
+                FROM Railway
+                WHERE idRailway_PK = input_railway_id
+            );
 
-        -- Set response code to 200 (OK)
-        SET response_code = 200;
-        SET response_message = 'Railway retrieved successfully';
-    END IF;
+            -- Set response code to 200 (OK)
+            SET response_code = 200;
+            SET response_message = 'Railway retrieved successfully';
+        END IF;
 
-    -- Returning the JSON response
-    IF response_code = 200 THEN
-        SELECT JSON_OBJECT('status_code', response_code, 'message', response_message, 'data', railway_data) AS 'result';
-    ELSE
-        SELECT JSON_OBJECT('status_code', response_code, 'message', response_message) AS 'result';
+        -- Returning the JSON response
+        IF response_code = 200 THEN
+            SELECT JSON_OBJECT('status_code', response_code, 'message', response_message, 'data', railway_data) AS 'result';
+        ELSE
+            SELECT JSON_OBJECT('status_code', response_code, 'message', response_message) AS 'result';
+        END IF;
     END IF;
 
 END //

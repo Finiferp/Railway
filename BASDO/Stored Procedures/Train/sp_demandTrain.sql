@@ -14,47 +14,68 @@ BEGIN
     DECLARE wagons_needed INT;
     DECLARE last_train_id INT;
     DECLARE i INT;
+    DECLARE v_JSONSchema JSON;
+    SET v_JSONSchema = '{
+        "type": "object",
+        "properties": {
+            "assetFromId": {"type": "number"},
+            "assetToId": {"type": "number"},
+            "railwayId": {"type": "number"},
+            "goodId": {"type": "number"}
+        },
+        "required": ["assetFromId", "assetToId", "railwayId", "goodId"]
+    }';
 
-    SET asset_from_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetFromId'));
-    SET asset_to_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetToId'));
-    SET railway_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.railwayId'));
-    SET good_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.goodId'));
-    SET amount_to_transport = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.amount'));
-     IF (SELECT type FROM Asset WHERE idAsset_PK = asset_to_id) = 'TOWN' THEN
-        SELECT SUM(quantity), stockpileMax INTO stockpile_quantity, stockpile_max
-        FROM Stockpiles JOIN Asset a ON idAsset_Stockpiles_PKFK = idAsset_PK
-        WHERE idAsset_Stockpiles_PKFK = asset_to_id
-        GROUP BY idAsset_Stockpiles_PKFK;
+    
+    IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
+        SET response_code = 400;
+        SET response_message = 'Invalid JSON format or structure for asset_id';
+        SELECT JSON_OBJECT(
+            'status_code', response_code,
+            'message', response_message
+        ) AS 'result';
+    ELSE    
+        SET asset_from_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetFromId'));
+        SET asset_to_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.assetToId'));
+        SET railway_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.railwayId'));
+        SET good_id = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.goodId'));
+        SET amount_to_transport = JSON_UNQUOTE(JSON_EXTRACT(input_json, '$.amount'));
+        IF (SELECT type FROM Asset WHERE idAsset_PK = asset_to_id) = 'TOWN' THEN
+            SELECT SUM(quantity), stockpileMax INTO stockpile_quantity, stockpile_max
+            FROM Stockpiles JOIN Asset a ON idAsset_Stockpiles_PKFK = idAsset_PK
+            WHERE idAsset_Stockpiles_PKFK = asset_to_id
+            GROUP BY idAsset_Stockpiles_PKFK;
 
-        IF stockpile_quantity + amount_to_transport <= stockpile_max THEN
-            SET wagons_needed = LEAST(CEIL(amount_to_transport / stockpile_max), 10);
+            IF stockpile_quantity + amount_to_transport <= stockpile_max THEN
+                SET wagons_needed = LEAST(CEIL(amount_to_transport / stockpile_max), 10);
 
-            INSERT INTO Train (name, idRailway_FK, idAsset_Starts_FK, idAsset_Destines_FK)
-            VALUES ('New Train', railway_id, asset_from_id, asset_to_id);
+                INSERT INTO Train (name, idRailway_FK, idAsset_Starts_FK, idAsset_Destines_FK)
+                VALUES ('New Train', railway_id, asset_from_id, asset_to_id);
 
-            SET last_train_id = LAST_INSERT_ID();
+                SET last_train_id = LAST_INSERT_ID();
 
-            WHILE i < wagons_needed DO
-                INSERT INTO Wagon (idTrain_FK, idGood_Transport_FK)
-                VALUES (last_train_id, good_id); 
-                SET i = i + 1;
-            END WHILE;
+                WHILE i < wagons_needed DO
+                    INSERT INTO Wagon (idTrain_FK, idGood_Transport_FK)
+                    VALUES (last_train_id, good_id); 
+                    SET i = i + 1;
+                END WHILE;
 
-            SET response_code = 200;
-            SET response_message = 'Train and wagons created successfully';
+                SET response_code = 200;
+                SET response_message = 'Train and wagons created successfully';
+            ELSE
+                SET response_code = 400;
+                SET response_message = 'Not enough stockpile space in the destination asset for the specified amount of goods';
+            END IF;
         ELSE
             SET response_code = 400;
-            SET response_message = 'Not enough stockpile space in the destination asset for the specified amount of goods';
+            SET response_message = 'The second asset must be of type "RURALBUSINESS"';
         END IF;
-    ELSE
-        SET response_code = 400;
-        SET response_message = 'The second asset must be of type "RURALBUSINESS"';
-    END IF;
 
-    SELECT JSON_OBJECT(
-        'status_code', response_code,
-        'message', response_message
-    ) AS 'result';
+        SELECT JSON_OBJECT(
+            'status_code', response_code,
+            'message', response_message
+        ) AS 'result';
+    END IF;
 
 END //
 
