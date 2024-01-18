@@ -2,6 +2,15 @@
 
 const db = require("../DB");
 
+/**
+ * Get all industries from the database.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getAllIndustries = async (req, res) => {
     try {
         const dbOutput = await db.spGetIndustries();
@@ -17,6 +26,15 @@ const getAllIndustries = async (req, res) => {
     }
 };
 
+/**
+ * Get a specific industry by its ID.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getIndustryById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };
@@ -34,6 +52,15 @@ const getIndustryById = async (req, res) => {
     }
 };
 
+/**
+ * Create a new industry.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing name, idAsset, and type.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const createIndustry = async (req, res) => {
     try {
         const {name, idAsset, type} = req.body;

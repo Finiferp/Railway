@@ -38,7 +38,7 @@ class loginViewController: UIViewController {
                     let token = json["token"].stringValue
                     let userId = Int(user["id"].stringValue)
                     self.defaults.setValue(username, forKey: "username")
-                    self.defaults.set(idWorld, forKey: "idWorld")
+                    self.defaults.setValue(idWorld, forKey: "idWorld")
                     self.defaults.setValue(token, forKey: "token")
                     self.defaults.setValue(userId, forKey: "userId")
                     

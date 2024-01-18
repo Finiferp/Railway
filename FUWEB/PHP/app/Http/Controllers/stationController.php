@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class stationController extends Controller
 {
+    /**
+     * Get a station by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStationById(Request $request)
     {
         $stationId = $request->route('id');
@@ -37,6 +43,12 @@ class stationController extends Controller
         }
     }
 
+    /**
+     * Get all stations.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAllStations(Request $request)
     {
         try {
@@ -56,6 +68,12 @@ class stationController extends Controller
         }
     }
 
+    /**
+     * Create a new station.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createStation(Request $request)
     {
         try {
@@ -83,6 +101,12 @@ class stationController extends Controller
         }
     }
 
+    /**
+     * Get a station by its name.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStationByName(Request $request)
     {
         try {

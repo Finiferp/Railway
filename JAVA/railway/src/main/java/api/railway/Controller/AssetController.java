@@ -48,7 +48,7 @@ public class AssetController {
     return ResponseEntity.status(status_code).body(responseJson.toMap());
   }
 
-  @GetMapping("/asset/{id}")
+  @GetMapping("/asset/player/{id}")
   public ResponseEntity<Object> getPlayerAssets(@PathVariable Long id) {
     JSONObject inputJSON = new JSONObject();
     inputJSON.put("id", id);
@@ -65,7 +65,7 @@ public class AssetController {
   }
 
   @PostMapping("/asset/buy")
-  public ResponseEntity<Object> getPlayerIndustries(@RequestBody Map<String, Object> requestBody) {
+  public ResponseEntity<Object> buyAsset(@RequestBody Map<String, Object> requestBody) {
     String userId = (String) requestBody.get("userId");
     int assetId = (int) requestBody.get("assetId");
     JSONObject inputJSON = new JSONObject();

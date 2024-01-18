@@ -11,10 +11,13 @@ BEGIN
     DECLARE response_code INT;
     DECLARE response_message VARCHAR(255);
     DECLARE v_JSONSchema JSON;
-    SET v_JSONSchema = '{"type": "object",{"properties":
-                                {"userId": {"type": "number"}, 
-                                "assetId": {"type": "number"} }, 
-                            "required": ["userId", "assetId"] }';
+    SET v_JSONSchema = '{"type": "object",
+                            "properties": {
+                                "userId": {"type": "number"}, 
+                                "assetId": {"type": "number"} 
+                            }, 
+                            "required": ["userId", "assetId"] 
+                        }';
 
     IF NOT JSON_SCHEMA_VALID(v_JSONSchema, json_input) THEN
         SET response_code = 400;

@@ -1,12 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <label for="businesses">Select a Station:</label>
+      <label for="businesses">Business Name:</label>
       <select formControlName="businesses" id="businesses">
         <option *ngFor="let business of businesses" [value]="business.idAsset_PK">
           {{ business.name }}
         </option>
       </select>
     
-      <label for="towns">Select a Railway Destination:</label>
+      <label for="towns">Name of the town:</label>
       <select formControlName="towns" id="towns">
         <option *ngFor="let town of towns" [value]="town.assetId">
           {{ town.name }}

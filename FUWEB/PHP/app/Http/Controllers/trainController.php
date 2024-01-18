@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class trainController extends Controller
 {
+    /**
+     * Get a train by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getTrainById(Request $request)
     {
         $trainId = $request->route('id');
@@ -36,7 +42,13 @@ class trainController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    
+    /**
+     * Get all trains.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAlltrains(Request $request)
     {
         try {
@@ -55,7 +67,13 @@ class trainController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    
+    /**
+     * Create a new train.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createtrain(Request $request)
     {
         try {
@@ -86,7 +104,12 @@ class trainController extends Controller
         }
     }
 
-
+    /**
+     * Delete a train.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteTrain(Request $request)
     {
         try {
@@ -106,6 +129,12 @@ class trainController extends Controller
         }
     }
 
+    /**
+     * Demand a train for transportation.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function demandTrain(Request $request)
     {
         try {

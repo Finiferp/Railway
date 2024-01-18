@@ -200,8 +200,7 @@ public class PlayerController {
         String input_password = (String) requestBody.get("input_password");
         String salt = playerDAO.getSalt(username);
         // String token = generateAuthToken(username);
-        System.out.println(generateAuthToken(username));
-        String token = "rse";
+        String token = "NoToken because of Java";
         String password = hashPassword(input_password, salt);
         System.out.println(password);
         JSONObject inputJSON = new JSONObject();

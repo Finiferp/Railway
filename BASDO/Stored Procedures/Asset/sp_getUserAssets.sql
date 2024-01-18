@@ -14,8 +14,9 @@ BEGIN
         "properties": {
             "id": {"type": "number"}
         },
-        "required": ["id"],
-    }';
+        "required": ["id"]
+        }';
+
     IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
         SET response_code = 400;
         SET response_message = 'Invalid JSON format or structure for asset_id';
@@ -62,7 +63,7 @@ BEGIN
         END IF;
 
         SELECT JSON_OBJECT('status_code', response_code, 'message', response_message, 'data', assets_data) AS 'result';
-    END IF;
+      END IF;
 
 END //
 

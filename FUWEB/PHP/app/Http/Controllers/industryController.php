@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class industryController extends Controller
 {
+    /**
+     * Get an industry by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getIndustryById(Request $request)
     {
         $industryId = $request->route('id');
@@ -37,6 +43,12 @@ class industryController extends Controller
         }
     }
 
+    /**
+     * Get all industries.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAllIndustries(Request $request)
     {
         try {
@@ -56,6 +68,12 @@ class industryController extends Controller
         }
     }
 
+    /**
+     * Create a new industry.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createIndustry(Request $request){
         try{
             $name = $request->input('name');

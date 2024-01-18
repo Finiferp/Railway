@@ -57,7 +57,6 @@ export class CreateTrainsComponent {
       selectedStationRailways = [];
       console.error('Selected station not found.');
     }
-
   }
 
   async onSubmit() {
@@ -96,7 +95,7 @@ export class CreateTrainsComponent {
   async createTrain(name: string | null, idRailway: number, idAsset_Starts: number,
     idAsset_Destines: number, willReturnWithGoods: boolean) {
     const inputData = { name, idRailway, idAsset_Starts, idAsset_Destines, willReturnWithGoods };
-    console.log(inputData);
+    //console.log(inputData);
 
     const response = await fetch('http://127.0.0.1:3000/train/create', {
       method: "POST",

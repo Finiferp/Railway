@@ -13,6 +13,12 @@ use Firebase\JWT\Key;
 
 class playerController extends Controller
 {
+    /**
+     * Get a player by their ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerById(Request $request)
     {
         $userId = $request->route('id');
@@ -43,6 +49,12 @@ class playerController extends Controller
         }
     }
 
+    /**
+     * Get all players.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAllPlayers(Request $request)
     {
         try {
@@ -62,6 +74,12 @@ class playerController extends Controller
         }
     }
 
+    /**
+     * Register a new player.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         try {
@@ -105,7 +123,13 @@ class playerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    
+    /**
+     * Login a player.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         try {
@@ -144,6 +168,13 @@ class playerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+    
+    /**
+     * Get a player's stockpile.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerStockpile(Request $request)
     {
         try {
@@ -171,7 +202,12 @@ class playerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    /**
+     * Get a player's needs.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerNeeds(Request $request)
     {
         try {
@@ -200,6 +236,12 @@ class playerController extends Controller
         }
     }
 
+    /**
+     * Get a player's railways.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerRailways(Request $request)
     {
         try {
@@ -228,6 +270,12 @@ class playerController extends Controller
         }
     }
 
+    /**
+     * Get a player's trains.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerTrains(Request $request)
     {
         try {
@@ -255,6 +303,13 @@ class playerController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
+
+    /**
+     * Get a player's industries.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerIndustries(Request $request)
     {
         try {
@@ -284,13 +339,25 @@ class playerController extends Controller
     }
     
 
-
+    /**
+     * Validate a password using a salt.
+     *
+     * @param string $password
+     * @param string $salt
+     * @return string
+     */
     private function validatePassword($password, $salt)
     {
         $key = hash_pbkdf2("sha512", $password, $salt, 10000, 512, true);
         return $hexString = bin2hex($key);
     }
 
+    /**
+     * Generate an authentication token.
+     *
+     * @param string $username
+     * @return string
+     */
     private function generateAuthToken($username)
     {
         $payload = [
@@ -302,6 +369,12 @@ class playerController extends Controller
         return $token;
     }
 
+    /**
+     * Generate a world with towns and rural businesses.
+     *
+     * @param int $worldId
+     * @return void
+     */
     private function generateWorld($worldId)
     {
         $gridSize = 1000;
@@ -366,6 +439,14 @@ class playerController extends Controller
         }
     }
 
+    /**
+     * Generate a random position with minimum distance.
+     *
+     * @param array $existingPositions
+     * @param int $gridSize
+     * @param int $minDistance
+     * @return array
+     */
     private function generateRandomPosition($existingPositions, $gridSize, $minDistance)
     {
         do {
@@ -376,6 +457,15 @@ class playerController extends Controller
         return compact('x', 'y');
     }
 
+    /**
+     * Check if a new position has a minimum distance from existing positions.
+     *
+     * @param array $existingPositions
+     * @param int $newX
+     * @param int $newY
+     * @param int $minDistance
+     * @return bool
+     */
     private function hasMinDistance($existingPositions, $newX, $newY, $minDistance)
     {
         foreach ($existingPositions as $position) {

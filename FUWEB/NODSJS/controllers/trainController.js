@@ -2,6 +2,15 @@
 
 const db = require("../DB");
 
+/**
+ * Get information for all trains.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getAllTrains = async (req, res) => {
     try {
         const dbOutput = await db.spGetTrains();
@@ -17,6 +26,15 @@ const getAllTrains = async (req, res) => {
     }
 };
 
+/**
+ * Get information for a specific train by ID.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getTrainById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };
@@ -34,7 +52,15 @@ const getTrainById = async (req, res) => {
     }
 };
 
-
+/**
+ * Create a new train.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing name, idRailway, idAsset_Starts, and idAsset_Destines.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const createTrain = async (req, res) => {
     try {
         const { name, idRailway, idAsset_Starts, idAsset_Destines } = req.body;
@@ -52,6 +78,15 @@ const createTrain = async (req, res) => {
     }
 };
 
+/**
+ * Delete a train.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing trainId and userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const deleteTrain = async (req, res) => {
     try {
         const { trainId, userId } = req.body;
@@ -67,6 +102,16 @@ const deleteTrain = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+/**
+ * Demand a train for transporting goods.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing assetFromId, assetToId, railwayId, goodId, and amount.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const demandTrain = async (req, res) => {
     try {
         const { assetFromId, assetToId, railwayId, goodId, amount } = req.body;

@@ -1,4 +1,6 @@
 const mysql = require('mysql2/promise');
+
+
 const DBConnectOpts = {
     host: '192.168.131.123',
     port: 3306,
@@ -9,6 +11,15 @@ const DBConnectOpts = {
 };
 const pool = mysql.createPool(DBConnectOpts);
 
+/**
+ * Execute a SQL query using the connection pool.
+ *
+ * @async
+ * @function
+ * @param {string} sql - SQL query string.
+ * @param {Array} values - Array of values to be used in the query.
+ * @returns {Promise<Array>} - A Promise that resolves to the query results.
+ */
 const executeQuery = async (sql, values) => {
     const connection = await pool.getConnection();
     try {

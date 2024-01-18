@@ -13,7 +13,7 @@ BEGIN
         "properties": {
             "id": {"type": "number"}
         },
-        "required": ["id"],
+        "required": ["id"]
     }';
     IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
         SET response_code = 400;

@@ -26,6 +26,7 @@
 		6509DFAF2B344CB000883EDD /* NeedsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509DFAE2B344CB000883EDD /* NeedsTableViewCell.swift */; };
 		6509DFB12B346A9F00883EDD /* MyStockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509DFB02B346A9F00883EDD /* MyStockTableViewCell.swift */; };
 		6509DFB32B346AF700883EDD /* MyStockTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6509DFB22B346AF700883EDD /* MyStockTableViewController.swift */; };
+		657E73982B502AD6009D745D /* DemandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657E73972B502AD6009D745D /* DemandViewController.swift */; };
 		659239032B32C7E400B492C1 /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659239022B32C7E400B492C1 /* profileViewController.swift */; };
 		659239072B32D51600B492C1 /* worldAssetsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659239062B32D51600B492C1 /* worldAssetsTableViewController.swift */; };
 		659239092B32E83400B492C1 /* WorldAssetsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659239082B32E83400B492C1 /* WorldAssetsTableViewCell.swift */; };
@@ -79,6 +80,7 @@
 		6509DFAE2B344CB000883EDD /* NeedsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NeedsTableViewCell.swift; path = Cells/NeedsTableViewCell.swift; sourceTree = "<group>"; };
 		6509DFB02B346A9F00883EDD /* MyStockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStockTableViewCell.swift; sourceTree = "<group>"; };
 		6509DFB22B346AF700883EDD /* MyStockTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStockTableViewController.swift; sourceTree = "<group>"; };
+		657E73972B502AD6009D745D /* DemandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DemandViewController.swift; path = Controller/DemandViewController.swift; sourceTree = "<group>"; };
 		659239022B32C7E400B492C1 /* profileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = profileViewController.swift; path = Controller/profileViewController.swift; sourceTree = "<group>"; };
 		659239062B32D51600B492C1 /* worldAssetsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = worldAssetsTableViewController.swift; path = Controller/worldAssetsTableViewController.swift; sourceTree = "<group>"; };
 		659239082B32E83400B492C1 /* WorldAssetsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorldAssetsTableViewCell.swift; path = Cells/WorldAssetsTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				52FB7EC42B30CA4800364C66 /* SceneDelegate.swift */,
 				52FB7EC62B30CA4800364C66 /* ViewController.swift */,
 				52FB7EC82B30CA4800364C66 /* Main.storyboard */,
+				657E73972B502AD6009D745D /* DemandViewController.swift */,
 				65C0D7692B35BBEE00B95372 /* MyTrainsTableViewCell.swift */,
 				65C0D76B2B35BDC100B95372 /* MyTrainsTableViewController.swift */,
 				659B44622B3477F50071E134 /* MyRailwaysTableViewCell.swift */,
@@ -345,6 +348,7 @@
 				659B44612B3477B60071E134 /* MyRailwaysTableViewController.swift in Sources */,
 				6509DFA92B34257700883EDD /* IndustriesTableViewCell.swift in Sources */,
 				6509DFAB2B34266C00883EDD /* IndustriesTableViewController.swift in Sources */,
+				657E73982B502AD6009D745D /* DemandViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

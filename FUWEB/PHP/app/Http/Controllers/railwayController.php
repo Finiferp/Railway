@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class railwayController extends Controller
 {
+    /**
+     * Get a railway by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getRailwayById(Request $request)
     {
         $railwayId = $request->route('id');
@@ -37,6 +43,12 @@ class railwayController extends Controller
         }
     }
 
+    /**
+     * Get all railways.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAllRailways(Request $request)
     {
         try {
@@ -56,9 +68,14 @@ class railwayController extends Controller
         }
     }
 
+    /**
+     * Create a new railway.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createRailway(Request $request){
         try{
-            \Log::info($request->input('station1Id'));
             $station1Id = $request->input('station1Id');
             $station2Id = $request->input('station2Id');
             $userId = $request->input('userId');

@@ -2,6 +2,16 @@
 
 const db = require("../DB");
 
+
+/**
+ * Get all goods from the database.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getAllGoods = async (req, res) => {
     try {
         const dbOutput = await db.spGetGoods();
@@ -18,7 +28,15 @@ const getAllGoods = async (req, res) => {
 };
 
 
-
+/**
+ * Get a specific good by its ID.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getGoodById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };

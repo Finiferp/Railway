@@ -10,6 +10,7 @@ BEGIN
     CALL sp_updateIndustryDaily();
     CALL sp_moveTrain();
     CALL sp_updateStockpile();
+    CAll sp_deleteOldTokens();
 END;
 
 

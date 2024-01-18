@@ -2,6 +2,15 @@
 
 const db = require("../DB");
 
+/**
+ * Get information for all railways.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getAllRailways = async (req, res) => {
     try {
         const dbOutput = await db.spGetRailways();
@@ -17,6 +26,15 @@ const getAllRailways = async (req, res) => {
     }
 };
 
+/**
+ * Get information for a specific railway by ID.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getRailwayById = async (req, res) => {
     const id = parseInt(req.params.id);
     const inputData = { id };
@@ -34,6 +52,15 @@ const getRailwayById = async (req, res) => {
     }
 };
 
+/**
+ * Create a new railway.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing station1Id and station2Id.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const createRailway = async (req, res) => {
     try {
         const {station1Id, station2Id} = req.body;

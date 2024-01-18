@@ -4,6 +4,15 @@ const db = require("../DB");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+/**
+ * Get player information by ID.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayerById = async (req, res) => {
     const userId = parseInt(req.params.id);
     const inputData = { userId };
@@ -20,6 +29,15 @@ const getPlayerById = async (req, res) => {
     }
 };
 
+/**
+ * Get information for all players.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getAllPlayers = async (req, res) => {
     try {
         const dbOutput = await db.spGetPlayers();
@@ -35,6 +53,15 @@ const getAllPlayers = async (req, res) => {
     }
 };
 
+/**
+ * Register a new player.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing username and input_password.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const register = async (req, res) => {
     try {
         const { username, input_password } = req.body;
@@ -49,6 +76,7 @@ const register = async (req, res) => {
         if (new_world_created === 1) {
             generateWorld(new_world_id);
         }
+        console.log(message);
         res.status(status_code).json({
             message: message,
             user: user,
@@ -59,6 +87,15 @@ const register = async (req, res) => {
     }
 };
 
+/**
+ * Log in a player.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing username and input_password.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const login = async (req, res) => {
     try {
         const { username, input_password } = req.body;
@@ -84,6 +121,15 @@ const login = async (req, res) => {
     }
 };
 
+/**
+ * Get stockpiled goods per asset of a player.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayerStockpiles = async (req, res) => {
     try {
        
@@ -103,6 +149,15 @@ const getPlayerStockpiles = async (req, res) => {
     }
 };
 
+/**
+ * Get needs per asset of a player.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayerNeeds = async (req, res) => {
     try {
        
@@ -122,6 +177,15 @@ const getPlayerNeeds = async (req, res) => {
     }
 };
 
+/**
+ * Get railways of a player.
+ *
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayerRailways = async (req, res) => {
     try {
        
@@ -141,6 +205,14 @@ const getPlayerRailways = async (req, res) => {
     }
 };
 
+/**
+ * Get trains of a player.
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayersTrains = async (req, res) => {
     try {
        
@@ -160,6 +232,16 @@ const getPlayersTrains = async (req, res) => {
     }
 };
 
+
+/**
+ * 
+ * Get industries of a player.
+ * @async
+ * @function
+ * @param {Object} req - Express request object with body containing userId.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} - A Promise that resolves when the operation is complete.
+ */
 const getPlayerIndustries = async (req, res) => {
     try {
        
@@ -178,12 +260,27 @@ const getPlayerIndustries = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+/**
+ * 
+ * Validate a password using the provided salt.
+ * @function
+ * @param {string} password - The password to be validated.
+ * @param {string} salt - The salt used for password hashing.
+ * @returns {string} - The hashed password.
+ */
 function validatePassword(password, salt) {
     let hashedPassword = crypto.pbkdf2Sync(password, salt, 10000, 512, "sha512").toString("hex");
     return hashedPassword;
 }
 
-
+/**
+ * 
+ * Generate an authentication token for a user.
+ * @function
+ * @param {string} username - The username for which the token is generated.
+ * @returns {string} - The generated authentication token.
+ */
 function generateAuthToken(username) {
     const payload = {
         username: username,
@@ -194,7 +291,15 @@ function generateAuthToken(username) {
     return token;
 };
 
-
+/**
+ * 
+ * Generate a random position for assets on the world map, ensuring minimum distance from existing positions.
+ * @function
+ * @param {Array} existingPositions - Array of existing positions to check for minimum distance.
+ * @param {number} gridSize - The size of the world map grid.
+ * @param {number} minDistance - The minimum distance required between positions.
+ * @returns {Object} - The generated random position.
+ */
 function generateRandomPosition(existingPositions, gridSize, minDistance) {
     let x, y;
     do {
@@ -205,6 +310,16 @@ function generateRandomPosition(existingPositions, gridSize, minDistance) {
     return { x, y };
 }
 
+/**
+ * 
+ * Check if a new position has a minimum distance from existing positions.
+ * @function
+ * @param {Array} existingPositions - Array of existing positions to check against.
+ * @param {number} newX - The x-coordinate of the new position.
+ * @param {number} newY - The y-coordinate of the new position.
+ * @param {number} minDistance - The minimum distance required between positions.
+ * @returns {boolean} - True if the minimum distance is satisfied, false otherwise.
+ */
 function hasMinDistance(existingPositions, newX, newY, minDistance) {
     for (const { x, y } of existingPositions) {
         const distance = Math.hypot(newX - x, newY - y);
@@ -215,6 +330,13 @@ function hasMinDistance(existingPositions, newX, newY, minDistance) {
     return false; // Minimum distance satisfied
 }
 
+/**
+ * Generate a world with towns and rural businesses.
+ * @async
+ * @function
+ * @param {number} worldId - The ID of the world to be generated.
+ * @returns {Promise<void>} - A Promise that resolves when the world generation is complete.
+ */
 async function generateWorld(worldId) {
     const gridSize = 1000;
     const minDistance = 50;

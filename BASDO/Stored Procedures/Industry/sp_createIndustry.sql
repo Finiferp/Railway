@@ -20,7 +20,7 @@ BEGIN
             "idAsset": {"type": "number"},
             "type": {"type": "string"}
         },
-        "required": ["name", "idAsset", "type"],
+        "required": ["name", "idAsset", "type"]
     }';
     
     IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN

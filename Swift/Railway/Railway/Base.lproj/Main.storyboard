@@ -371,7 +371,7 @@
                                 <rect key="frame" x="20" y="160" width="374" height="657"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xik-8E-9Ie">
-                                        <rect key="frame" x="135.5" y="0.0" width="103" height="101"/>
+                                        <rect key="frame" x="135.5" y="0.0" width="103" height="73.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Assets" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -382,7 +382,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zm-KN-V74">
-                                        <rect key="frame" x="124" y="111" width="126.5" height="101.5"/>
+                                        <rect key="frame" x="124" y="83.5" width="126.5" height="73.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Industries" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -393,7 +393,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaL-or-0Ky">
-                                        <rect key="frame" x="136.5" y="222.5" width="101" height="101"/>
+                                        <rect key="frame" x="136.5" y="167" width="101" height="73"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Needs" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -404,7 +404,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shI-ZN-Mna">
-                                        <rect key="frame" x="139.5" y="333.5" width="95.5" height="101"/>
+                                        <rect key="frame" x="139.5" y="250" width="95.5" height="73.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Stock" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -415,7 +415,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPW-yS-8Jd">
-                                        <rect key="frame" x="128.5" y="444.5" width="117" height="101.5"/>
+                                        <rect key="frame" x="128.5" y="333.5" width="117" height="73.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Railways" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -426,7 +426,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG5-CX-h0M">
-                                        <rect key="frame" x="138.5" y="556" width="97.5" height="101"/>
+                                        <rect key="frame" x="138.5" y="417" width="97.5" height="73.5"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" title="My Trains" cornerStyle="small">
                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -434,6 +434,28 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <segue destination="p1a-ij-aFY" kind="show" id="TYm-3R-Smt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOM-hs-6lW">
+                                        <rect key="frame" x="129" y="500.5" width="116.5" height="73"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Create Train" cornerStyle="small">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="Xwt-dC-c9z" kind="show" id="G6D-bW-Ehw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoP-Is-e8U">
+                                        <rect key="frame" x="122" y="583.5" width="130" height="73.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Demand Train" cornerStyle="small">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="2ha-1d-CkJ" kind="show" id="XWO-xc-mDB"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -721,59 +743,232 @@
             <objects>
                 <viewController title="CreateTrain" id="Xwt-dC-c9z" customClass="CreateleViewController" customModule="Railway" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dNh-gG-zMv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JG-Zv-vl8">
-                                <rect key="frame" x="20" y="54" width="49" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <menu key="menu" id="dXX-r6-nLW"/>
-                                <state key="normal" title="Station"/>
-                                <connections>
-                                    <action selector="stations:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="wAN-TR-DJE"/>
-                                    <action selector="stations:" destination="vLe-cA-Ye7" eventType="touchUpInside" id="z0d-Xr-cwE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAg-NE-nPk">
-                                <rect key="frame" x="20" y="92" width="49" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <menu key="menu" id="q5U-tK-oYZ"/>
-                                <state key="normal" title="Railway"/>
-                                <connections>
-                                    <action selector="railways:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="Rj3-gY-CzP"/>
-                                </connections>
-                            </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yeC-Of-IQx">
-                                <rect key="frame" x="20" y="136" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="returnWithValue:" destination="Xwt-dC-c9z" eventType="valueChanged" id="ZQ7-bj-VsT"/>
-                                </connections>
-                            </switch>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XD5-AJ-ae7">
+                                <rect key="frame" x="20" y="43" width="384.5" height="170"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="Swx-Gy-DDz">
+                                        <rect key="frame" x="0.5" y="0.0" width="384" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name for yoour Train:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3n-UM-6yM">
+                                                <rect key="frame" x="0.0" y="0.0" width="164.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s6R-9L-dcH">
+                                                <rect key="frame" x="219.5" y="0.0" width="164.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="211" translatesAutoresizingMaskIntoConstraints="NO" id="pQD-jq-en7">
+                                        <rect key="frame" x="0.5" y="34" width="384" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Station:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jo-S3-m8I">
+                                                <rect key="frame" x="0.0" y="0.0" width="124" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JG-Zv-vl8">
+                                                <rect key="frame" x="335" y="0.0" width="49" height="34"/>
+                                                <state key="normal" title="Station"/>
+                                                <connections>
+                                                    <action selector="stations:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="wAN-TR-DJE"/>
+                                                    <action selector="stations:" destination="vLe-cA-Ye7" eventType="touchUpInside" id="z0d-Xr-cwE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="96" translatesAutoresizingMaskIntoConstraints="NO" id="vnX-pw-S0s">
+                                        <rect key="frame" x="0.0" y="68" width="384.5" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Station as Destination:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYk-y0-BdR">
+                                                <rect key="frame" x="0.0" y="0.0" width="236.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAg-NE-nPk">
+                                                <rect key="frame" x="332.5" y="0.0" width="52" height="34"/>
+                                                <menu key="menu" id="q5U-tK-oYZ"/>
+                                                <state key="normal" title="Railway"/>
+                                                <connections>
+                                                    <action selector="railways:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="Rj3-gY-CzP"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="203" translatesAutoresizingMaskIntoConstraints="NO" id="S5B-LZ-r6e">
+                                        <rect key="frame" x="0.0" y="102" width="384.5" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return with item?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEJ-Ox-7CF">
+                                                <rect key="frame" x="0.0" y="0.0" width="132.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yeC-Of-IQx">
+                                                <rect key="frame" x="335.5" y="0.0" width="51" height="34"/>
+                                                <connections>
+                                                    <action selector="returnWithValue:" destination="Xwt-dC-c9z" eventType="valueChanged" id="ZQ7-bj-VsT"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9of-i6-59P">
+                                        <rect key="frame" x="155" y="136" width="75" height="34"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Create"/>
+                                        <connections>
+                                            <action selector="createTrain:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="eHg-Oh-IqU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lH7-OK-ft9"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" id="x1b-ur-se3"/>
+                    <connections>
+                        <outlet property="railwayButton" destination="BAg-NE-nPk" id="D8t-wE-61I"/>
+                        <outlet property="returnWithItem" destination="yeC-Of-IQx" id="8fO-5P-nhY"/>
+                        <outlet property="statoinsButton" destination="7JG-Zv-vl8" id="7Uc-5o-A9k"/>
+                        <outlet property="trainsName" destination="s6R-9L-dcH" id="uDe-Ev-C1V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZd-gO-BmV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="vLe-cA-Ye7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7565" y="842"/>
+            <point key="canvasLocation" x="6086.9565217391309" y="2089.2857142857142"/>
         </scene>
         <!--DemandTrain-->
         <scene sceneID="wQp-24-cnI">
             <objects>
-                <viewController title="DemandTrain" id="2ha-1d-CkJ" sceneMemberID="viewController">
+                <viewController title="DemandTrain" id="2ha-1d-CkJ" customClass="DemandViewController" customModule="Railway" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jD5-2V-hYB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vtJ-I3-DuK">
+                                <rect key="frame" x="15" y="69" width="384" height="220.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="154" translatesAutoresizingMaskIntoConstraints="NO" id="HeK-6C-GUo">
+                                        <rect key="frame" x="23" y="0.0" width="338" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aJ-AR-THh">
+                                                <rect key="frame" x="0.0" y="0.0" width="122" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twx-OW-RKI">
+                                                <rect key="frame" x="276" y="0.0" width="62" height="30"/>
+                                                <menu key="menu" id="BXL-tf-4iz"/>
+                                                <state key="normal" title="Business"/>
+                                                <connections>
+                                                    <action selector="railways:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="mYp-Zc-DY6"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="158" translatesAutoresizingMaskIntoConstraints="NO" id="5Ha-XA-iyb">
+                                        <rect key="frame" x="25" y="46" width="334.5" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of the town:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSE-gw-chB">
+                                                <rect key="frame" x="0.0" y="0.0" width="139.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJF-zG-3Zz">
+                                                <rect key="frame" x="297.5" y="0.0" width="37" height="30"/>
+                                                <menu key="menu" id="Tdw-cF-m3l"/>
+                                                <state key="normal" title="Town"/>
+                                                <connections>
+                                                    <action selector="railways:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="pY9-jX-tWi"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="99" translatesAutoresizingMaskIntoConstraints="NO" id="XCN-Ys-QF1">
+                                        <rect key="frame" x="24.5" y="92" width="335" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Good to demand:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lq-K3-dZy">
+                                                <rect key="frame" x="0.0" y="0.0" width="198" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hq1-qq-ezv">
+                                                <rect key="frame" x="297" y="0.0" width="38" height="30"/>
+                                                <menu key="menu" id="ium-cc-1DX"/>
+                                                <state key="normal" title="Good"/>
+                                                <connections>
+                                                    <action selector="railways:" destination="Xwt-dC-c9z" eventType="touchUpInside" id="bxK-Pv-5w3"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="acN-R5-u3J">
+                                        <rect key="frame" x="24" y="138" width="336" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Amount (1-10):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02R-XK-GBT">
+                                                <rect key="frame" x="0.0" y="0.0" width="166" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="QMb-4j-0ZB">
+                                                <rect key="frame" x="195" y="0.0" width="94" height="32"/>
+                                                <connections>
+                                                    <action selector="stepperAction:" destination="2ha-1d-CkJ" eventType="valueChanged" id="02m-0E-6jE"/>
+                                                </connections>
+                                            </stepper>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJy-64-oMs">
+                                                <rect key="frame" x="318" y="0.0" width="18" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1mT-G3-p4z">
+                                        <rect key="frame" x="127" y="186" width="130" height="34.5"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Demand Train"/>
+                                        <connections>
+                                            <action selector="demandButton:" destination="2ha-1d-CkJ" eventType="touchUpInside" id="ola-2K-3Hn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="2VK-5O-K4X"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2VK-5O-K4X" firstAttribute="trailing" secondItem="vtJ-I3-DuK" secondAttribute="trailing" constant="15" id="4Pl-2V-r5E"/>
+                            <constraint firstItem="vtJ-I3-DuK" firstAttribute="centerX" secondItem="jD5-2V-hYB" secondAttribute="centerX" id="XqF-qW-DBb"/>
+                            <constraint firstItem="vtJ-I3-DuK" firstAttribute="top" secondItem="2VK-5O-K4X" secondAttribute="top" constant="69" id="akG-Vv-y53"/>
+                            <constraint firstItem="vtJ-I3-DuK" firstAttribute="leading" secondItem="2VK-5O-K4X" secondAttribute="leading" constant="15" id="tEN-SG-QI8"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="0Os-bh-aD5"/>
+                    <connections>
+                        <outlet property="amountlabel" destination="oJy-64-oMs" id="gTo-6b-XYj"/>
+                        <outlet property="businessButton" destination="twx-OW-RKI" id="FIF-LR-1qQ"/>
+                        <outlet property="goodButton" destination="Hq1-qq-ezv" id="Ck1-VR-BzJ"/>
+                        <outlet property="townButton" destination="oJF-zG-3Zz" id="iCe-Us-ZF3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJm-HO-OQm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7564" y="1568"/>
+            <point key="canvasLocation" x="6086.9565217391309" y="2783.7053571428569"/>
         </scene>
         <!--MyTrains-->
         <scene sceneID="SC3-E8-cmn">

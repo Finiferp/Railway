@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 
 class assetController extends Controller
 {
+    /**
+     * Get an asset by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAssetById(Request $request)
     {
         $assetId = $request->route('id');
@@ -36,7 +42,13 @@ class assetController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    
+    /**
+     * Get all assets.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAllAssets(Request $request)
     {
         try {
@@ -56,6 +68,12 @@ class assetController extends Controller
         }
     }
 
+    /**
+     * Get assets owned by a specific player.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getPlayerAssets(Request $request)
     {
         $id = $request->route('id');
@@ -83,6 +101,12 @@ class assetController extends Controller
         }
     }
 
+    /**
+     * Buy an asset for a specific player.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function buyAsset(Request $request){
         try{
             $userId = $request->input('userId');
@@ -105,11 +129,17 @@ class assetController extends Controller
             }
 
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 
+    /**
+     * Get assets at a specific station.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAssetsStation(Request $request){
         try{
             $assetId = $request->input('assetId');
@@ -131,11 +161,17 @@ class assetController extends Controller
             }
 
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
+    
+    /**
+     * Get assets in a specific world.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getWorldAssets(Request $request){
         $worldId = $request->route('id');
         $inputData = ['worldId' => $worldId];
@@ -157,8 +193,8 @@ class assetController extends Controller
             }
 
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+            \Log::error($error);
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
 }

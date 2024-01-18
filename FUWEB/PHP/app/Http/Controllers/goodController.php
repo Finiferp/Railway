@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class goodController extends Controller{
+
+    /**
+     * Get a good by its ID.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
       public function getGoodById(Request $request){
             $goodId = $request->route('id');
 
@@ -35,6 +42,12 @@ class goodController extends Controller{
             }
       }
 
+    /**
+     * Get all goods.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
       public function getAllGoods(Request $request)
     {
         try {
