@@ -38,45 +38,45 @@
             android:text="My Assets Page" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/myRailwaysButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="My Railways Page" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/myNeedsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="My Needs Page" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/myStockpileButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="My Stockpile Page" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/myIndustriesPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="My Industries Page" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/myTrainsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="My Trains Page" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/demandButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Demand Trains Page" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/createTrainButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Create Trains Page" />
     </LinearLayout>
 </FrameLayout>

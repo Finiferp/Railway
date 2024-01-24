@@ -19,7 +19,7 @@ class stationController extends Controller
     {
         $stationId = $request->route('id');
 
-        $inputData = ['id' => $stationId];
+        $inputData = ['id' => (int)$stationId];
 
         try {
             $dbOutput = DB::select('CALL sp_getStation(?)', [json_encode($inputData)]);
@@ -79,7 +79,7 @@ class stationController extends Controller
         try {
             $name = $request->input('name');
             $assetId = $request->input('assetId');
-            $inputData = ['name' => $name, 'assetId' => $assetId];
+            $inputData = ['name' => $name, 'assetId' => (int)$assetId];
             $dbOutput = DB::select('CALL sp_createStation(?)', [json_encode($inputData)]);
 
             $result = json_decode($dbOutput[0]->result, true);

@@ -9,13 +9,18 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './my-industries.component.scss'
 })
 export class MyIndustriesComponent {
-  public industries: any[] = [];
+  public industries: any[] = [];          // Array to store the user's industries data retrieved from the server.
   public sessionStorage = sessionStorage;
   token: any;
   userId: any;
   nameControl = new FormControl('');
   typeControl = new FormControl('');
 
+
+  /**
+   * Gets the users industries and inserts them into the "industries" array.
+   * @async
+   */
   async ngOnInit() {
     this.userId = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
@@ -33,6 +38,11 @@ export class MyIndustriesComponent {
   }
  
 
+  /**
+   * Initiates the process of buying a new industry.
+   * @async
+   * @param idAsset - The ID of the asset for which the industry is to be bought.
+   */
   async buy(idAsset:number){
     const inputData = { idAsset, "name": this.nameControl.value, "type": this.typeControl.value  };
     const response = await fetch('http://127.0.0.1:3000/industry/create', {

@@ -19,7 +19,7 @@ class assetController extends Controller
     {
         $assetId = $request->route('id');
 
-        $inputData = ['id' => $assetId];
+        $inputData = ['id' => (int)$assetId];
 
         try {
             $dbOutput = DB::select('CALL sp_getAsset(?)', [json_encode($inputData)]);
@@ -77,7 +77,7 @@ class assetController extends Controller
     public function getPlayerAssets(Request $request)
     {
         $id = $request->route('id');
-        $inputData = ['id' => $id];
+        $inputData = ['id' => (int)$id];
 
         try {
             $dbOutput = DB::select('CALL sp_getUserAssets(?)', [json_encode($inputData)]);
@@ -111,7 +111,7 @@ class assetController extends Controller
         try{
             $userId = $request->input('userId');
             $assetId = $request->input('assetId');
-            $inputData = ['userId' => $userId,'assetId',$assetId];
+            $inputData = ['userId' => (int)$userId,'assetId',(int)$assetId];
             $dbOutput = DB::select('sp_buyAsset(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -143,7 +143,7 @@ class assetController extends Controller
     public function getAssetsStation(Request $request){
         try{
             $assetId = $request->input('assetId');
-            $inputData = ['assetId' => $assetId];
+            $inputData = ['assetId' => (int)$assetId];
             $dbOutput = DB::select('sp_getAssetsStation(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -174,7 +174,7 @@ class assetController extends Controller
      */
     public function getWorldAssets(Request $request){
         $worldId = $request->route('id');
-        $inputData = ['worldId' => $worldId];
+        $inputData = ['worldId' => (int)$worldId];
         try{
             $dbOutput = DB::select('sp_getWorldAssets(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);

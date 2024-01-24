@@ -23,7 +23,7 @@ class playerController extends Controller
     {
         $userId = $request->route('id');
 
-        $inputData = ['userId' => $userId];
+        $inputData = ['userId' => (int)$userId];
 
         try {
             $dbOutput = DB::select('CALL sp_getPlayer(?)', [json_encode($inputData)]);
@@ -180,7 +180,7 @@ class playerController extends Controller
         try {
             $userId = $request->input('userId');
 
-            $inputData = ['userId' => $userId];
+            $inputData = ['userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_getPlayerRailways(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -213,7 +213,7 @@ class playerController extends Controller
         try {
             $userId = $request->input('userId');
 
-            $inputData = ['userId' => $userId];
+            $inputData = ['userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_getPlayerNeeds(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -247,7 +247,7 @@ class playerController extends Controller
         try {
             $userId = $request->input('userId');
 
-            $inputData = ['userId' => $userId];
+            $inputData = ['userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_getPlayerRailways(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -281,7 +281,7 @@ class playerController extends Controller
         try {
             $userId = $request->input('userId');
 
-            $inputData = ['userId' => $userId];
+            $inputData = ['userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_getPlayersTrains(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -315,7 +315,7 @@ class playerController extends Controller
         try {
             $userId = $request->input('userId');
 
-            $inputData = ['userId' => $userId];
+            $inputData = ['userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_getPlayerIndustries(?)', [json_encode($inputData)]);
             $result = json_decode($dbOutput[0]->result, true);
             $statusCode = $result['status_code'];
@@ -403,7 +403,7 @@ class playerController extends Controller
                     'type' => 'TOWN',
                     'name' => 'Town ' . $i,
                     'position' => $town,
-                    'worldId' => $worldId,
+                    'worldId' => (int)$worldId,
                 ]);
                 $res = DB::select('CALL sp_createAsset(?)', [$jsonData]);
             }
@@ -429,7 +429,7 @@ class playerController extends Controller
                     'type' => 'RURALBUSINESS',
                     'name' => 'Rural Business' . $i,
                     'position' => $ruralBusiness,
-                    'worldId' => $worldId,
+                    'worldId' => (int)$worldId,
                     'business' => $business,
                 ]);
                 $res = DB::select('CALL sp_createAsset(?)', [$jsonData]);

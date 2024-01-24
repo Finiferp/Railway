@@ -19,7 +19,7 @@ class railwayController extends Controller
     {
         $railwayId = $request->route('id');
 
-        $inputData = ['id' => $railwayId];
+        $inputData = ['id' => (int)$railwayId];
 
         try {
             $dbOutput = DB::select('CALL sp_getRailway(?)', [json_encode($inputData)]);
@@ -79,7 +79,7 @@ class railwayController extends Controller
             $station1Id = $request->input('station1Id');
             $station2Id = $request->input('station2Id');
             $userId = $request->input('userId');
-            $inputData = ['station1Id'=>$station1Id,'station2Id'=>$station2Id,'userId'=> $userId];
+            $inputData = ['station1Id'=>(int)$station1Id,'station2Id'=>(int)$station2Id,'userId'=> (int)$userId];
             $dbOutput = DB::select('CALL sp_createRailway(?)', [json_encode($inputData)]);
            
             $result = json_decode($dbOutput[0]->result, true);

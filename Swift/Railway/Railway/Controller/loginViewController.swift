@@ -42,7 +42,6 @@ class loginViewController: UIViewController {
                     self.defaults.setValue(token, forKey: "token")
                     self.defaults.setValue(userId, forKey: "userId")
                     
-                    
                     self.performSegue(withIdentifier: "toMainSegue", sender: (Any).self)
                 case .failure(let error):
                     let alert = UIAlertController(title: "Something went wrong!", message: "The user credentials are wrong!", preferredStyle: .alert)

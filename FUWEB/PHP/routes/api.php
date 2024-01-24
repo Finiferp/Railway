@@ -68,3 +68,6 @@ use App\Http\Controllers\stationController;
         Route::get('/industry/{id}', [industryController::class,'getIndustryById']);
         Route::get('/industries',[industryController::class,'getAllIndustries']);
     });
+    Route::any('{any}', function () {
+        return response()->json(['message' => 'Please enter a valid endpoint.'], 404);
+    })->where('any', '.*');

@@ -19,7 +19,7 @@ class worldController extends Controller
     {
         $worldId = $request->route('id');
 
-        $inputData = ['id' => $worldId];
+        $inputData = ['id' => (int)$worldId];
 
         try {
             $dbOutput = DB::select('CALL sp_getWorld(?)', [json_encode($inputData)]);

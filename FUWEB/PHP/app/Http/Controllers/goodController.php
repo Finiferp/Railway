@@ -18,7 +18,7 @@ class goodController extends Controller{
       public function getGoodById(Request $request){
             $goodId = $request->route('id');
 
-            $inputData = ['id' => $goodId];
+            $inputData = ['id' => (int)$goodId];
     
             try {
                 $dbOutput = DB::select('CALL sp_getGood(?)', [json_encode($inputData)]);

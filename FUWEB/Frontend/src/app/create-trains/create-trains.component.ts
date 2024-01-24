@@ -9,18 +9,27 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './create-trains.component.scss'
 })
 export class CreateTrainsComponent {
-  public railways: any[] = [];
+  public railways: any[] = [];                //  Array to store the railways data retrieved from the server.
   public sessionStorage = sessionStorage;
   token: any;
   userId: any;
-  public connectedStationNames: any[] = [];
+  public connectedStationNames: any[] = [];   // Array to store connected station names based on user selection.
   
+  /**
+   * Form group for handling user input in creating trains.
+   * @public
+   */
   public form: FormGroup = new FormGroup({
     station: new FormControl(''),
     railway: new FormControl(''),
     returnWithItem: new FormControl(''),
   });
 
+  /**
+   * All the railways of the player are put into the array "railways", all the the station form control get a 
+   * listener.
+   * @async
+   */
   async ngOnInit() {
     this.userId = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
@@ -41,6 +50,10 @@ export class CreateTrainsComponent {
     });
   }
 
+  /**
+  * Event handler for changes in the selected station. When a station is selected all the stations that are
+  * possible as destination get loaded into the array "selectedStationRailways"
+  */
   onStationChange() {
     let selectedStationRailways: any[] = [];
     const selectedStationId = parseInt(this.form.get('station')!.value);
@@ -59,6 +72,12 @@ export class CreateTrainsComponent {
     }
   }
 
+  /**
+   * Event handler for form submission to create a new train. Takes the destines station name and fetches its
+   * id and takes the starts stations id to fetch the railway that connects the two stations. At the end 
+   * it calls the "createTrain" function.
+   * @async
+   */
   async onSubmit() {
     const trainName = window.prompt("Please enter the name of the Train!", "Train");
     const selectedStationId = parseInt(this.form.get('station')!.value);
@@ -92,6 +111,15 @@ export class CreateTrainsComponent {
     this.createTrain(trainName, selectedRailwayId, station2.data.assetId, station.data.idAsset_FK, returnWithItem);
   }
 
+  /**
+   * Creates a new train based on user input.
+   * @async
+   * @param name - The name of the train.
+   * @param idRailway - The ID of the selected railway.
+   * @param idAsset_Starts - The ID of the starting asset.
+   * @param idAsset_Destines - The ID of the destination asset.
+   * @param willReturnWithGoods - A boolean indicating whether the train will return with goods.
+   */
   async createTrain(name: string | null, idRailway: number, idAsset_Starts: number,
     idAsset_Destines: number, willReturnWithGoods: boolean) {
     const inputData = { name, idRailway, idAsset_Starts, idAsset_Destines, willReturnWithGoods };

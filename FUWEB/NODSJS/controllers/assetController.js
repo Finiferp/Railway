@@ -124,7 +124,8 @@ const getAssetsStation = async (req, res) => {
         const dbOutput = await db.spGetAssetsStation(JSON.stringify(inputData));
        
         const { status_code, message, data } = dbOutput[0][0].result;
-
+        console.log(message);
+        console.log(data);
         res.status(status_code).json({
             message,
             data: data,

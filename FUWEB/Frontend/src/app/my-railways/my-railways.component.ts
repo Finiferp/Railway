@@ -57,7 +57,6 @@ export class MyRailwaysComponent {
         body: JSON.stringify(railwayInputData)
       });
       let es= await finalResponse.json()
-      console.log(es);
       
     }else{
       window.alert(station.message)

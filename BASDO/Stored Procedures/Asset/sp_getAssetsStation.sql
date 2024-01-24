@@ -17,11 +17,11 @@ BEGIN
     SET v_JSONSchema = '{
         "type": "object",
         "properties": {
-            "id": {"type": "number"}
+            "assetId": {"type": "number"}
         },
-        "required": ["id"]
+        "required": ["assetId"]
     }';
-    IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_data)) THEN
+    IF NOT (JSON_SCHEMA_VALID(v_JSONSchema, json_input)) THEN
         SET response_code = 400;
         SET response_message = 'Invalid JSON format or structure for asset_id';
         SELECT JSON_OBJECT(

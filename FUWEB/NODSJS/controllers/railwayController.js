@@ -63,8 +63,8 @@ const getRailwayById = async (req, res) => {
  */
 const createRailway = async (req, res) => {
     try {
-        const {station1Id, station2Id} = req.body;
-        const inputData = { station1Id, station2Id};
+        const {station1Id, station2Id, userId} = req.body;
+        const inputData = { station1Id, station2Id, userId};
         const dbOutput = await db.spCreateRailway(inputData);
         const {status_code, message, railway} = dbOutput[0][0].result;
       

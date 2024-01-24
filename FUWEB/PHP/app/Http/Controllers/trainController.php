@@ -19,7 +19,7 @@ class trainController extends Controller
     {
         $trainId = $request->route('id');
 
-        $inputData = ['id' => $trainId];
+        $inputData = ['id' => (int)$trainId];
 
         try {
             $dbOutput = DB::select('CALL sp_getTrain(?)', [json_encode($inputData)]);
@@ -82,7 +82,7 @@ class trainController extends Controller
             $idAsset_Starts = $request->input('idAsset_Starts');
             $idAsset_Destines = $request->input('idAsset_Destines');
             $willReturnWithGoods = $request->input('willReturnWithGoods');
-            $inputData = ['name' => $name, 'idRailway' => $idRailway, 'idAsset_Starts' => $idAsset_Starts, 'idAsset_Destines' => $idAsset_Destines, 'willReturnWithGoods' => $willReturnWithGoods];
+            $inputData = ['name' => $name, 'idRailway' => (int)$idRailway, 'idAsset_Starts' => (int)$idAsset_Starts, 'idAsset_Destines' => (int)$idAsset_Destines, 'willReturnWithGoods' => (int)$willReturnWithGoods];
             $dbOutput = DB::select('CALL sp_createTrain(?)', [json_encode($inputData)]);
 
             $result = json_decode($dbOutput[0]->result, true);
@@ -115,7 +115,7 @@ class trainController extends Controller
         try {
             $trainId = $request->input('trainId');
             $userId = $request->input('userId');
-            $inputData = ['trainId' => $trainId, 'userId' => $userId];
+            $inputData = ['trainId' => (int)$trainId, 'userId' => (int)$userId];
             $dbOutput = DB::select('CALL sp_deleteTrain(?)', [json_encode($inputData)]);
 
             $result = json_decode($dbOutput[0]->result, true);
@@ -143,7 +143,7 @@ class trainController extends Controller
             $assetToId = $request->input('assetToId');
             $goodId = $request->input('goodId');
             $amount = $request->input('amount');
-            $inputData = ['railwayId' => $railwayId, 'assetFromId' => $assetFromId, 'assetToId' => $assetToId, 'goodId' => $goodId, 'amount' => $amount];
+            $inputData = ['railwayId' => (int)$railwayId, 'assetFromId' => (int)$assetFromId, 'assetToId' => (int)$assetToId, 'goodId' => (int)$goodId, 'amount' => (int)$amount];
             $dbOutput = DB::select('CALL sp_demandTrain(?)', [json_encode($inputData)]);
 
             $result = json_decode($dbOutput[0]->result, true);

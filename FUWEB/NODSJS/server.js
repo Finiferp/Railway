@@ -26,6 +26,8 @@ railwayRoutes(app);
 stationRoutes(app);
 */
 
+
+
 require('./routes/playerRoutes')(app);
 require('./routes/worldRoutes')(app);
 require('./routes/assetRoutes')(app);
@@ -34,5 +36,10 @@ require('./routes/industryRoutes')(app);
 require('./routes/railwayRoutes')(app);
 require('./routes/stationRoutes')(app);
 require('./routes/trainRoutes')(app);
+
+app.use((req, res) => {
+      res.status(404).send('Please enter a valid endpoint.');
+});
+
 app.listen(port);
 console.log("Server started");

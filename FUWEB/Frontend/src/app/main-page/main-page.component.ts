@@ -10,6 +10,6 @@ import { ProfileComponent } from '../profile/profile.component';
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
-  showAppAssets = false;
-  showProfile = true;
+  showAppAssets = false;    // Show Assets page
+  showProfile = true;       // Show Profile page
 }

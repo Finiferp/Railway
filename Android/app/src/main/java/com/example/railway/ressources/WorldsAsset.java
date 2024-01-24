@@ -1,5 +1,9 @@
 package com.example.railway.ressources;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WorldsAsset {
     private String name, type, position, population, level, goods, owner;
     private int id;
@@ -39,8 +43,26 @@ public class WorldsAsset {
         return level;
     }
 
-    public String getGoods() {
-        return goods;
+    public String getGoods()  {
+        String res="";
+        System.out.println(goods);
+        if(!goods.equals("null")) {
+            try {
+                JSONArray jsonArray = new JSONArray(goods);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String name = jsonObject.getString("name");
+                    res += name + "\r\n";
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            res="No Goods produced.";
+        }
+
+        System.out.println(res);
+        return res;
     }
 
     public String getOwner() {

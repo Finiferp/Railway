@@ -2,9 +2,10 @@ package com.example.railway.ressources;
 
 public class MyAsset {
 
-    private String name, type, population, level, station, assetId;
+    private String name, type, population, level, station;
+    private int assetId;
 
-    public MyAsset(String name, String type, String population, String level, String station, String assetId) {
+    public MyAsset(String name, String type, String population, String level, String station, int assetId) {
         this.name = name;
         this.type = type;
         this.population = population;
@@ -33,7 +34,7 @@ public class MyAsset {
         return station;
     }
 
-    public String getAssetId() {
+    public int getAssetId() {
         return assetId;
     }
 }

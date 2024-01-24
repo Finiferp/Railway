@@ -19,7 +19,7 @@ class industryController extends Controller
     {
         $industryId = $request->route('id');
 
-        $inputData = ['id' => $industryId];
+        $inputData = ['id' => (int)$industryId];
 
         try {
             $dbOutput = DB::select('CALL sp_getIndustry(?)', [json_encode($inputData)]);
@@ -79,7 +79,7 @@ class industryController extends Controller
             $name = $request->input('name');
             $idAsset = $request->input('idAsset');
             $type = $request->input('type');
-            $inputData = ['name'=>$name,'idAsset'=>$idAsset, 'type'=>$type];
+            $inputData = ['name'=>$name,'idAsset'=>(int)$idAsset, 'type'=>$type];
             $dbOutput = DB::select('CALL sp_createIndustry(?)', [json_encode($inputData)]);
            
             $result = json_decode($dbOutput[0]->result, true);

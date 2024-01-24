@@ -8,9 +8,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './my-needs.component.scss'
 })
 export class MyNeedsComponent {
-  public data: any[] = [];
+  public data: any[] = [];                //Array to store the user's needs data retrieved from the server.
   public sessionStorage = sessionStorage;
   
+  /**
+   * Gets the users needs of all the assets and inserts all the information into the "data" array.
+   * @async
+   */
   async ngOnInit() {
     const userId = sessionStorage.getItem("id");
     const token = sessionStorage.getItem("token");

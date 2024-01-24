@@ -12,10 +12,16 @@ export class HomeComponent {
   constructor(private router: Router) { }
 
 
+  /**
+   * Navigates to the login page.
+   */
   loadLogin() {
     this.router.navigate(['/login']);
   }
 
+  /**
+   * Navigates to the register page.
+   */
   loadRegister() {
     this.router.navigate(['/register']);
   }

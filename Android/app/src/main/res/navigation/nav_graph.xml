@@ -49,6 +49,27 @@
         <action
             android:id="@+id/action_mainFragment_to_myAssetsFragment"
             app:destination="@id/myAssetsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myNeedsFragment"
+            app:destination="@id/myNeedsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myStockpileFragment"
+            app:destination="@id/myStockpileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myIndustryFragment"
+            app:destination="@id/myIndustryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myRailwaysFragment"
+            app:destination="@id/myRailwaysFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myTrainsFragment"
+            app:destination="@id/myTrainsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_demandFragment"
+            app:destination="@id/demandFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createFragment"
+            app:destination="@id/createFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -65,4 +86,39 @@
         android:name="com.example.railway.MyAssetsFragment"
         android:label="fragment_my_assets"
         tools:layout="@layout/fragment_my_assets" />
+    <fragment
+        android:id="@+id/myNeedsFragment"
+        android:name="com.example.railway.MyNeedsFragment"
+        android:label="fragment_my_needs"
+        tools:layout="@layout/fragment_my_needs" />
+    <fragment
+        android:id="@+id/myStockpileFragment"
+        android:name="com.example.railway.MyStockpileFragment"
+        android:label="fragment_my_stockpile"
+        tools:layout="@layout/fragment_my_stockpile" />
+    <fragment
+        android:id="@+id/myIndustryFragment"
+        android:name="com.example.railway.MyIndustryFragment"
+        android:label="fragment_my_industry"
+        tools:layout="@layout/fragment_my_industry" />
+    <fragment
+        android:id="@+id/myRailwaysFragment"
+        android:name="com.example.railway.MyRailwaysFragment"
+        android:label="fragment_my_railways"
+        tools:layout="@layout/fragment_my_railways" />
+    <fragment
+        android:id="@+id/myTrainsFragment"
+        android:name="com.example.railway.MyTrainsFragment"
+        android:label="fragment_my_trains"
+        tools:layout="@layout/fragment_my_trains" />
+    <fragment
+        android:id="@+id/demandFragment"
+        android:name="com.example.railway.DemandFragment"
+        android:label="fragment_demand"
+        tools:layout="@layout/fragment_demand" />
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.example.railway.CreateFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create" />
 </navigation>

@@ -14,17 +14,21 @@ import { MyIndustriesComponent } from '../my-industries/my-industries.component'
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  showAssetsFlag: boolean = true;
-  showStockFlag: boolean = false;
-  showNeedsFlag: boolean = false;
-  showRailwayFlag: boolean = false;
-  showTrainsFlag: boolean = false;
-  showIndustriesFlag: boolean = false;
+  showAssetsFlag: boolean = true;     // Flag to show/hide the assets section.
+  showStockFlag: boolean = false;     // Flag to show/hide the stock section.
+  showNeedsFlag: boolean = false;     // Flag to show/hide the needs section.
+  showRailwayFlag: boolean = false;   // Flag to show/hide the railways section.
+  showTrainsFlag: boolean = false;    // Flag to show/hide the trains section.
+  showIndustriesFlag: boolean = false;// Flag to show/hide the industries section.
   public username: any;
   public funds: any;
   private token: any;
   private userId: any;
 
+  /**
+   * Gets all the users data and uses "sessionStorage" to fill in the username and funds to show.
+   * @async
+   */
   async ngOnInit() {
     this.username = sessionStorage.getItem('username');
     this.token = sessionStorage.getItem('token');
@@ -41,6 +45,10 @@ export class ProfileComponent {
     this.funds = data.data.funds;
   }
 
+  /**
+   * Shows the assets section.
+   * @public
+   */
   showAssets() {
     this.showAssetsFlag = true;
     this.showStockFlag = false;
@@ -50,6 +58,10 @@ export class ProfileComponent {
     this.showIndustriesFlag = false;
   }
 
+  /**
+   * Shows the stock section.
+   * @public
+   */
   showStock() {
     this.showAssetsFlag = false;
     this.showStockFlag = true;
@@ -58,6 +70,10 @@ export class ProfileComponent {
     this.showIndustriesFlag = false;
   }
 
+  /**
+   * Shows the needs section.
+   * @public
+   */
   showNeeds() {
     this.showAssetsFlag = false;
     this.showStockFlag = false;
@@ -67,6 +83,10 @@ export class ProfileComponent {
     this.showIndustriesFlag = false;
   }
 
+  /**
+   * Shows the railways section.
+   * @public
+   */
   showRailways() {
     this.showAssetsFlag = false;
     this.showStockFlag = false;
@@ -76,6 +96,10 @@ export class ProfileComponent {
     this.showIndustriesFlag = false;
   }
 
+  /**
+   * Shows the trains section.
+   * @public
+   */
   showTrains() {
     this.showAssetsFlag = false;
     this.showStockFlag = false;
@@ -85,6 +109,10 @@ export class ProfileComponent {
     this.showIndustriesFlag = false;
   }
 
+  /**
+   * Shows the industries section.
+   * @public
+   */
   showIndustries() {
     this.showAssetsFlag = false;
     this.showStockFlag = false;

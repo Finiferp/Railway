@@ -10,13 +10,17 @@ import { DemandTrainsComponent } from '../demand-trains/demand-trains.component'
   styleUrl: './my-trains.component.scss'
 })
 export class MyTrainsComponent {
-  public trains: any[] = [];
+  public trains: any[] = [];              // Array to store the user's trains data retrieved from the server.
   public sessionStorage = sessionStorage;
   token: any;
   userId: any;
-  showCreateFlag: boolean = false;
-  showDemandFlag: boolean = false;
+  showCreateFlag: boolean = false;        // Flag to show/hide the create train section.
+  showDemandFlag: boolean = false;        // Flag to show/hide the demand train section.
 
+  /**
+   * Get all the users trains and inserts them into the "trains" array.
+   * @async
+   */
   async ngOnInit() {
     this.userId = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
@@ -32,17 +36,29 @@ export class MyTrainsComponent {
     const json = await response.json();
     this.trains = json.data;
   }
-
+  /**
+    * Sets the flag to show the create train section.
+    * @public
+    */
   create() {
     this.showCreateFlag = true;
     this.showDemandFlag = false;
   }
 
+  /**
+   * Sets the flag to show the demand train section.
+   * @public
+   */
   demand() {
     this.showCreateFlag = false;
     this.showDemandFlag = true;
   }
 
+  /**
+   * Deletes a train based on the provided train ID.
+   * @async
+   * @param trainId - The ID of the train to be deleted.
+   */
   async delete(trainId: number) {
     const confirmed: boolean = window.confirm("Do you really want to delete this train? If so your money will be refunded!");
     if (confirmed) {

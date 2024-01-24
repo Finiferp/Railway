@@ -8,8 +8,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './my-stock.component.scss'
 })
 export class MyStockComponent {
-  public data:any[]=[];
+  public data:any[]=[];                   // Array to store the user's stockpile data retrieved from the server.
   public sessionStorage = sessionStorage;
+
+  /**
+   * Gets the users stocks of all the assets and inserts all the information into the "data" array.
+   * @async
+   */
   async ngOnInit() {
     const userId = sessionStorage.getItem("id");
     const token = sessionStorage.getItem("token");

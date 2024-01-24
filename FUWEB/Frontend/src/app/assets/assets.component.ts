@@ -11,11 +11,19 @@ import { log } from 'node:console';
 })
 export class AssetsComponent implements OnInit {
   public sessionStorage = sessionStorage;
-  public assetsData: any[] = [];
-  public playerNames: Map<number, string> = new Map();
+  public assetsData: any[] = [];    // Array to store the assets data retrieved from the server.
+  public playerNames: Map<number, string> = new Map(); // Map to store player names corresponding to their IDs.
   private token: any;
   private id: any;
   private worldId:any;
+
+  /**
+   * All the assets from the world are retrieved and put into the "assetsData" array.
+   * Then we loop trough all the assets in the array and checks if the asset is already owned by a player
+   * if so the name of the player get retrieved with the function "getPlayerName" an is inserted into the map
+   * playerNames alongside the id of the player.
+   * @async
+   */
   async ngOnInit() {
     this.id = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
@@ -40,6 +48,12 @@ export class AssetsComponent implements OnInit {
 
   }
 
+  /**
+   * Retrieves the player name associated with the given ID.
+   * @async
+   * @param id - The player ID.
+   * @returns The player's username.
+   */
   async getPlayerName(id: number) {
     const response = await fetch(`http://127.0.0.1:3000/player/${id}`, {
       method: "GET",
@@ -52,6 +66,11 @@ export class AssetsComponent implements OnInit {
     return data.data.username;
   }
 
+  /**
+   * Initiates the process of buying a specific asset.
+   * @async
+   * @param assetId - The ID of the asset to be purchased.
+   */
   async buy(assetId: any) {
     let userId = this.id;
     const inputData = { userId, assetId };

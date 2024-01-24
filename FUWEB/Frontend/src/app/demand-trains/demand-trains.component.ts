@@ -14,10 +14,15 @@ export class DemandTrainsComponent {
   token: any;
   userId: any;
   worldId: any;
-  public towns: any[] = [];
-  public businesses: any[] = [];
-  public goods: any[] = [];
+  public towns: any[] = [];         // Array to store towns data retrieved from the server.
+  public businesses: any[] = [];    // Array to store businesses data retrieved from the server.
+  public goods: any[] = [];         // Array to store goods data retrieved from the server.
   public railway: any;
+
+  /**
+   * Form group for handling user input in demanding trains.
+   * @public
+   */
   public form: FormGroup = new FormGroup({
     towns: new FormControl(''),
     businesses: new FormControl(''),
@@ -25,6 +30,12 @@ export class DemandTrainsComponent {
     amount: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]),
   });
 
+  /**
+   * Gets all the assets from the world and puts the ones that are "RURALBUSINESS" into the "businesses" array.
+   * Gets all the assets the belong to the player and puts the ones that are "TOWN" into the "towns" array.
+   * Gets all the possible goods and puts them into the "goods" array.
+   * @async
+   */
   async ngOnInit() {
     this.userId = sessionStorage.getItem("id");
     this.token = sessionStorage.getItem("token");
@@ -66,11 +77,14 @@ export class DemandTrainsComponent {
     });
     const goodsJSON = await response3.json();
     this.goods = goodsJSON.data
-
-
-
   }
 
+  /**
+   * Event handler for form submission to demand a new train.
+   * Gets all the information from the form groups and checks if the two selected assets have a railway that
+   * connects them if so the "demandTrain" function is called.
+   * @async
+   */
   async onSubmit() {
     const formValues = this.form.value;
     const selectedTown = parseInt(formValues.towns);
@@ -114,6 +128,16 @@ export class DemandTrainsComponent {
     }
   } 
 
+  
+  /**
+   * Initiates the process of demanding a new train based on user input.
+   * @async
+   * @param assetFromId - The ID of the starting asset.
+   * @param assetToId - The ID of the destination asset.
+   * @param railwayId - The ID of the selected railway.
+   * @param goodId - The ID of the selected goods.
+   * @param amount - The amount of goods to be transported.
+   */
   async demandTrain(assetFromId: number, assetToId: number,
     railwayId: number, goodId: number, amount: number) {
     const inputData = { assetFromId, assetToId, railwayId, goodId, amount };
